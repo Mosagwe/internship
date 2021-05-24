@@ -31,7 +31,7 @@ class ContractFactory extends Factory
         $end_date=Carbon::parse($start_date)->addMonths(3)->format('Y-m-d');
 
         return [
-            'user_id'=>$this->faker->unique()->numberBetween(1,Employee::count()),
+            'employee_id'=>$this->faker->unique()->numberBetween(1,Employee::count()),
             'employee_type'=>'casual',
             'start_date'=>$start_date,
             'end_date'=>$end_date,

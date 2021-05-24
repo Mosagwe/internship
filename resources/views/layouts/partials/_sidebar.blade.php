@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('contract.index') }}" class="nav-link">
                                 <i class="fa fa-user-alt fa-fw"></i>
                                 Contracts
                             </a>

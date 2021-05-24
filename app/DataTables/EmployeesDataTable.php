@@ -22,7 +22,7 @@ class EmployeesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('action', 'view');
+            ->addColumn('action', 'employees.action');
     }
 
     /**
@@ -44,18 +44,18 @@ class EmployeesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('employees-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+            ->setTableId('employees-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->dom('Bfrtip')
+            ->orderBy(1)
+            ->buttons(
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            );
     }
 
     /**
@@ -66,19 +66,20 @@ class EmployeesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-                Column::computed('DT_RowIndex')->title('SN'),
-                Column::make('id')->visible(false),
-                Column::make('firstname'),
-                Column::make('lastname'),
-                Column::make('gender'),
-                Column::make('idno'),
-                Column::make('phonenumber'),
-                Column::make('created_at'),
-                Column::computed('action')
-                    ->exportable(false)
-                    ->printable(false)
-                    ->width(60)
-                    ->addClass('text-center'),
+            //Column::computed('DT_RowIndex')->title('SN'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(90)
+                ->addClass('text-center'),
+            Column::make('id')->visible(false),
+            Column::make('firstname'),
+            Column::make('lastname'),
+            Column::make('gender'),
+            Column::make('idno'),
+            Column::make('phonenumber'),
+            Column::make('created_at'),
+
         ];
     }
 

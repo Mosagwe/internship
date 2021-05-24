@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ContractDataTable;
 use App\Models\Contract;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class ContractController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ContractDataTable $dataTable)
     {
-        //
+        return $dataTable->render('contracts.index');
     }
 
     /**

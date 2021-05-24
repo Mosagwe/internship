@@ -10,6 +10,9 @@ class Contract extends Model
 {
     use HasFactory;
 
+    const ACTIVE=1;
+    const INACTIVE=0;
+
     protected $fillable=[
         'user_id',
         'employee_type',
@@ -32,5 +35,20 @@ class Contract extends Model
         if ($this->attributes['start_date']!=null){
             return Carbon::createFromFormat('Y-m-d',$this->attributes['start_date'])->format('d/m/Y');
         }
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function station()
+    {
+        return $this->belongsTo(Station::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 }

@@ -24,6 +24,8 @@ class Employee extends Model
         'coursename'
     ];
 
+    protected $appends=['full_name'];
+
     public function setDateHiredAttribute($value)
     {
         $this->attributes['date_hired'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
@@ -36,4 +38,16 @@ class Employee extends Model
             return Carbon::createFromFormat('Y-m-d', $this->attributes['date_hired'])->format('d/m/Y');
         }
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->firstname).' '.ucfirst($this->middlename).' '.ucfirst($this->lastname);
+    }
+
+
 }
