@@ -18,7 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body class="hold-transition sidebar-mini text-sm">
-<div class="wrapper">
+<div class="wrapper" id="app">
     @yield('main')
 </div>
 <!-- ./wrapper -->

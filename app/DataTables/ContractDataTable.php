@@ -76,7 +76,7 @@ class ContractDataTable extends DataTable
             Column::make('employee_type'),
             Column::make('start_date'),
             Column::make('end_date'),
-            Column::make('station.name')->title('Station'),
+            Column::make('station.name')->name('station.name')->title('Station'),
             Column::make('unit.name')->title('Unit'),
             Column::make('salary')->title('Renumeration'),
             Column::make('status'),
