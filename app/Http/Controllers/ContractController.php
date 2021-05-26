@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ContractDataTable;
+use App\Models\Bank;
 use App\Models\Contract;
+use App\Models\Employee;
+use App\Models\Station;
+use App\Models\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
@@ -25,7 +30,11 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        $employees=Employee::all();
+        $stations=Station::all();
+        $units=Unit::all();
+        $banks=Bank::all();
+        return view('contracts.create',compact('employees','stations','units','banks'));
     }
 
     /**
@@ -36,7 +45,41 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated=$request->validate([
+            'employee_id'=>'required',
+            'emptype'=>'required',
+            'start_date'=>'required',
+            'station_id'=>'required',
+            'unit_id'=>'required',
+            'salary'=>'required_if:emptype,casual',
+            'bank_id'=>'required',
+            'bank_branch'=>'required',
+            'bank_account'=>'required',
+        ]);
+
+        if (!$validated){
+            return back()->withInput();
+        }
+
+        $end_date=Carbon::createFromFormat('d/m/Y',$request->start_date)->addMonths(3)->format('Y-m-d');
+
+        $contract=Contract::create([
+            'employee_id'=>$request->employee_id,
+            'employee_type'=>$request->emptype,
+            'start_date'=>Carbon::createFromFormat('d/m/Y',$request->start_date)->format('Y-m-d'),
+            'end_date'=>$end_date,
+            'station_id'=>$request->station_id,
+            'unit_id'=>$request->unit_id,
+            'salary'=>$request->salary,
+            'bank_id'=>$request->bank_id,
+            'bank_branch'=>$request->bank_branch,
+            'bank_account'=>$request->bank_account,
+        ]);
+
+        return redirect()->route('contract.index');
+
+
+
     }
 
     /**

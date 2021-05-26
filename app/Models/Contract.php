@@ -14,7 +14,7 @@ class Contract extends Model
     const INACTIVE=0;
 
     protected $fillable=[
-        'user_id',
+        'employee_id',
         'employee_type',
         'start_date',
         'end_date',
