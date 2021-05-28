@@ -1,7 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="{{ asset('img/hudumalogo2.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('img/hudumalogo2.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
         <span class="brand-text font-weight-bolder">Huduma Kenya</span>
     </a>
 
@@ -12,9 +13,11 @@
             <div class="image">
                 <img src="{{ asset('img/user.jpg') }}" class="img-circle elevation-2" alt="User">
             </div>
-            <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
-            </div>
+            @auth
+                <div class="info">
+                    <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                </div>
+            @endauth
         </div>
 
         <!-- Sidebar Menu -->

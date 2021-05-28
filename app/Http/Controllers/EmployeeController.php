@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\DataTables\EmployeesDataTable;
+use App\Http\Resources\EmployeeResource;
+use App\Models\Bank;
 use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\Qualification;
@@ -150,5 +152,20 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         //
+    }
+
+    public function getEmployees()
+    {
+        $employees=Employee::all();
+        $stations=Station::all();
+        $units=Unit::all();
+        $banks=Bank::all();
+
+        return response()->json([
+            'employees'=>$employees,
+            'stations'=>$stations,
+            'units'=>$units,
+            'banks'=>$banks
+        ],200);
     }
 }

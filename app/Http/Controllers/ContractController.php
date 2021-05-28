@@ -45,25 +45,24 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-        $validated=$request->validate([
+      $this->validate($request,[
             'employee_id'=>'required',
-            'emptype'=>'required',
+          'firstname'=>'required'
+          /* 'emptype'=>'required',
             'start_date'=>'required',
             'station_id'=>'required',
             'unit_id'=>'required',
             'salary'=>'required_if:emptype,casual',
             'bank_id'=>'required',
             'bank_branch'=>'required',
-            'bank_account'=>'required',
+            'bank_account'=>'required',*/
         ]);
 
-        if (!$validated){
-            return back()->withInput();
-        }
+       return $request->all();
 
-        $end_date=Carbon::createFromFormat('d/m/Y',$request->start_date)->addMonths(3)->format('Y-m-d');
+       /* $end_date=Carbon::createFromFormat('d/m/Y',$request->start_date)->addMonths(3)->format('Y-m-d');
 
-        $contract=Contract::create([
+        Contract::create([
             'employee_id'=>$request->employee_id,
             'employee_type'=>$request->emptype,
             'start_date'=>Carbon::createFromFormat('d/m/Y',$request->start_date)->format('Y-m-d'),
@@ -74,9 +73,11 @@ class ContractController extends Controller
             'bank_id'=>$request->bank_id,
             'bank_branch'=>$request->bank_branch,
             'bank_account'=>$request->bank_account,
-        ]);
+        ]);*/
 
-        return redirect()->route('contract.index');
+
+
+        //return redirect()->route('contract.index');
 
 
 
