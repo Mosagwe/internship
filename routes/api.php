@@ -3,6 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\StationController;
+use App\Http\Controllers\API\UnitController;
+use App\Http\Controllers\API\BankController;
+use App\Http\Controllers\API\EmployeeController;
+use App\Http\Controllers\API\ContractController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,5 +25,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('categories',\App\Http\Controllers\API\CategoryController::class);
-Route::apiResource('tickets',\App\Http\Controllers\API\TicketController::class);
+
+Route::apiResources([
+    'stations'=>StationController::class,
+    'units'=>UnitController::class,
+    'banks'=>BankController::class,
+    'employees'=>EmployeeController::class,
+    'contracts'=>ContractController::class
+]);

@@ -8,6 +8,7 @@ $(function(){
 
 
 
+
 import Vue from 'vue';
 //window.Vue=require('vue').default;
 window.Fire=new Vue();
@@ -57,14 +58,10 @@ Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
 //
-
-
-Vue.component('role', require('./components/role.vue').default);
-Vue.component('contract-create',require('./components/contracts/contract-create.vue').default);
-Vue.component('ticket-create',require('./components/TicketCreate.vue').default)
+require('./components.js');
 
 const app=new Vue({
-    el: '#app'
+    el: '#app',
 });
 
 

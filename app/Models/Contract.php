@@ -37,6 +37,10 @@ class Contract extends Model
         }
     }
 
+   /* public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }*/
     public function employee()
     {
         return $this->belongsTo(Employee::class);

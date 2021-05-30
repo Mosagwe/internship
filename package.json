@@ -32,9 +32,11 @@
         "bootstrap-vue": "^2.21.2",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-bs4": "^1.7.0",
+        "moment": "^2.29.1",
         "select2": "^4.1.0-rc.0",
         "vform": "^2.0.4",
         "vue": "^2.6.12",
-        "vue-router": "^3.5.1"
+        "vue-router": "^3.5.1",
+        "vuejs-datepicker": "^1.6.2"
     }
 }

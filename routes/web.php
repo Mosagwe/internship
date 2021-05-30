@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ContractController;
-use App\Http\Controllers\API\ContractsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('employee',EmployeeController::class);
 Route::resource('contract',ContractController::class);
 
-Route::get('getEmployees',[EmployeeController::class,'getEmployees']);
-Route::post('/api/test',[ContractsController::class,'store']);
 
 Route::resource('ticket',\App\Http\Controllers\TicketController::class);
 
