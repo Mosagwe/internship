@@ -45,42 +45,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,[
-            'employee_id'=>'required',
-          'firstname'=>'required'
-          /* 'emptype'=>'required',
-            'start_date'=>'required',
-            'station_id'=>'required',
-            'unit_id'=>'required',
-            'salary'=>'required_if:emptype,casual',
-            'bank_id'=>'required',
-            'bank_branch'=>'required',
-            'bank_account'=>'required',*/
-        ]);
-
-       return $request->all();
-
-       /* $end_date=Carbon::createFromFormat('d/m/Y',$request->start_date)->addMonths(3)->format('Y-m-d');
-
-        Contract::create([
-            'employee_id'=>$request->employee_id,
-            'employee_type'=>$request->emptype,
-            'start_date'=>Carbon::createFromFormat('d/m/Y',$request->start_date)->format('Y-m-d'),
-            'end_date'=>$end_date,
-            'station_id'=>$request->station_id,
-            'unit_id'=>$request->unit_id,
-            'salary'=>$request->salary,
-            'bank_id'=>$request->bank_id,
-            'bank_branch'=>$request->bank_branch,
-            'bank_account'=>$request->bank_account,
-        ]);*/
-
-
-
         //return redirect()->route('contract.index');
-
-
-
     }
 
     /**
@@ -93,6 +58,7 @@ class ContractController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for editing the specified resource.

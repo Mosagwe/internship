@@ -24,8 +24,34 @@ class StoreContractRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname'=>'required',
-            'employee_id'=>'required'
+            'employee_id'=>'required',
+            'employee_type'=>'required',
+            'start_date'=>'required',
+            'station_id'=>'required',
+            'unit_id'=>'required',
+            'salary'=>'required_if:employee_type,casual',
+            'bank_id'=>'required',
+            'bank_branch'=>'required',
+            'bank_account'=>'required',
         ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'employee_type'=>'type of employee',
+            'employee_id'=>'employee',
+            'station_id'=>'station',
+            'unit_id'=>'unit',
+            'bank_id'=>'bank',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'employee_type.required'=>'Employee type is required',
+        ];
+
     }
 }

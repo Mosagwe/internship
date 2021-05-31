@@ -29,7 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('employee',EmployeeController::class);
 Route::resource('contract',ContractController::class);
 
-
 Route::resource('ticket',\App\Http\Controllers\TicketController::class);
 
 

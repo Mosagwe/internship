@@ -36,8 +36,25 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 });
-
 window.toast=Toast;
+
+
+//vue-toastr
+import VueToastr from "vue-toastr";
+// use plugin
+Vue.use(VueToastr, {
+    /* OverWrite Plugin Options if you need */
+    defaultTimeout: 3000,
+    defaultProgressBar: false,
+    defaultProgressBarValue: 0,
+    defaultPosition: "toast-top-right",
+    defaultClassNames: ["animated", "zoomInUp"],
+    /* defaultType: "error",
+     defaultCloseOnHover: false,
+     defaultStyle: { "background-color": "red" },
+     */
+});
+
 //V-form
 import Form from 'vform';
 window.Form=Form;
