@@ -31,5 +31,6 @@ Route::apiResources([
     'units'=>UnitController::class,
     'banks'=>BankController::class,
     'employees'=>EmployeeController::class,
-    'contracts'=>ContractController::class
+    'contracts'=>ContractController::class,
+    'departments'=>\App\Http\Controllers\API\DepartmentController::class,
 ]);
