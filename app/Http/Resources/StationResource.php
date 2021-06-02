@@ -17,6 +17,8 @@ class StationResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'created_at'=>$this->created_at->format('d-M-Y'),
+            'updated_at'=>$this->updated_at->format('d-M-Y')
         ];
     }
 }

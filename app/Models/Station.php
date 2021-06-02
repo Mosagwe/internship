@@ -9,6 +9,8 @@ class Station extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name'];
+
     public function contracts()
     {
         $this->hasMany(Contract::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStationRequest;
 use App\Http\Resources\StationResource;
 use App\Models\Station;
 use Illuminate\Http\Request;
@@ -25,9 +26,9 @@ class StationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStationRequest $request)
     {
-        //
+        return Station::create($request->validated());
     }
 
     /**
@@ -48,9 +49,10 @@ class StationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreStationRequest $request, $id)
     {
-        //
+        $station=Station::findOrFail($id);
+        return $station->update($request->validated());
     }
 
     /**
