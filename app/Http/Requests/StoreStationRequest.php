@@ -24,7 +24,7 @@ class StoreStationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|unique:departments'
+            'name'=>'required|unique:stations'
         ];
     }
 }

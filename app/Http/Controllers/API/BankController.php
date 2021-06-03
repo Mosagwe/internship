@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBankRequest;
 use App\Http\Resources\BankResource;
 use App\Models\Bank;
 use Illuminate\Http\Request;
@@ -25,9 +26,10 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBankRequest $request)
     {
-        //
+        return Bank::create($request->validated());
+
     }
 
     /**
@@ -48,9 +50,10 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreBankRequest $request, $id)
     {
-        //
+        $bank=Bank::findOrFail($id);
+        return $bank->update($request->validated());
     }
 
     /**

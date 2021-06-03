@@ -9,6 +9,8 @@ class Unit extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name','department_id'];
+
     public function contracts()
     {
         return $this->hasMany(Contract::class);

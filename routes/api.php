@@ -3,12 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\QualificationController;
 use App\Http\Controllers\API\StationController;
 use App\Http\Controllers\API\UnitController;
 use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\ContractController;
+use App\Http\Controllers\API\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,6 @@ Route::apiResources([
     'banks'=>BankController::class,
     'employees'=>EmployeeController::class,
     'contracts'=>ContractController::class,
-    'departments'=>\App\Http\Controllers\API\DepartmentController::class,
+    'departments'=>DepartmentController::class,
+    'qualifications'=>QualificationController::class,
 ]);
