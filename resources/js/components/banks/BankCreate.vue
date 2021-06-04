@@ -5,7 +5,7 @@
             <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
                     <li class="nav-item mr-1">
-                        <button class="btn btn-primary" @click="createMode"><i class="fas fa-plus-circle"></i>Add New
+                        <button class="btn btn-success" @click="createMode"><i class="fas fa-plus-circle fa-fw"></i>Add New
                         </button>
                     </li>
                 </ul>
@@ -29,13 +29,13 @@
                     <td>{{ bank.id }}</td>
                     <td>{{ bank.bank_name }}</td>
                     <td>{{ bank.bank_code }}</td>
-                    <td>{{ bank.created_at }}</td>
-                    <td>{{ bank.updated_at }}</td>
+                    <td>{{ bank.created_at | myDate}}</td>
+                    <td>{{ bank.updated_at}}</td>
                     <td>
                         <a href="" class="btn btn-sm btn-warning" @click.prevent="editBank(bank)"><i
-                            class="fa fa-edit"></i>Edit</a>
-                        <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteBank(bank)"><i
-                            class="fa fa-trash"></i>Delete</a>
+                            class="fa fa-edit fa-fw"></i> </a>
+                        <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteBank(bank.id)"><i
+                            class="fa fa-trash fa-fw"></i> </a>
                     </td>
                 </tr>
                 </tbody>
@@ -56,11 +56,12 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form>
+                        <form @submit.prevent="editMode ? update() : save()">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label>Bank Name</label>
-                                    <input type="text" name="bank_name" v-model="form.bank_name" id="bank_name" class="form-control">
+                                    <input type="text" name="bank_name" v-model="form.bank_name" id="bank_name"
+                                           class="form-control" :class="{'is-invalid':form.errors.has('bank_name')}">
                                     <HasError :form="form" field="bank_name"/>
                                 </div>
                                 <div class="form-group">
@@ -75,10 +76,10 @@
                                     <b-spinner small></b-spinner>
                                     {{ action }}
                                 </b-button>
-                                <button type="button" v-if="dis" class="btn btn-primary" v-show="!editMode" @click.prevent="save">
+                                <button type="submit" v-if="dis" class="btn btn-primary" v-show="!editMode" >
                                     Save changes
                                 </button>
-                                <button type="button" v-if="dis" class="btn btn-primary" v-show="editMode" @click.prevent="update">
+                                <button type="submit" v-if="dis" class="btn btn-primary" v-show="editMode" >
                                     Update changes
                                 </button>
                             </div>
@@ -109,6 +110,12 @@ export default {
         }
     },
     methods: {
+        createMode() {
+            this.editMode = false;
+            this.form.reset();
+            $('#createBank').modal('show');
+            this.form.clear();
+        },
         getBanks() {
             this.loading=true;
             axios.get('/api/banks').then((response) => {
@@ -118,26 +125,47 @@ export default {
                 this.$toastr.e('Cannot load banks', 'Error');
             })
         },
-        createMode() {
-            this.editMode = false;
-            this.form.clear();
-            $('#createBank').modal('show');
-            this.form.reset();
 
-        },
         editBank(bank) {
             this.editMode = true;
             this.form.reset();
             this.form.fill(bank);
             $('#createBank').modal('show');
-
-
-
         },
-        deleteBank(bank) {
+        deleteBank(id) {
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$Progress.start();
+                    this.form.delete('/api/banks/'+id).then((response)=>{
+                        swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        Fire.$emit('loadData');
+                        this.$Progress.finish();
+                    }).catch(()=>{
+                        toast.fire({
+                            icon:'error',
+                            title:'Oops... Something went wrong, try again!,'
+                        });
+                        this.$Progress.fail();
+                    })
+
+                }
+            })
 
         },
         update() {
+            this.$Progress.start()
             this.action='Updating record ...';
             this.dis=false;
             this.form.put('/api/banks/'+this.form.id).then((response)=>{
@@ -146,17 +174,21 @@ export default {
                 Fire.$emit('loadData');
                 $('#createBank').modal('hide');
                 this.form.reset();
+                this.$Progress.finish()
 
             }).catch(()=>{
                 this.dis=true;
                 this.$toastr.e('Cannot update the information, try again', 'Error');
+                this.$Progress.fail()
             });
 
         },
         save() {
+            this.$Progress.start()
             this.action='Creating record ...';
             this.dis=false;
             this.form.post('/api/banks').then((response) => {
+                this.$Progress.finish()
                 this.dis=true;
                 toast.fire({
                     icon: 'success',
@@ -168,6 +200,7 @@ export default {
             }).catch(() => {
                 this.$toastr.e('Cannot save record, try again!', 'Error');
                 this.dis=true;
+                this.$Progress.fail()
             });
         }
 

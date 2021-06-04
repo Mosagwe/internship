@@ -29,6 +29,7 @@ class CreateContractsTable extends Migration
             $table->string('bank_account')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

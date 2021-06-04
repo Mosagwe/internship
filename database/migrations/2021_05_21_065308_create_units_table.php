@@ -18,6 +18,7 @@ class CreateUnitsTable extends Migration
             $table->string('name');
             $table->foreignId('department_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

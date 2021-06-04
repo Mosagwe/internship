@@ -1,3 +1,5 @@
+import moment from "moment";
+
 require('./bootstrap');
 
 import 'jquery-ui/ui/widgets/datepicker.js';
@@ -55,6 +57,11 @@ Vue.use(VueToastr, {
      */
 });
 
+//Filters
+Vue.filter('myDate', function(date){
+    return moment(date).format('MMMM Do YYYY ');
+});
+
 //V-form
 import Form from 'vform';
 window.Form=Form;
@@ -74,6 +81,13 @@ Vue.component(AlertError.name, AlertError)
 Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
 
+//progressbar
+import  VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar,{
+    color:'rgb(143,255,199)',
+    failedColor:'red',
+    thickness:'5px'
+})
 //
 require('./components.js');
 

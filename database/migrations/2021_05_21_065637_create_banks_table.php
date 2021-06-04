@@ -18,6 +18,7 @@ class CreateBanksTable extends Migration
             $table->string('bank_name');
             $table->string('bank_code')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

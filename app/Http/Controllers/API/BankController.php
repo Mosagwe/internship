@@ -17,7 +17,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        return BankResource::collection(Bank::all());
+        return BankResource::collection(Bank::latest()->get());
     }
 
     /**
@@ -64,6 +64,7 @@ class BankController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bank=Bank::findOrFail($id);
+        return $bank->delete();
     }
 }

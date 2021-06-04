@@ -28,6 +28,7 @@ class CreateEmployeesTable extends Migration
             $table->date('date_hired')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
