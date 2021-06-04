@@ -5,3 +5,4 @@ Vue.component('contract-create',require('./components/contracts/ContractCreate.v
 Vue.component('department-list',require('./components/departments/Departments.vue').default)
 Vue.component('station-create',require('./components/stations/StationCreate.vue').default)
 Vue.component('bank-create',require('./components/banks/BankCreate.vue').default)
+Vue.component('unit-create',require('./components/units/UnitCreate.vue').default);

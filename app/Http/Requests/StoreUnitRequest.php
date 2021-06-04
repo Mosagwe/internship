@@ -24,7 +24,7 @@ class StoreUnitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|unique:units',
+            'name'=>'required|unique:units,name,'.$this->id,
             'department_id'=>'required'
         ];
     }

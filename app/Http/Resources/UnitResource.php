@@ -17,6 +17,9 @@ class UnitResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'department_id'=>$this->department_id,
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at,
         ];
     }
 }

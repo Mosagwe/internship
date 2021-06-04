@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUnitRequest;
 use App\Http\Resources\UnitResource;
 use App\Models\Unit;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return UnitResource::collection(Unit::all());
+        return UnitResource::collection(Unit::latest()->get());
     }
 
     /**
@@ -25,9 +26,9 @@ class UnitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUnitRequest $request)
     {
-        //
+        return Unit::create($request->validated());
     }
 
     /**
@@ -48,9 +49,10 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUnitRequest $request, $id)
     {
-        //
+        $unit=Unit::findOrFail($id);
+        return $unit::update($request->validated());
     }
 
     /**
@@ -61,6 +63,7 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $unit=Unit::findOrFail($id);
+        return $unit->delete();
     }
 }
