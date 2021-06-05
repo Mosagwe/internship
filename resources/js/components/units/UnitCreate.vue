@@ -106,8 +106,8 @@ export default {
             loading:false,
 
             form: new Form({
-                name: '',
                 id:'',
+                name: '',
                 department_id: '',
             }),
 

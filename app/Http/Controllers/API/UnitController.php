@@ -52,7 +52,7 @@ class UnitController extends Controller
     public function update(StoreUnitRequest $request, $id)
     {
         $unit=Unit::findOrFail($id);
-        return $unit::update($request->validated());
+        return $unit->update($request->validated());
     }
 
     /**
