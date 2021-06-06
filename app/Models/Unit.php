@@ -16,4 +16,9 @@ class Unit extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

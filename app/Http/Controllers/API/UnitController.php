@@ -39,7 +39,7 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        //
+        return new UnitResource(Unit::find($id));
     }
 
     /**

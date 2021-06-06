@@ -28,9 +28,9 @@
                 <tr v-for="unit in units">
                     <td>{{ unit.id }}</td>
                     <td>{{ unit.name }}</td>
-                    <td>{{ unit.department_id }}</td>
+                    <td>{{ unit.department.name }}</td>
                     <td>{{ unit.created_at | myDate}}</td>
-                    <td>{{ unit.updated_at}}</td>
+                    <td>{{ unit.updated_at | myDate}}</td>
                     <td>
                         <a href="" class="btn btn-sm btn-warning" @click.prevent="editUnit(unit)"><i
                             class="fa fa-edit fa-fw"></i> </a>

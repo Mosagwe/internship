@@ -40,7 +40,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        return new DepartmentResource(Department::find($id));
     }
 
     /**
