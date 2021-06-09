@@ -66,9 +66,9 @@ class ContractController extends Controller
      * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $contract)
+    public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -96,6 +96,7 @@ class ContractController extends Controller
 
     public function terminate($id)
     {
+
         $contract=Contract::find($id);
         $contract->status = 0;
         if ($contract->save()){
