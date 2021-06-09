@@ -8,9 +8,6 @@ $(function(){
     $('.select2').select2();
 })
 
-
-
-
 import Vue from 'vue';
 //window.Vue=require('vue').default;
 window.Fire=new Vue();
@@ -62,7 +59,7 @@ Vue.filter('myDate', function(date){
     return moment(date).format('MMMM Do YYYY ');
 });
 
-//V-form
+//
 import Form from 'vform';
 window.Form=Form;
 import {
@@ -83,6 +80,7 @@ Vue.component(AlertSuccess.name, AlertSuccess)
 
 //progressbar
 import  VueProgressBar from 'vue-progressbar'
+import {VueSelect} from "vue-select/src";
 Vue.use(VueProgressBar,{
     color:'rgb(143,255,199)',
     failedColor:'red',

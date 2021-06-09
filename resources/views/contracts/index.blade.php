@@ -11,14 +11,13 @@
 
 
 @section('content')
-    <div class="col-md-12 mt-1">
+    <div class="col-md-12 mt-1 mx-auto justify-content-between">
         <div class="card card-success card-outline">
+            <div class="table table-responsive">
             <div class="card-body">
                 <div class="text-center" id="loading">
                     <b-spinner style="width: 3rem; height: 3rem;" variant="primary"></b-spinner>
                 </div>
-                <div class="table table-responsive table-striped">
-
                     {{ $dataTable->table() }}
                 </div>
             </div>

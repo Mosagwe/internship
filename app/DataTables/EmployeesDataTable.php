@@ -22,7 +22,15 @@ class EmployeesDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('action', 'employees.action');
+            ->editColumn('created_at',function ($query){
+                return $query->created_at->format('d M Y');
+            })
+            ->editColumn('is_active',function ($employee){
+                return view('employees.status',compact('employee'));
+            })
+            ->addColumn('action', function ($employee){
+                return view('employees.action',compact('employee'));
+            });
     }
 
     /**
@@ -66,12 +74,7 @@ class EmployeesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            //Column::computed('DT_RowIndex')->title('SN'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(90)
-                ->addClass('text-center'),
+            Column::computed('DT_RowIndex')->title('SN'),
             Column::make('id')->visible(false),
             Column::make('firstname'),
             Column::make('lastname'),
@@ -79,6 +82,12 @@ class EmployeesDataTable extends DataTable
             Column::make('idno'),
             Column::make('phonenumber'),
             Column::make('created_at'),
+            Column::make('is_active')->title('Status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(150)
+                ->addClass('text-center'),
 
         ];
     }

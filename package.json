@@ -34,10 +34,12 @@
         "datatables.net-buttons-bs4": "^1.7.0",
         "moment": "^2.29.1",
         "select2": "^4.1.0-rc.0",
+        "v-select2-component": "^0.4.7",
         "vform": "^2.0.4",
         "vue": "^2.6.12",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.1",
+        "vue-select": "^3.11.2",
         "vue-toastr": "^2.1.2",
         "vuejs-datepicker": "^1.6.2"
     }

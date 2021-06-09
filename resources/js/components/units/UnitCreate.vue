@@ -70,6 +70,7 @@
                                         <option value="" disabled>Please select the department</option>
                                         <option v-for="department in departments" :value="department.id">{{ department.name }}</option>
                                     </select>
+
                                     <HasError :form="form" field="department_id"/>
                                 </div>
                             </div>
@@ -96,6 +97,7 @@
 </template>
 <script>
 export default {
+
     data() {
         return {
             units: null,

@@ -13,6 +13,16 @@ class User extends Authenticatable
     use HasFactory, Notifiable, SoftDeletes;
 
     /**
+     * Status for a active user
+     */
+    const ACTIVE = 1;
+
+    /**
+     * Status for a deactivated user
+     */
+    const DEACTIVATED = 0;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

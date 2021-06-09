@@ -93,4 +93,16 @@ class ContractController extends Controller
     {
         //
     }
+
+    public function terminate($id)
+    {
+        $contract=Contract::find($id);
+        $contract->status = 0;
+        if ($contract->save()){
+            return redirect()->route('contract.index');
+        }else{
+            return back();
+        }
+
+    }
 }

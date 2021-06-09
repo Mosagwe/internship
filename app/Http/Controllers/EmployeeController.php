@@ -151,21 +151,23 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        //$employee=Employee::find(Employee $employee);
+        $employee->delete();
+        return redirect()->route('employee.index')->with('success','Record deleted successfully');
+
     }
 
-    public function getEmployees()
+    public function changeStatus($id)
     {
-        $employees=Employee::all();
-        $stations=Station::all();
-        $units=Unit::all();
-        $banks=Bank::all();
+        $employee=Employee::find($id);
+        $employee->is_active = !$employee->is_active;
+        if ($employee->save()){
+            return redirect()->route('employee.index');
+        }else{
+            return back();
+        }
 
-        return response()->json([
-            'employees'=>$employees,
-            'stations'=>$stations,
-            'units'=>$units,
-            'banks'=>$banks
-        ],200);
     }
+
+
 }

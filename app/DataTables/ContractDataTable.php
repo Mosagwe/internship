@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Contract;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,7 +28,9 @@ class ContractDataTable extends DataTable
             ->editColumn('status',function ($contract){
                 return view('contracts.status',compact('contract'));
             })
-            ->addColumn('action', 'contract.action');
+            ->addColumn('action', function ($contract){
+                return view('contracts.action',compact('contract'));
+            });
     }
 
     /**
@@ -38,7 +41,10 @@ class ContractDataTable extends DataTable
      */
     public function query(Contract $model)
     {
-        return $model->newQuery()->with('employee')->with('station')->with('unit');
+        return $model->newQuery()->with('employee')->with('station')->with('unit')
+            ->whereHas('employee',function (Builder $query){
+                $query->where('deleted_at','=',null);
+            });
     }
 
     /**
@@ -71,19 +77,21 @@ class ContractDataTable extends DataTable
 
             Column::make('id')->visible(false),
             Column::make('employee.full_name')->title('Name'),
+            Column::make('employee.firstname')->title('First Name')->visible(false),
+            Column::make('employee.lastname')->title('Last Name')->visible(false),
             Column::make('employee.gender')->title('Gender'),
             Column::make('employee.idno')->title('ID Number'),
             Column::make('employee_type'),
             Column::make('start_date'),
             Column::make('end_date'),
             Column::make('station.name')->name('station.name')->title('Station'),
-            Column::make('unit.name')->title('Unit'),
-            Column::make('salary')->title('Renumeration'),
+            Column::make('unit.name')->title('Unit')->visible(false),
+            Column::make('salary')->title('Renumeration')->visible(false),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(90)
                 ->addClass('text-center'),
         ];
     }

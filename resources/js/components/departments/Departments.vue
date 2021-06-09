@@ -5,7 +5,7 @@
             <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
                     <li class="nav-item mr-1">
-                        <button class="btn btn-primary" @click="createMode"><i class="fas fa-plus-circle"></i>Add New
+                        <button class="btn btn-success" @click="createMode"><i class="fas fa-plus-circle"></i>Add New
                         </button>
                     </li>
                 </ul>

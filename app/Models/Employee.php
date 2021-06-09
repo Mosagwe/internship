@@ -11,6 +11,16 @@ class Employee extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * Status for a active user
+     */
+    const ACTIVE = 1;
+
+    /**
+     * Status for a deactivated user
+     */
+    const DEACTIVATED = 0;
+
     protected $fillable = [
         'firstname',
         'lastname',

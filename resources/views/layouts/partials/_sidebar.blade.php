@@ -88,7 +88,41 @@
                         </li>
                     </ul>
                 </li>
-
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
+                            System Management
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('department.index') }}" class="nav-link">
+                                <i class="fa fa-users fa-fw"></i>
+                                Departments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('unit.index') }}" class="nav-link">
+                                <i class="fa fa-user-alt fa-fw"></i>
+                                Units
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('station.index') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Stations
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('bank.index') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Banks
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
