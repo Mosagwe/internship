@@ -55,6 +55,11 @@ class Employee extends Model
         return $this->hasMany(Contract::class);
     }
 
+    public function qualification()
+    {
+        return $this->belongsTo(Qualification::class);
+    }
+
     public function getFullNameAttribute()
     {
         return ucfirst($this->firstname).' '.ucfirst($this->middlename).' '.ucfirst($this->lastname);

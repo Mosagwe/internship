@@ -20,6 +20,7 @@ class ContractController extends Controller
      */
     public function index(ContractDataTable $dataTable)
     {
+        //return view('contracts.index2');
         return $dataTable->render('contracts.index');
     }
 

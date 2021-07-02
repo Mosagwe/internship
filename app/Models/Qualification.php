@@ -11,4 +11,9 @@ class Qualification extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable=['name'];
+
+    public function employee()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

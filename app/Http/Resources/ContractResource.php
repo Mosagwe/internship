@@ -14,9 +14,19 @@ class ContractResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'firstname'=>$this->firstname,
+        //return parent::toArray($request);
+        /*return [
+            'id'=>$this->id,
+            'employee_type'=>$this->employee_type,
+            'start_date'=>$this->start_date,
             'employee_id'=>$this->employee_id,
+            'employee'=> (new EmployeeResource($this->employee)),
+        ];*/
+       $defaultData=parent::toArray($request);
+        $additonalData=[
+            'employee'=>$this->employee,
         ];
+
+        return array_merge($defaultData,$additonalData);
     }
 }

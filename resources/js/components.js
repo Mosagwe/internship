@@ -7,3 +7,4 @@ Vue.component('station-create',require('./components/stations/StationCreate.vue'
 Vue.component('bank-create',require('./components/banks/BankCreate.vue').default)
 Vue.component('unit-create',require('./components/units/UnitCreate.vue').default);
 
+Vue.component('contract-datatable',require('./components/contracts/ContractDataTable.vue').default);

@@ -19,7 +19,13 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 import VueRouter from "vue-router"
+//Vuetify
+import Vuetify from "vuetify";
+Vue.use(Vuetify);
 Vue.use(VueRouter)
+
+import 'vuetify/dist/vuetify.min.css'
+
 
 //sweetalert2
 import Swal from "sweetalert2";
@@ -53,6 +59,13 @@ Vue.use(VueToastr, {
      defaultStyle: { "background-color": "red" },
      */
 });
+//datatables
+import 'vuejs-datatable/dist/themes/bootstrap-4.esm';
+import {VuejsDatatableFactory} from "vuejs-datatable";
+Vue.use(VuejsDatatableFactory);
+
+//
+
 
 //Filters
 Vue.filter('myDate', function(date){
@@ -90,6 +103,7 @@ Vue.use(VueProgressBar,{
 require('./components.js');
 
 const app=new Vue({
+    vuetify:new Vuetify(),
     el: '#app',
 });
 

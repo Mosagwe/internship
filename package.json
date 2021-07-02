@@ -32,6 +32,7 @@
         "bootstrap-vue": "^2.21.2",
         "datatables.net-bs4": "^1.10.24",
         "datatables.net-buttons-bs4": "^1.7.0",
+        "laravel-vue-datatable": "^0.6.0",
         "moment": "^2.29.1",
         "select2": "^4.1.0-rc.0",
         "v-select2-component": "^0.4.7",
@@ -41,6 +42,8 @@
         "vue-router": "^3.5.1",
         "vue-select": "^3.11.2",
         "vue-toastr": "^2.1.2",
-        "vuejs-datepicker": "^1.6.2"
+        "vuejs-datatable": "^2.0.0-alpha.7",
+        "vuejs-datepicker": "^1.6.2",
+        "vuetify": "^2.5.3"
     }
 }

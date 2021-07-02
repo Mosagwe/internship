@@ -9,7 +9,7 @@
                         <div>
                             <img src="{{ asset('img/hudumalogo2.png') }}" alt="Logo" style="display: block;margin-left: auto;margin-right: auto;">
                         </div>
-                        <hr style="border: 2px solid darkgreen; border-radius: 5px;">
+                        <hr style="border: 3px solid darkgreen; border-radius: 1px; ">
                         <h4 class="text-center" style="font-weight: bold;">
                             <font style="color:#000;">Internship</font>
                             <font style="color:#fa3333;">Management</font>
