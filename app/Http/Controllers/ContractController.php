@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ContractDataTable;
+use App\Mail\ContractExpiring;
 use App\Models\Bank;
 use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\Station;
 use App\Models\Unit;
+use App\Notifications\ContractExpiringNotification;
+use App\Notifications\ContractExpiryNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class ContractController extends Controller
 {
@@ -31,17 +36,17 @@ class ContractController extends Controller
      */
     public function create()
     {
-        $employees=Employee::all();
-        $stations=Station::all();
-        $units=Unit::all();
-        $banks=Bank::all();
-        return view('contracts.create',compact('employees','stations','units','banks'));
+        $employees = Employee::all();
+        $stations = Station::all();
+        $units = Unit::all();
+        $banks = Bank::all();
+        return view('contracts.create', compact('employees', 'stations', 'units', 'banks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +57,7 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Contract  $contract
+     * @param \App\Models\Contract $contract
      * @return \Illuminate\Http\Response
      */
     public function show(Contract $contract)
@@ -64,7 +69,7 @@ class ContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Contract  $contract
+     * @param \App\Models\Contract $contract
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,8 +80,8 @@ class ContractController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contract  $contract
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Contract $contract
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Contract $contract)
@@ -87,7 +92,7 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Contract  $contract
+     * @param \App\Models\Contract $contract
      * @return \Illuminate\Http\Response
      */
     public function destroy(Contract $contract)
@@ -98,11 +103,11 @@ class ContractController extends Controller
     public function terminate($id)
     {
 
-        $contract=Contract::find($id);
+        $contract = Contract::find($id);
         $contract->status = 0;
-        if ($contract->save()){
+        if ($contract->save()) {
             return redirect()->route('contract.index');
-        }else{
+        } else {
             return back();
         }
 

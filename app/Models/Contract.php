@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\ContractStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contract extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,ContractStatusTrait;
 
     const ACTIVE=1;
     const INACTIVE=0;
@@ -56,4 +57,19 @@ class Contract extends Model
     {
         return $this->belongsTo(Unit::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status',1);
+    }
+
+    public function expire()
+    {
+        $this->status=self::$statuses['Inactive'];
+        return $this->save();
+    }
+
+
+
+
 }

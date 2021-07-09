@@ -27,7 +27,7 @@
                      with font-awesome or any other icon font library -->
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt orange"></i> Dashboard</a>
                 </li>
                 <li class="nav-item">
