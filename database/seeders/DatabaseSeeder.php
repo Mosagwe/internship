@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             UnitSeeder::class,
             BankSeeder::class,
+            CategoriesSeeder::class,
+            EmployeeTypeSeeder::class,
             EmployeeSeeder::class,
             ContractSeeder::class,
         ]);

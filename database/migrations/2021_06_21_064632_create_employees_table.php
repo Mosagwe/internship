@@ -20,6 +20,12 @@ class CreateEmployeesTable extends Migration
             $table->string('middlename')->nullable();
             $table->string('gender')->nullable();
             $table->string('phonenumber')->unique()->nullable();
+            $table->foreignId('employee_type_id')->constrained();
+            $table->foreignId('category_id')->nullable()->constrained();
+            $table->foreignId('bank_id')->nullable()->constrained();
+            $table->string('bank_branch')->nullable();
+            $table->string('bank_code')->nullable();
+            $table->string('bank_account')->nullable();
             $table->foreignId('qualification_id')->nullable();
             $table->string('coursename')->nullable();
             $table->string('idno')->unique();

@@ -27,6 +27,8 @@ class Employee extends Model
         'lastname',
         'middlename',
         'idno',
+        'employee_type',
+        'category_id',
         'date_hired',
         'email',
         'phonenumber',
@@ -64,6 +66,16 @@ class Employee extends Model
     public function getFullNameAttribute()
     {
         return ucfirst($this->firstname).' '.ucfirst($this->middlename).' '.ucfirst($this->lastname);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function employeeType()
+    {
+        return $this->belongsTo(EmployeeType::class);
     }
 
 

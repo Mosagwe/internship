@@ -27,7 +27,12 @@ class EmployeesDataTable extends DataTable
             })
             ->editColumn('is_active',function ($employee){
                 return view('employees.status',compact('employee'));
+           })->addColumn('renumeration',function ($query){
+               return $query->category->salary;
             })
+            /*->editColumn('category.name',function ($query){
+
+            })*/
             ->addColumn('action', function ($employee){
                 return view('employees.action',compact('employee'));
             });
@@ -41,7 +46,9 @@ class EmployeesDataTable extends DataTable
      */
     public function query(Employee $model)
     {
-        return $model->newQuery()
+        return $model->newQuery()->with('employeeType')->with('category')
+
+
           ;
     }
 
@@ -77,11 +84,15 @@ class EmployeesDataTable extends DataTable
         return [
             Column::computed('DT_RowIndex')->title('SN'),
             Column::make('id')->visible(false),
-            Column::make('firstname'),
-            Column::make('lastname'),
+            Column::make('full_name'),
+            Column::make('firstname')->visible(false),
+            Column::make('lastname')->visible(false),
             Column::make('gender'),
             Column::make('idno'),
             Column::make('phonenumber'),
+            Column::make('employee_type.name')->title('Emp Type'),
+            Column::make('category.name')->title('Category'),
+            Column::computed('renumeration'),
             Column::make('created_at'),
             Column::make('is_active')->title('Status'),
             Column::computed('action')
