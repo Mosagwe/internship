@@ -92,7 +92,8 @@
 
                     <div class="form-row">
                         <div><h3>Related Employee Contracts</h3></div>
-                        <table class="table">
+
+                        <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Designation</th>
@@ -145,6 +146,8 @@
         </div>
     </div>
 @endsection
+
+
 
 
 
