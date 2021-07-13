@@ -41,7 +41,8 @@ class EmployeesDataTable extends DataTable
      */
     public function query(Employee $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+          ;
     }
 
     /**
