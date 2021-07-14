@@ -52,9 +52,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('category.index') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
-                                ETC
+                                Categories
                             </a>
                         </li>
                     </ul>

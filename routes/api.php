@@ -10,6 +10,7 @@ use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\ContractController;
 use App\Http\Controllers\API\DepartmentController;
+use App\Http\Controllers\API\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,5 @@ Route::apiResources([
     'contracts'=>ContractController::class,
     'departments'=>DepartmentController::class,
     'qualifications'=>QualificationController::class,
+    'categories'=>CategoryController::class,
 ]);

@@ -6,5 +6,6 @@ Vue.component('department-list',require('./components/departments/Departments.vu
 Vue.component('station-create',require('./components/stations/StationCreate.vue').default)
 Vue.component('bank-create',require('./components/banks/BankCreate.vue').default)
 Vue.component('unit-create',require('./components/units/UnitCreate.vue').default);
+Vue.component('category-create',require('./components/categories/CategoryCreate.vue').default);
 
 Vue.component('contract-datatable',require('./components/contracts/ContractDataTable.vue').default);

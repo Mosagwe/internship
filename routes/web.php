@@ -9,6 +9,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\CategoryController;
 
 
 /*
@@ -37,6 +38,8 @@ Route::resource('station',StationController::class);
 Route::resource('bank',BankController::class);
 Route::resource('unit',UnitController::class);
 Route::resource('qualification',QualificationController::class);
+
+Route::resource('category',CategoryController::class);
 
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
