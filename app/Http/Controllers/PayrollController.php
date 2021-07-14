@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payroll;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class PayrollController extends Controller
@@ -15,7 +16,7 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -25,8 +26,7 @@ class PayrollController extends Controller
      */
     public function create()
     {
-        $months=Carbon::now();
-        return view('payrolls.runpayroll',compact('months'));
+        return view('payrolls.runpayroll');
     }
 
     /**
