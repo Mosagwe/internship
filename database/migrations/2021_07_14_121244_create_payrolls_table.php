@@ -17,7 +17,7 @@ class CreatePayrollsTable extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->string('gender');
-            $table->string('period');
+            $table->date('period');
             $table->string('paycode');
             $table->integer('status');
             $table->integer('station_id');

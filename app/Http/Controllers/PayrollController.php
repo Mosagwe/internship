@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\Payroll;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PayrollController extends Controller
 {
@@ -32,18 +34,18 @@ class PayrollController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        return 'store';
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payroll  $payroll
+     * @param \App\Models\Payroll $payroll
      * @return \Illuminate\Http\Response
      */
     public function show(Payroll $payroll)
@@ -54,7 +56,7 @@ class PayrollController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payroll  $payroll
+     * @param \App\Models\Payroll $payroll
      * @return \Illuminate\Http\Response
      */
     public function edit(Payroll $payroll)
@@ -65,8 +67,8 @@ class PayrollController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payroll  $payroll
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Payroll $payroll
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Payroll $payroll)
@@ -77,7 +79,7 @@ class PayrollController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payroll  $payroll
+     * @param \App\Models\Payroll $payroll
      * @return \Illuminate\Http\Response
      */
     public function destroy(Payroll $payroll)
@@ -87,6 +89,17 @@ class PayrollController extends Controller
 
     public function getEmployees(Request $request)
     {
-        dd($request);
+        $date = $request->period;
+        $p_ids = Payroll::whereDate('period', $date)->pluck('employee_id')->all();
+        $contracts = Contract::active()->whereNotIn('employee_id', $p_ids)->select('*')->get();
+
+        return view('payrolls.runpayroll',compact('contracts'));
+        /*foreach ($contracts as $contract) {
+            if ($contract->employee->category->salary > 0) {
+                echo $contract->employee_id . '<br>';
+                echo $contract->employee->full_name . '<br>';
+                echo $contract->employee->category->salary . '<br>';
+            }
+        }*/
     }
 }
