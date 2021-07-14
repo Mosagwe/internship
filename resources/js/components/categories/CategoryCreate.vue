@@ -18,6 +18,7 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
+                    <th>Parent Category</th>
                     <th>Salary</th>
                     <th>Created At</th>
                     <th>Updated At</th>
@@ -28,6 +29,8 @@
                 <tr v-for="category in categories">
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</td>
+                    <td v-if="category.parent">{{ category.parent.name }}</td>
+                    <td v-else> None</td>
                     <td>{{ category.salary}}</td>
                     <td>{{ category.created_at | myDate}}</td>
                     <td>{{ category.updated_at | myDate}}</td>
