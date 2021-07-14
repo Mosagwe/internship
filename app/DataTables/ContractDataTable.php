@@ -27,6 +27,12 @@ class ContractDataTable extends DataTable
             })
             ->editColumn('status',function ($contract){
                 return view('contracts.status',compact('contract'));
+            })->addColumn('employeetype',function ($q){
+                return $q->employee->employeeType->name;
+            })->addColumn('salary',function ($q){
+                return $q->employee->category->salary;
+            })->addColumn('category',function ($q){
+                return $q->employee->category->name;
             })
             ->addColumn('action', function ($contract){
                 return view('contracts.action',compact('contract'));
@@ -81,12 +87,13 @@ class ContractDataTable extends DataTable
             Column::make('employee.lastname')->title('Last Name')->visible(false),
             Column::make('employee.gender')->title('Gender'),
             Column::make('employee.idno')->title('ID Number'),
-            Column::make('employee_type'),
+            Column::computed('employeetype'),
             Column::make('start_date'),
             Column::make('end_date'),
             Column::make('station.name')->name('station.name')->title('Station'),
             Column::make('unit.name')->title('Unit')->visible(false),
-            Column::make('salary')->title('Renumeration')->visible(false),
+            Column::computed('category'),
+            Column::computed('salary')->title('Renumeration')->visible(true),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)

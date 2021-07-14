@@ -19,6 +19,8 @@ class CreateContractsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string('comments')->nullable();
+            $table->integer('employee_type_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->foreignId('station_id')->nullable();
             $table->foreignId('unit_id')->nullable();
             $table->boolean('status')->default(true);
