@@ -79,63 +79,66 @@
 @endsection
 @push('scripts')
     <script>
-        $(function (){
+        $(function () {
             $('#RunpayrollTable').dataTable();
         });
     </script>
     <script type="text/javascript">
         $(function (e) {
-            var table= $('#RunpayrollTable').dataTable();
+            var table = $('#RunpayrollTable').dataTable();
 
             $('#chkCheckAll').click(function () {
                 table.$('.chkBoxClass').prop('checked', $(this).prop('checked'))
             });
 
-            $('#runpayroll').click(function (e){
+            $('#runpayroll').click(function (e) {
                 e.preventDefault();
-                var allids=[];
-                table.$('.chkBoxClass:checked').each(function (){
+                var allids = [];
+                let period=$('#period').val();
+                table.$('.chkBoxClass:checked').each(function () {
                     allids.push($(this).val());
                 });
-               if (allids.length <=0){
-                  swal.fire({
-                      title:'Error',
-                      text:"Please select at least one record!",
-                      icon:'error'
-                  });
-               }
-               else{
-                   $('#runpayroll i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
-                   swal.fire({
-                       title: 'Are you sure?',
-                       text: "You are about to run "+ allids.length +" payroll records!",
-                       icon: 'warning',
-                       showCancelButton: true,
-                       confirmButtonColor: '#3085d6',
-                       cancelButtonColor: '#d33',
-                       confirmButtonText: 'Yes, !'
-                   }).then((result) => {
-                       if (result.isConfirmed) {
-                           $.ajax({
-                               url:"{{ route('payroll.store') }}",
-                               method:"POST",
-                               data:{
-                                   ids:allids,
-                                   _token:"{{ csrf_token() }}"
-                               },
-                               success:function (response){
-                                   $('#runpayroll i').removeClass('fa fa-spin fa-spinner').addClass('fa fa-check-circle');
-                                   console.log(response);
-                               }
-                           });
-                           /*swal.fire(
-                               'Deleted!',
-                               'Your file has been deleted.',
-                               'success'
-                           )*/
-                       }
-                   })
-               }
+                if (allids.length <= 0) {
+                    swal.fire({
+                        title: 'Error',
+                        text: "Please select at least one record!",
+                        icon: 'error'
+                    });
+                } else {
+                    $('#runpayroll i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
+                    swal.fire({
+                        title: 'Are you sure?',
+                        text: "You are about to run " + allids.length + " payroll records!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, !'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "{{ route('payroll.store') }}",
+                                method: "POST",
+                                data: {
+                                    ids: allids,
+                                    period:period,
+                                    _token: "{{ csrf_token() }}"
+                                },
+                                success: function (response) {
+                                    $('#runpayroll i').removeClass('fa fa-spin fa-spinner').addClass('fa fa-check-circle');
+                                    console.log(response);
+                                    swal.fire(
+                                        'Success!',
+                                        'Payroll run successful.',
+                                        'success'
+                                    )
+                                    window.location.href="{{route('payroll.index')}}";
+                                }
+                            });
+
+                        }
+                    })
+                }
             });
         });
     </script>
