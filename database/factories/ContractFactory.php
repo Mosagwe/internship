@@ -37,6 +37,7 @@ class ContractFactory extends Factory
             'status'=>$this->faker->boolean,
             'station_id'=>Station::all()->random()->id,
             'unit_id'=>Unit::all()->random()->id,
+            'employee_type_id'=>1,
 
 
         ];

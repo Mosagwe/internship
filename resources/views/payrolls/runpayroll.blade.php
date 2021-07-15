@@ -4,7 +4,20 @@
     <div class="row justify-content-center">
         <div class="col-md-11">
             <div class="card card-success card-outline">
-                <div class="card-header">Run Payroll</div>
+                <div class="card-header">
+                    <h3 class="card-title">Run Payroll</h3>
+                    <div class="card-tools">
+                        <ul class="nav nav-pills ml-auto">
+                            <li class="nav-item mr-1">
+                                <button class="btn btn-success" id="runpayroll">
+                                    <i class="fas fa-check-circle fa-fw"></i>
+                                    Run Payroll
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
                 <div class="card-body">
                     <form action="{{ route('payroll.getemployees') }}" method="GET">
                         <div class="row mb-3">
@@ -27,10 +40,13 @@
                             </div>
                         </div>
                     </form>
-                    <table class="table table-bordered">
+                    <div>
+
+                    </div>
+                    <table class="table table-bordered" id="RunpayrollTable">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th><input type="checkbox" id="chkCheckAll"></th>
                             <th>Employee Name</th>
                             <th>Category</th>
                             <th>Salary</th>
@@ -40,9 +56,10 @@
                         <tbody>
                         @if(isset($contracts))
                             @foreach($contracts as $contract)
-                                @if($contract->employee->category->salary>0)
+                                @if(isset($contract->employee->category) && $contract->employee->category->salary>0)
                                     <tr>
-                                        <td></td>
+                                        <td><input type="checkbox" id="ids" class="chkBoxClass"
+                                                   value="{{$contract->id}}"></td>
                                         <td>{{ $contract->employee->full_name }}</td>
                                         <td>{{$contract->employee->category->name}}</td>
                                         <td>{{$contract->employee->category->salary}}</td>
@@ -60,6 +77,69 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(function (){
+            $('#RunpayrollTable').dataTable();
+        });
+    </script>
+    <script type="text/javascript">
+        $(function (e) {
+            var table= $('#RunpayrollTable').dataTable();
+
+            $('#chkCheckAll').click(function () {
+                table.$('.chkBoxClass').prop('checked', $(this).prop('checked'))
+            });
+
+            $('#runpayroll').click(function (e){
+                e.preventDefault();
+                var allids=[];
+                table.$('.chkBoxClass:checked').each(function (){
+                    allids.push($(this).val());
+                });
+               if (allids.length <=0){
+                  swal.fire({
+                      title:'Error',
+                      text:"Please select at least one record!",
+                      icon:'error'
+                  });
+               }
+               else{
+                   $('#runpayroll i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
+                   swal.fire({
+                       title: 'Are you sure?',
+                       text: "You are about to run "+ allids.length +" payroll records!",
+                       icon: 'warning',
+                       showCancelButton: true,
+                       confirmButtonColor: '#3085d6',
+                       cancelButtonColor: '#d33',
+                       confirmButtonText: 'Yes, !'
+                   }).then((result) => {
+                       if (result.isConfirmed) {
+                           $.ajax({
+                               url:"{{ route('payroll.store') }}",
+                               method:"POST",
+                               data:{
+                                   ids:allids,
+                                   _token:"{{ csrf_token() }}"
+                               },
+                               success:function (response){
+                                   $('#runpayroll i').removeClass('fa fa-spin fa-spinner').addClass('fa fa-check-circle');
+                                   console.log(response);
+                               }
+                           });
+                           /*swal.fire(
+                               'Deleted!',
+                               'Your file has been deleted.',
+                               'success'
+                           )*/
+                       }
+                   })
+               }
+            });
+        });
+    </script>
+@endpush
 
 
 
