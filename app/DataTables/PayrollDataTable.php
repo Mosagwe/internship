@@ -68,6 +68,7 @@ class PayrollDataTable extends DataTable
             Column::make('id'),
             Column::make('idno'),
             Column::make('period')->title('Month'),
+            Column::make('krapin'),
             Column::make('taxableincome'),
             Column::make('paye'),
             Column::make('net_income'),

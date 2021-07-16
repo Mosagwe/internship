@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PayrollDataTable;
 use App\Http\Traits\IncomeTaxTrait;
+use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Payroll;
 use Carbon\Carbon;
@@ -11,6 +12,8 @@ use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class PayrollController extends Controller
 {
@@ -20,9 +23,54 @@ class PayrollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PayrollDataTable $dataTable)
+    public function index(Request $request)
     {
-        return $dataTable->render('payrolls.index');
+        $categories=Category::all();
+          if ($request->ajax()){
+            $data=Payroll::latest()->get();
+
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('status', function($row){
+                    if($row->status){
+                        return '<span class="badge badge-success">approved</span>';
+                    }else{
+                        return '<span class="badge rounded-pill badge-warning">pending approval</span>';
+                    }
+                })
+                ->filter(function ($instance) use($request){
+                   if (!empty($request->get('period'))) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
+                            return Str::contains($row['period'], $request->get('period')) ? true : false;
+                        });
+                    }
+                    if (!empty($request->get('category'))) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
+                            return Str::contains($row['category_id'], $request->get('category')) ? true : false;
+                        });
+                    }
+                    if (!empty($request->get('search'))) {
+                        $instance->collection = $instance->collection->filter(function ($row) use ($request) {
+                            if (Str::contains(Str::lower($row['gender']), Str::lower($request->get('search')))){
+                                return true;
+                            }else if (Str::contains(Str::lower($row['idno']), Str::lower($request->get('search')))) {
+                                return true;
+                            }
+                            return false;
+                        });
+                    }
+                })
+
+                ->addColumn('action',function ($row){
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['status','action'])
+                ->make(true);
+        }
+        return view('payrolls.index',compact('categories'));
     }
 
     /**

@@ -29,6 +29,7 @@ trait IncomeTaxTrait{
 
         $band1 = $income * $band1_rate;
         $grosstax = round($band1 + $band2 + $band3, 1);
+
         return $grosstax;
     }
 }

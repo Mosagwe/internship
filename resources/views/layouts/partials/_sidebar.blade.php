@@ -63,6 +63,31 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon"></i>
                         <p>
+                            Payroll Management
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('payroll.index') }}" class="nav-link">
+                                <i class="fa fa-users fa-fw"></i>
+                                Payroll Reports
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('payroll.create') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Run Payroll
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
                             Users Management
                             <i class="right fas fa-angle-left"></i>
                         </p>

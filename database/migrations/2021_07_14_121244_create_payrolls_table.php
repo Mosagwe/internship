@@ -16,6 +16,7 @@ class CreatePayrollsTable extends Migration
         Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
             $table->integer('employee_id');
+            $table->string('fullname');
             $table->string('gender')->nullable()->default(null);
             $table->date('period');
             $table->string('paycode')->default(null);
@@ -23,6 +24,7 @@ class CreatePayrollsTable extends Migration
             $table->integer('station_id')->default(null);
             $table->foreignId('employee_type_id')->default(null);
             $table->foreignId('category_id')->default(null);
+
             $table->integer('bank_id')->nullable()->default(null);
             $table->string('bank_branch')->nullable()->default(null);
             $table->string('bank_code')->nullable()->default(null);
