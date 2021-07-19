@@ -78,5 +78,11 @@ class Employee extends Model
         return $this->belongsTo(EmployeeType::class);
     }
 
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class);
+
+    }
+
 
 }

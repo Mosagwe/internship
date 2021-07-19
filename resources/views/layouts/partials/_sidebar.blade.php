@@ -69,7 +69,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('payroll.index') }}" class="nav-link">
+                            <a href="{{ route('payroll.search') }}" class="nav-link">
                                 <i class="fa fa-users fa-fw"></i>
                                 Payroll Reports
                             </a>
