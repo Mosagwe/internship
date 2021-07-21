@@ -7,32 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Payroll</title>
     <style>
-        #payroll{
-            font-font: Arial,Helvetica,sans-serif;
+
+        #payroll {
+            font-font: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
-        #payroll th{
+
+        #payroll th {
             border: 1px solid #dddddd;
             padding: 8px;
             background-color: #ffbf1d;
         }
-        #payroll td{
+
+        #payroll td {
             border: 1px solid #dddddd;
             padding: 8px;
         }
-        #payroll tr:nth-child(even){
-            background-color: #0c84ff;
+
+        #payroll tr:nth-child(even) {
+            background-color: lightgray;
         }
+
     </style>
+
 </head>
 <body>
+<div>
+    <h2>Huduma Kenya Secretariat</h2>
+    <h3>Payment Schedule for Casuals for the month of {{ date('M Y',strtotime($payrolls[0]->period)) }}</h3>
+    Categories:
+    @foreach($payrolls->unique('category_id') as $payroll)
+        @if(isset($payroll->category))
+            {{ $payroll->category->name }}
+            @if(!$loop->last),@endif
+        @endif
+    @endforeach
+</div>
+<div>
 
+</div>
+<div>
+
+</div>
 <table class="table table-striped table-bordered" id="payroll">
     <thead>
     <tr>
         <th>#</th>
         <th>Name</th>
+        <th>ID Number</th>
+        <th>KRA PIN</th>
         <th>Gross Income</th>
         <th>Taxable Income</th>
         <th>PAYE</th>
@@ -42,9 +66,11 @@
     <tbody>
     @if(isset($payrolls))
         @foreach($payrolls as $index=>$payroll)
-            <tr>
+            <tr style="height: 0.5px">
                 <td>{{ ++$index }}</td>
                 <td>{{ $payroll->employee->full_name }}</td>
+                <td>{{ $payroll->idno }}</td>
+                <td>{{ $payroll->krapin }}</td>
                 <td>{{ $payroll->grossincome }}</td>
                 <td>{{ $payroll->taxableincome }}</td>
                 <td>{{ $payroll->paye }}</td>
@@ -55,14 +81,13 @@
     </tbody>
     <tfoot style="font-weight: bolder;">
     <tr>
-        <td colspan="2">Totals</td>
+        <td colspan="4">Totals</td>
         <td>{{ $payrolls->sum('grossincome') }}</td>
         <td>{{ $payrolls->sum('taxableincome') }}</td>
         <td>{{ $payrolls->sum('paye') }}</td>
-        <td>{{ $payrolls->sum('net_income') }}</td></tr>
+        <td>{{ $payrolls->sum('net_income') }}</td>
+    </tr>
     </tfoot>
 </table>
-
-
 </body>
 </html>

@@ -10,7 +10,7 @@
                 <h3 class="card-title">Payroll</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('payroll.getrecords') }}" method="GET">
+                <form action="{{ route('payroll.getrecords') }}" method="GET" >
 
                     <div class="row">
                         <div class="col-md-4">
@@ -36,10 +36,9 @@
                             <div class="row">
                                 <label for="category" class="col-sm-4 col-form-label">Categories</label>
                                 <div class="col-sm-8">
-                                    <select name="category" id="category"
-                                            class="form-control @error('category') is-invalid @enderror">
-                                        <option value="" disabled selected> --select category --</option>
-                                        <option value="all">All</option>
+                                    <select name="category[]" id="category"
+                                            class="form-control select2 @error('category') is-invalid @enderror" multiple="multiple">
+
                                         @foreach($categories as $category)
                                             @if(isset($category->parent))
                                                 @foreach($category->subcategories as $sub)

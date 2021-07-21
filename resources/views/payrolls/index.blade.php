@@ -12,6 +12,7 @@
                 <div>
                     Grand Total {{ $payrolls->sum('grossincome') }}
                 </div>
+                <input type="text" name="categories" value="">
             </div>
             <div class="card-body">
 

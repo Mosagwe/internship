@@ -32,8 +32,15 @@ class PayrollController extends Controller
     {
         $period = $request->period;
         $category = $request->category;
+        $payrolls = Payroll::whereDate('period', $period)
+            ->whereIn('category_id', $category)
+            ->get();
 
-        $categories = Category::all();
+        if(!count($payrolls)){
+            $payrolls = Payroll::whereDate('period', $period)->get();
+        }
+
+        /*$categories = Category::all();
         if ($request->has('period') && $request->has('category') && $request->category != null) {
             $payrolls = Payroll::whereDate('period', $period)
                 ->where('category_id', $category)
@@ -43,9 +50,9 @@ class PayrollController extends Controller
             $payrolls = Payroll::whereDate('period', $period)
                 ->paginate(10);
             return view('payrolls.index', compact('categories', 'payrolls'));
-        }
+        }*/
 
-        return view('payrolls.index', compact('categories',));
+        return view('payrolls.index', compact('payrolls',));
 
         /*if ($request->ajax()){
           $data=Payroll::latest()->get();
@@ -222,27 +229,28 @@ class PayrollController extends Controller
 
     public function getPayrollRecords(Request $request)
     {
-        $this->validate($request,[
-            'period'=>'required',
-            'category'=>'required'
+        $this->validate($request, [
+            'period' => 'required',
+            'category' => 'required',
         ]);
+
         $period = $request->period;
         $category = $request->category;
+        $payrolls = Payroll::whereDate('period', $period)
+            ->whereIn('category_id', $category)
+            ->get();
 
-         if ($category == 'all') {
-             $payrolls = Payroll::whereDate('period', $period)->get();
-         } else {
-             $payrolls = Payroll::whereDate('period', $period)
-                 ->where('category_id', $category)
-                 ->get();
-         }
-        /* $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
-             ->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
+        if(!count($payrolls)){
+            $payrolls = Payroll::whereDate('period', $period)->get();
+        }
 
-         //return $pdf->download('payrolls.pdf');
-         return $pdf->stream('payrolls.pdf', array("Attachment" => false));*/
+        $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
+            ->setOptions(['defaultFont' => 'sans-serif'])
+            ->setPaper('a4', 'landscape');
+        //return $pdf->download('payrolls.pdf');
+        return $pdf->stream('payrolls.pdf', array("Attachment" => false));
 
-       return view('payrolls.index', compact('payrolls'));
+        //return view('payrolls.index', compact('payrolls'));
 
     }
 }
