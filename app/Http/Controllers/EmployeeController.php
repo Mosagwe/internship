@@ -105,6 +105,7 @@ class EmployeeController extends Controller
         });
 
 
+
         return redirect()->route('employee.index');
 
 

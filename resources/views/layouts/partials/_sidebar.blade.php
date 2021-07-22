@@ -32,7 +32,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             Employee Management
                             <i class="right fas fa-angle-left"></i>
@@ -61,7 +61,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon"></i>
+                        <i class="nav-icon fas fa-dollar-sign"></i>
                         <p>
                             Payroll Management
                             <i class="right fas fa-angle-left"></i>
@@ -69,18 +69,25 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="{{ route('payroll.create') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Run Payroll
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('payroll.index') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Latest Summary Report
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('payroll.search') }}" class="nav-link">
                                 <i class="fa fa-users fa-fw"></i>
                                 Payroll Reports
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('payroll.create') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Run Payroll
-                            </a>
-                        </li>
+
 
                     </ul>
                 </li>
@@ -94,13 +101,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('user.index') }}" class="nav-link">
                                 <i class="fa fa-users fa-fw"></i>
                                 Users
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('role.index') }}" class="nav-link">
                                 <i class="fa fa-user-alt fa-fw"></i>
                                 Roles
                             </a>

@@ -30,7 +30,18 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
-        $period = $request->period;
+        $latestDate=Payroll::max('period');
+        //$payrolls=Payroll::whereDate('period',$latestDate)->get();
+        $payrolls=Payroll::whereDate('period',$latestDate)->groupBy('category_id','period')
+            ->orderBy(DB::raw('COUNT(id)','desc'))
+            ->get(array('category_id','period',DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+        return view('payrolls.index',compact('payrolls'));
+
+        /*foreach ($payrolls as $payroll){
+            echo $payroll->category->name.'  -  '. $payroll->totals .'<br>';
+        }*/
+
+        /*$period = $request->period;
         $category = $request->category;
         $payrolls = Payroll::whereDate('period', $period)
             ->whereIn('category_id', $category)
@@ -38,7 +49,7 @@ class PayrollController extends Controller
 
         if(!count($payrolls)){
             $payrolls = Payroll::whereDate('period', $period)->get();
-        }
+        }*/
 
         /*$categories = Category::all();
         if ($request->has('period') && $request->has('category') && $request->category != null) {
@@ -52,7 +63,7 @@ class PayrollController extends Controller
             return view('payrolls.index', compact('categories', 'payrolls'));
         }*/
 
-        return view('payrolls.index', compact('payrolls',));
+        //return view('payrolls.index', compact('payrolls'));
 
         /*if ($request->ajax()){
           $data=Payroll::latest()->get();
@@ -147,6 +158,7 @@ class PayrollController extends Controller
 
             $payroll = new Payroll();
             $payroll->employee_id = $contract->employee_id;
+            $payroll->fullname=$contract->employee->full_name;
             $payroll->gender = $contract->employee->gender;
             $payroll->period = $period;
             $payroll->paycode = $paycode;

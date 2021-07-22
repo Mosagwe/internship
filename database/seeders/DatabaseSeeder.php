@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $this->call([
+            PermissionSeeder::class,
             UserSeeder::class,
             QualificationSeeder::class,
             StationSeeder::class,
@@ -26,6 +28,7 @@ class DatabaseSeeder extends Seeder
             EmployeeTypeSeeder::class,
             EmployeeSeeder::class,
             ContractSeeder::class,
+
         ]);
     }
 }

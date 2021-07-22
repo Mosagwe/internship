@@ -11,6 +11,9 @@ use App\Http\Controllers\StationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -47,7 +50,19 @@ Route::resource('bank',BankController::class);
 Route::resource('unit',UnitController::class);
 Route::resource('qualification',QualificationController::class);
 Route::resource('payroll',PayrollController::class);
-
+Route::resource('user',UserController::class);
+Route::resource('permission',PermissionController::class);
+Route::resource('role',RoleController::class);
+// axios requests
+Route::get('/getallpermission',[PermissionController::class,'getAllPermission']);
+Route::post('/postRole',[RoleController::class,'store'])->name('postRole');
+Route::get('/getAllRoles',[RoleController::class,'getAll']);
+Route::get('/getAllUsers',[UserController::class,'getAll']);
+Route::get('/getAllPermissions',[PermissionController::class,'getAll']);
+Route::post('/account/create',[UserController::class,'store']);
+Route::put('/account/update/{id}',[UserController::class,'update']);
+Route::delete('/delete/user/{id}',[UserController::class,'delete']);
+Route::get('/search/user',[UserController::class,'search']);
 
 
 

@@ -11,7 +11,7 @@
                             <li class="nav-item mr-1">
                                 <button class="btn btn-success" id="runpayroll">
                                     <i class="fas fa-check-circle fa-fw"></i>
-                                    Run Payroll
+                                    Run Process
                                 </button>
                             </li>
                         </ul>
