@@ -222,7 +222,7 @@ class PayrollController extends Controller
 
     public function showSearchForm()
     {
-        $categories = Category::all();
+        $categories = Category::with('subcategories')->whereNull('parent_id')->get();
         return view('payrolls.search', compact('categories'));
 
     }

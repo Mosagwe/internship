@@ -22,21 +22,7 @@ class Employee extends Model
      */
     const DEACTIVATED = 0;
 
-    protected $fillable = [
-        'firstname',
-        'lastname',
-        'middlename',
-        'idno',
-        'employee_type',
-        'category_id',
-        'date_hired',
-        'email',
-        'phonenumber',
-        'krapin',
-        'gender',
-        'qualification_id',
-        'coursename'
-    ];
+    protected $guarded=[];
 
     protected $appends=['full_name'];
 

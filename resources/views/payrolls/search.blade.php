@@ -38,14 +38,12 @@
                                 <div class="col-sm-8">
                                     <select name="category[]" id="category"
                                             class="form-control select2 @error('category') is-invalid @enderror" multiple="multiple">
-
                                         @foreach($categories as $category)
-                                            @if(isset($category->parent))
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @if($category->subcategories)
                                                 @foreach($category->subcategories as $sub)
-                                                    <option value="{{ $sub->id }}">{{ $sub->name }}</option>
+                                                    <option value="{{ $sub->id }}"> --> {{ $sub->name }}</option>
                                                 @endforeach
-                                            @else
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endif
                                         @endforeach
                                     </select>
@@ -70,6 +68,7 @@
     </div>
 @endsection
 @push('scripts')
+
 
 
 @endpush
