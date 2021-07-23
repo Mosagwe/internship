@@ -35,9 +35,9 @@ class PayrollController extends Controller
     {
         $latestDate=Payroll::max('period');
         //$payrolls=Payroll::whereDate('period',$latestDate)->get();
-        $payrolls=Payroll::whereDate('period',$latestDate)->groupBy('category_id','period')
+        $payrolls=Payroll::whereDate('period',$latestDate)->groupBy('category_id','period','status')
             ->orderBy(DB::raw('COUNT(id)','desc'))
-            ->get(array('category_id','period',DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+            ->get(array('category_id','period','status',DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
         return view('payrolls.index',compact('payrolls'));
 
         /*foreach ($payrolls as $payroll){
