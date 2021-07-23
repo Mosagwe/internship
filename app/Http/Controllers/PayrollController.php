@@ -254,11 +254,14 @@ class PayrollController extends Controller
         $period = $request->period;
         $category = $request->category;
         $payrolls = Payroll::whereDate('period', $period)
+            ->where('status',1)
             ->whereIn('category_id', $category)
             ->get();
 
         if(!count($payrolls)){
-            $payrolls = Payroll::whereDate('period', $period)->get();
+            $payrolls = Payroll::whereDate('period', $period)
+                ->where('status',1)
+                ->get();
         }
 
         $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
@@ -268,6 +271,17 @@ class PayrollController extends Controller
         return $pdf->stream('payrolls.pdf', array("Attachment" => false));
 
         //return view('payrolls.index', compact('payrolls'));
+
+    }
+
+    public function pending()
+    {
+        //$data=Payroll::where('status',0)->get();
+       /* $payrolls=Payroll::where('status',0)->groupBy('period','paycode')
+            ->orderBy(DB::raw('COUNT(id)','desc'))
+            ->get(array('period','paycode',DB::raw('count(id) as paycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+        return view('payrolls.pending',compact('payrolls'));*/
+        return view('payrolls.pending');
 
     }
 }

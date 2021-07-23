@@ -39,6 +39,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('payroll/search',[PayrollController::class,'showSearchForm'])->name('payroll.search');
 Route::get('payroll/search/employees',[PayrollController::class,'getEmployees'])->name('payroll.getemployees');
 Route::get('payroll/getrecords',[PayrollController::class,'getPayrollRecords'])->name('payroll.getrecords');
+Route::get('payroll/pending',[PayrollController::class,'pending'])->name('payroll.pending');
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\ContractController;
 use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\PayrollController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,8 @@ use App\Http\Controllers\API\CategoryController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('payroll/pending',[PayrollController::class,'pending']);
+Route::get('payroll/approve/{paycode}',[PayrollController::class,'approve']);
 
 Route::apiResources([
     'stations'=>StationController::class,

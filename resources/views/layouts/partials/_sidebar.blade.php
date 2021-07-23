@@ -75,6 +75,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('payroll.pending') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Approve
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('payroll.index') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Latest Summary Report

@@ -10,4 +10,6 @@ Vue.component('category-create',require('./components/categories/CategoryCreate.
 Vue.component('users',require('./components/users/User.vue').default);
 Vue.component('role',require('./components/users/Role.vue').default);
 
+Vue.component('approve-payroll',require('./components/payrolls/Approve.vue').default);
+
 Vue.component('contract-datatable',require('./components/contracts/ContractDataTable.vue').default);

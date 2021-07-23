@@ -35,7 +35,9 @@
 <body>
 <div>
     <h2>Huduma Kenya Secretariat</h2>
+    @if($payrolls->count() >0)
     <h3>Payment Schedule for Casuals for the month of {{ date('M Y',strtotime($payrolls[0]->period)) }}</h3>
+    @endif
     Categories:
     @foreach($payrolls->unique('category_id') as $payroll)
         @if(isset($payroll->category))
@@ -65,7 +67,7 @@
     </thead>
     <tbody>
     @if(isset($payrolls))
-        @foreach($payrolls as $index=>$payroll)
+        @forelse($payrolls as $index=>$payroll)
             <tr style="height: 0.5px">
                 <td>{{ ++$index }}</td>
                 <td>{{ $payroll->employee->full_name }}</td>
@@ -76,7 +78,9 @@
                 <td>{{ $payroll->paye }}</td>
                 <td>{{ $payroll->net_income }}</td>
             </tr>
-        @endforeach
+        @empty
+            <tr><td colspan="8">No data found</td></tr>
+        @endforelse
     @endif
     </tbody>
     <tfoot style="font-weight: bolder;">
