@@ -10,11 +10,14 @@ use App\Models\Payroll;
 
 //use Barryvdh\DomPDF\PDF;
 
+use App\Models\User;
+use App\Notifications\ProcessedPayrollNotification;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -175,6 +178,8 @@ class PayrollController extends Controller
             $payroll->idno = $contract->employee->idno;
             $payroll->save();
         }
+
+        \Illuminate\Support\Facades\Notification::send(User::hrmanager(),new ProcessedPayrollNotification($payroll));
     }
 
 

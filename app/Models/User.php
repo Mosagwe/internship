@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
 
 class User extends Authenticatable
 {
@@ -52,4 +53,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeApprover($query)
+    {
+        return $query->permission('approve payroll');
+    }
+
+    public function scopeHrmanager()
+    {
+        $users=User::whereHas('roles',function ($q){
+            $q->where('name','HR Manager');
+        })->get();
+        return $users;
+
+    }
+
+
 }

@@ -102,7 +102,6 @@ class ContractController extends Controller
 
     public function terminate($id)
     {
-
         $contract = Contract::find($id);
         $contract->status = 0;
         if ($contract->save()) {

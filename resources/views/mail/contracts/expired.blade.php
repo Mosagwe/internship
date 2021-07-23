@@ -6,8 +6,8 @@ on {{ $contract->end_date }}.
 
 For any concerns, please contact the HR office.
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => route('login')])
+Login
 @endcomponent
 
 Thanks,<br>

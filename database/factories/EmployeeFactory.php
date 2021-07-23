@@ -32,7 +32,7 @@ class EmployeeFactory extends Factory
             'idno'=>$this->faker->unique(true)->randomNumber(8),
             'email' => $this->faker->unique(true)->freeEmail,
             'qualification_id'=>Qualification::all()->random()->id,
-            //'category_id'=>Category::whereIn('id', [1,4,7,8,9])->get()
+            'category_id'=>$this->faker->randomElement($array=array(2,3,5,6,7,8,9)),
         ];
     }
 }

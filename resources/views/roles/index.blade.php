@@ -36,7 +36,9 @@
                                 @endforeach
                             </td>
                             <td>{{ $role->created_at }}</td>
+                            @if($role->name !='super-admin')
                             <td><a href="" class="btn btn-success btn-sm">Edit</a></td>
+                                @endif
                         </tr>
                     @empty
                         <tr>

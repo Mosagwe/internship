@@ -44,8 +44,8 @@
                         <td>{{ user.created_at | myDate }}</td>
                         <td>
                             <a href="" class="btn btn-sm btn-info" @click.prevent="viewUser(user)"><i class="fa fa-eye"></i>View</a>
-                            <a href="" class="btn btn-sm btn-warning" @click.prevent="editUser(user)"><i class="fa fa-edit"></i>Edit</a>
-                            <a href="" class="btn btn-sm btn-danger" @click.prevent="deleteUser(user)"><i class="fa fa-trash"></i>Delete</a>
+                            <a href="" class="btn btn-sm btn-warning" v-if="user.role!='super-admin'" @click.prevent="editUser(user)"><i class="fa fa-edit"></i>Edit</a>
+                            <a href="" class="btn btn-sm btn-danger" v-if="user.role!='super-admin'" @click.prevent="deleteUser(user)"><i class="fa fa-trash"></i>Delete</a>
                         </td>
                     </tr>
 
@@ -181,6 +181,7 @@ export default {
     methods:{
         createMode(){
             this.editMode=false;
+            this.form.reset();
             $('#createUser').modal('show');
         },
         search(){

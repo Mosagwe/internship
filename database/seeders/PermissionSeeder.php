@@ -18,7 +18,10 @@ class PermissionSeeder extends Seeder
         $permissions=[
             ['name'=>'create role' ],
             ['name'=>'create permission' ],
-            ['name'=>'create user' ]
+            ['name'=>'create user' ],
+            ['name'=>'run payroll' ],
+            ['name'=>'approve payroll' ],
+            ['name'=>'view approved' ]
         ];
 
         foreach ($permissions as $permission)
