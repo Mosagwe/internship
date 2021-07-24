@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PayslipRequest;
 use App\Models\Payroll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,5 +28,16 @@ class PayrollController extends Controller
             $payroll->save();
         }
         return response()->json('Approved');
+    }
+
+    public function getpayslipsAll(PayslipRequest $request)
+    {
+        $period=$request->period.'-01';
+        $idno=$request->idnumber;
+        $payslips=Payroll::whereDate('period',$period)
+            ->where('status',1)
+            ->where('idno',$idno)
+            ->get();
+        return response()->json(['payslips'=>$payslips]);
     }
 }

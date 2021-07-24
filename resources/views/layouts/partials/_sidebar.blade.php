@@ -92,9 +92,6 @@
                                 Payroll Reports
                             </a>
                         </li>
-
-
-
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -157,6 +154,35 @@
                             <a href="{{ route('bank.index') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Banks
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
+                            Reports
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('payroll.search') }}" class="nav-link">
+                                <i class="fa fa-users fa-fw"></i>
+                                Pay Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('payslip.search') }}" class="nav-link">
+                                <i class="fa fa-user-alt fa-fw"></i>
+                                Payslip
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                P9
                             </a>
                         </li>
                     </ul>

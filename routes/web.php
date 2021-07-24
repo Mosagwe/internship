@@ -14,6 +14,7 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DownloadController;
 
 
 /*
@@ -40,8 +41,12 @@ Route::get('payroll/search',[PayrollController::class,'showSearchForm'])->name('
 Route::get('payroll/search/employees',[PayrollController::class,'getEmployees'])->name('payroll.getemployees');
 Route::get('payroll/getrecords',[PayrollController::class,'getPayrollRecords'])->name('payroll.getrecords');
 Route::get('payroll/pending',[PayrollController::class,'pending'])->name('payroll.pending');
+Route::get('payslip/search',[PayrollController::class,'payslipform'])->name('payslip.search');
+Route::get('payslip/getrecords',[PayrollController::class,'getpayslipsAll'])->name('payslip.getpayslips');
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
+Route::get('reports/payregister',[DownloadController::class,'payregister'])->name('reports.payregister');
+Route::get('reports/payslip',[DownloadController::class,'payslip'])->name('reports.payslip');
 
 Route::resource('category',CategoryController::class);
 Route::resource('employee',EmployeeController::class);

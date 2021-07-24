@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
@@ -253,24 +254,14 @@ class PayrollController extends Controller
 
         $period = $request->period;
         $category = $request->category;
+
         $payrolls = Payroll::whereDate('period', $period)
             ->where('status',1)
             ->whereIn('category_id', $category)
             ->get();
 
-        if(!count($payrolls)){
-            $payrolls = Payroll::whereDate('period', $period)
-                ->where('status',1)
-                ->get();
-        }
+        return view('payrolls.payregister', compact('payrolls'));
 
-        $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
-            ->setOptions(['defaultFont' => 'sans-serif'])
-            ->setPaper('a4', 'landscape');
-        //return $pdf->download('payrolls.pdf');
-        return $pdf->stream('payrolls.pdf', array("Attachment" => false));
-
-        //return view('payrolls.index', compact('payrolls'));
 
     }
 
@@ -282,6 +273,22 @@ class PayrollController extends Controller
             ->get(array('period','paycode',DB::raw('count(id) as paycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
         return view('payrolls.pending',compact('payrolls'));*/
         return view('payrolls.pending');
+
+    }
+
+    public function payslipform()
+    {
+        return view('payrolls.payslipform');
+    }
+
+    public function getpayslipsAll(Request $request)
+    {
+        dd($request->search);
+        /*$payslips=Payroll::whereDate('period',$request->period)
+            ->where('status',1)
+            ->get();
+        dd($payslips);*/
+        //return view('payrolls.payslipform',compact('payslips'));
 
     }
 }

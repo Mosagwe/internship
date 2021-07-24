@@ -10,7 +10,7 @@
                 <h3 class="card-title">Payroll</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('payroll.getrecords') }}" method="GET" >
+                <form action="{{ route('payroll.getrecords') }}" method="GET">
 
                     <div class="row">
                         <div class="col-md-4">
@@ -37,7 +37,8 @@
                                 <label for="category" class="col-sm-4 col-form-label">Categories</label>
                                 <div class="col-sm-8">
                                     <select name="category[]" id="category"
-                                            class="form-control select2 @error('category') is-invalid @enderror" multiple="multiple">
+                                            class="form-control select2 @error('category') is-invalid @enderror"
+                                            multiple="multiple">
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @if($category->subcategories)
@@ -62,6 +63,8 @@
                         </div>
                     </div>
                 </form>
+
+
 
             </div>
         </div>
