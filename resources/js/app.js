@@ -99,7 +99,11 @@ Vue.use(VueProgressBar,{
     failedColor:'red',
     thickness:'5px'
 })
-//
+//jspdf
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
+window.jsPDF=jsPDF;
+
 require('./components.js');
 
 const app=new Vue({

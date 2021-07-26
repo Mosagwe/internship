@@ -58,7 +58,7 @@
                         <td>{{ payslip.taxableincome }}</td>
                         <td>{{ payslip.net_income }}</td>
                         <td>
-                            <a href="" class="btn btn-danger" @click.prevent="print(payslip.idno,payslip.period)">
+                            <a href="" class="btn btn-danger" @click.prevent="printPDF">
                                 <i class="fa fa-print" target="_blank"></i>
                             </a>
                         </td>
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import jsPDF from "jspdf";
+
 export default {
     name: "Payslip",
     data() {
@@ -88,6 +90,29 @@ export default {
         }
     },
     methods: {
+        printPDF(){
+            const columns=[
+                {title:"Fullname",dataKey:'fullname'},
+                {title:"KRAPIN",dataKey:'krapin'},
+                {title:"TAXABLE",dataKey:'taxableincome'},
+                {title:"PAYE",dataKey:'paye'},
+                {title:"NET INCOME",dataKey:'net_income'},
+            ];
+            const doc=new jsPDF({
+                orientation:'portrait',
+                unit:"in",
+                format:'letter'
+            });
+            doc.setFontSize(16).text("Huduma Kenya Payslip",0.5,1.0)
+            doc.setLineWidth(0.01).line(0.5,1.1,8.0,1.1);
+
+            doc.autoTable({
+             columns,
+                body:this.payslips,
+                margin:{left:0.5,top:1.25}
+            });
+            doc.save('test.pdf')
+        },
         getPayslips() {
             axios.get('/api/payslip/getrecords', {
                 params: {
