@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\EmployeesImportController;
 
 
 /*
@@ -47,6 +48,13 @@ Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
 Route::get('reports/payregister',[DownloadController::class,'payregister'])->name('reports.payregister');
 Route::get('reports/payslip',[DownloadController::class,'payslip'])->name('reports.payslip');
+
+/*
+ * Use excel to import records
+ */
+Route::get('/employees/import',[EmployeesImportController::class,'create'])->name('employeesimport.create');
+Route::post('/employees/import',[EmployeesImportController::class,'store'])->name('employeesimport.store');
+
 
 Route::resource('category',CategoryController::class);
 Route::resource('employee',EmployeeController::class);

@@ -229,6 +229,10 @@ class PayrollController extends Controller
         //
     }
 
+    /*
+     * Fetch employees whose contract is active for payroll processing
+     */
+
     public function getEmployees(Request $request)
     {
         $date = $request->period;

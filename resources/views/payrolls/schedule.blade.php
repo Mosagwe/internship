@@ -36,7 +36,7 @@
 <div>
     <h2>Huduma Kenya Secretariat</h2>
     @if($payrolls->count() >0)
-    <h3>Payment Schedule for Casuals for the month of {{ date('M Y',strtotime($payrolls[0]->period)) }}</h3>
+    <h3>Payment Schedule for Fixed Contract Employee for the month of {{ date('M Y',strtotime($payrolls[0]->period)) }}</h3>
     @endif
     Categories:
     @foreach($payrolls->unique('category_id') as $payroll)

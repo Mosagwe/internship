@@ -37,7 +37,7 @@
                 </form>
 
 
-                <table class="table table-striped table-bordered datatable">
+                <table class="table table-striped table-bordered datatable" id="printable">
                     <thead>
                     <tr class="bg-success">
                         <th>SN</th>
@@ -90,27 +90,22 @@ export default {
         }
     },
     methods: {
-        printPDF(){
-            const columns=[
-                {title:"Fullname",dataKey:'fullname'},
-                {title:"KRAPIN",dataKey:'krapin'},
-                {title:"TAXABLE",dataKey:'taxableincome'},
-                {title:"PAYE",dataKey:'paye'},
-                {title:"NET INCOME",dataKey:'net_income'},
-            ];
-            const doc=new jsPDF({
-                orientation:'portrait',
-                unit:"in",
-                format:'letter'
-            });
-            doc.setFontSize(16).text("Huduma Kenya Payslip",0.5,1.0)
-            doc.setLineWidth(0.01).line(0.5,1.1,8.0,1.1);
+        printPDF() {
 
-            doc.autoTable({
-             columns,
-                body:this.payslips,
-                margin:{left:0.5,top:1.25}
+            var doc = new jsPDF({
+                orientation: 'portrait',
+                unit: "in",
+                format: 'letter'
             });
+            doc.setFontSize(16).text("Huduma Kenya Payslip", 0.5, 1.0)
+            doc.setLineWidth(0.01).line(0.5, 1.1, 8.0, 1.1);
+            doc.html(document.querySelector("#printable"),{
+                callback:function (pdf){
+                    pdf.save('test.pdf');
+                }
+            });
+
+
             doc.save('test.pdf')
         },
         getPayslips() {

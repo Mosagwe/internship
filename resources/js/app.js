@@ -103,6 +103,8 @@ Vue.use(VueProgressBar,{
 import jsPDF from "jspdf";
 import 'jspdf-autotable';
 window.jsPDF=jsPDF;
+import html2canvas from "html2canvas";
+window.html2canvas=html2canvas;
 
 require('./components.js');
 

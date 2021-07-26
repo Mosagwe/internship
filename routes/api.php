@@ -29,7 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('payroll/pending',[PayrollController::class,'pending']);
 Route::get('payroll/approve/{paycode}',[PayrollController::class,'approve']);
-Route::get('payslip/getrecords',[PayrollController::class,'getpayslipsAll']);
+Route::get('payslip/getrecords',[PayrollController::class,'getpayslip']);
 
 Route::apiResources([
     'stations'=>StationController::class,

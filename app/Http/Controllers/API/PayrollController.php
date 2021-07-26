@@ -30,7 +30,7 @@ class PayrollController extends Controller
         return response()->json('Approved');
     }
 
-    public function getpayslipsAll(PayslipRequest $request)
+    public function getpayslip(PayslipRequest $request)
     {
         $period=$request->period.'-01';
         $idno=$request->idnumber;

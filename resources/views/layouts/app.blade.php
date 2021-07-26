@@ -44,8 +44,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h3 class="m-0">
-                            <font style="color: #000b16">Internship</font>
-                            <font style="color: red">Management</font>
+                            <font style="color: #000b16">Fixed Contract</font>
+                            <font style="color: red">Employee</font>
                             <font style="color:green">System</font>
                         </h3>
                     </div><!-- /.col -->
