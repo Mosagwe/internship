@@ -34,12 +34,12 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
-        $latestDate=Payroll::max('period');
+        $latestDate = Payroll::max('period');
         //$payrolls=Payroll::whereDate('period',$latestDate)->get();
-        $payrolls=Payroll::whereDate('period',$latestDate)->groupBy('category_id','period','status')
-            ->orderBy(DB::raw('COUNT(id)','desc'))
-            ->get(array('category_id','period','status',DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
-        return view('payrolls.index',compact('payrolls'));
+        $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
+            ->orderBy(DB::raw('COUNT(id)', 'desc'))
+            ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+        return view('payrolls.index', compact('payrolls'));
 
         /*foreach ($payrolls as $payroll){
             echo $payroll->category->name.'  -  '. $payroll->totals .'<br>';
@@ -162,7 +162,7 @@ class PayrollController extends Controller
 
             $payroll = new Payroll();
             $payroll->employee_id = $contract->employee_id;
-            $payroll->fullname=$contract->employee->full_name;
+            $payroll->fullname = $contract->employee->full_name;
             $payroll->gender = $contract->employee->gender;
             $payroll->period = $period;
             $payroll->paycode = $paycode;
@@ -180,7 +180,7 @@ class PayrollController extends Controller
             $payroll->save();
         }
 
-        \Illuminate\Support\Facades\Notification::send(User::hrmanager(),new ProcessedPayrollNotification($payroll));
+        \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
     }
 
 
@@ -260,7 +260,7 @@ class PayrollController extends Controller
         $category = $request->category;
 
         $payrolls = Payroll::whereDate('period', $period)
-            ->where('status',1)
+            ->where('status', 1)
             ->whereIn('category_id', $category)
             ->get();
 
@@ -272,10 +272,10 @@ class PayrollController extends Controller
     public function pending()
     {
         //$data=Payroll::where('status',0)->get();
-       /* $payrolls=Payroll::where('status',0)->groupBy('period','paycode')
-            ->orderBy(DB::raw('COUNT(id)','desc'))
-            ->get(array('period','paycode',DB::raw('count(id) as paycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
-        return view('payrolls.pending',compact('payrolls'));*/
+        /* $payrolls=Payroll::where('status',0)->groupBy('period','paycode')
+             ->orderBy(DB::raw('COUNT(id)','desc'))
+             ->get(array('period','paycode',DB::raw('count(id) as paycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+         return view('payrolls.pending',compact('payrolls'));*/
         return view('payrolls.pending');
 
     }
@@ -285,14 +285,24 @@ class PayrollController extends Controller
         return view('payrolls.payslipform');
     }
 
-    public function getpayslipsAll(Request $request)
+    public function getpayslip(Request $request)
     {
-        dd($request->search);
-        /*$payslips=Payroll::whereDate('period',$request->period)
-            ->where('status',1)
-            ->get();
-        dd($payslips);*/
-        //return view('payrolls.payslipform',compact('payslips'));
+        $this->validate($request, [
+            'period' => 'required',
+            'idnumber' => 'required'
+        ],
+            [
+                'period.required' => 'Please select the month!',
+                'idnumber.required' => 'The ID number is required!',
+            ]);
+        $period = $request->period . '-01';
+
+        $payslip = Payroll::whereDate('period', $period)
+            ->where('status', 1)
+            ->where('idno', $request->idnumber)
+            ->first();
+
+        return view('payrolls.payslipform', compact('payslip'));
 
     }
 }

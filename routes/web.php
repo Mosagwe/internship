@@ -43,11 +43,12 @@ Route::get('payroll/search/employees',[PayrollController::class,'getEmployees'])
 Route::get('payroll/getrecords',[PayrollController::class,'getPayrollRecords'])->name('payroll.getrecords');
 Route::get('payroll/pending',[PayrollController::class,'pending'])->name('payroll.pending');
 Route::get('payslip/search',[PayrollController::class,'payslipform'])->name('payslip.search');
-Route::get('payslip/getrecords',[PayrollController::class,'getpayslipsAll'])->name('payslip.getpayslips');
+Route::get('payslip/getrecord',[PayrollController::class,'getpayslip'])->name('payslip.getpayslip');
+
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
 Route::get('reports/payregister',[DownloadController::class,'payregister'])->name('reports.payregister');
-Route::get('reports/payslip',[DownloadController::class,'payslip'])->name('reports.payslip');
+Route::get('reports/payslip/{id}',[DownloadController::class,'payslip'])->name('reports.payslip');
 
 /*
  * Use excel to import records
