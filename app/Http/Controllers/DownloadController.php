@@ -54,7 +54,7 @@ class DownloadController extends Controller
             $this->pdf->AliasNbPages();
             $this->pdf->SetLeftMargin(30);
             $this->pdf->SetDrawColor(36,94,51);
-            $this->pdf->Rect(25,15,95,115);
+            $this->pdf->Rect(25,15,95,137);
 
 
             $this->pdf->SetFont('Arial', 'B', 12);
@@ -148,6 +148,7 @@ class DownloadController extends Controller
             $this->pdf->Cell(46, 4, 'Net Salary', 0, 0, 'L');
             $this->pdf->Cell(35, 4, number_format((float)$payslip->net_income, 2, '.', ' '), 0, 0, 'R');
             $this->pdf->Ln(5);
+            $this->pdf->Image('img/frame.png',90,125,25);
 
 
             //$this->pdf->Output();
