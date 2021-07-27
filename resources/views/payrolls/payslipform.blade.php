@@ -53,7 +53,7 @@
                     </div>
                 </form>
 
-                @if($payslip)
+                @if(isset($payslip))
                     <table class="table table-striped table-bordered datatable" id="printable">
                         <thead>
                         <tr class="bg-success">
