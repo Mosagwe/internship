@@ -15,7 +15,7 @@
         <div class="card-body">
             <table class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                <tr class="bg-success">
                     <th>#</th>
                     <th>Name</th>
                     <th>Parent Category</th>

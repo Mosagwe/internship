@@ -15,7 +15,7 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
+                <tr class="bg-success">
                     <th>#</th>
                     <th>Unit</th>
                     <th>Department</th>

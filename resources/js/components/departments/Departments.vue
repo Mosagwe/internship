@@ -15,7 +15,7 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
+                <tr class="bg-success">
                     <th>#</th>
                     <th>Department Name</th>
                     <th>Created At</th>
@@ -27,8 +27,8 @@
                 <tr v-for="department in departments">
                     <td>{{ department.id }}</td>
                     <td>{{ department.name }}</td>
-                    <td>{{ department.created_at }}</td>
-                    <td>{{ department.updated_at }}</td>
+                    <td>{{ department.created_at | myDate }}</td>
+                    <td>{{ department.updated_at | myDate }}</td>
                     <td>
                         <a href="" class="btn btn-sm btn-warning" @click.prevent="editDepartment(department)"><i
                             class="fa fa-edit"></i>Edit</a>

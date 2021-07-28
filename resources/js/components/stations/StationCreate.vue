@@ -15,7 +15,7 @@
         <div class="card-body">
             <table class="table">
                 <thead>
-                <tr>
+                <tr class="bg-success">
                     <th>#</th>
                     <th>Station</th>
                     <th>Created At</th>
