@@ -51,6 +51,13 @@
                             <button type="submit" class="btn btn-success">Import</button>
                         </div>
                     </form>
+
+                    <div class="form-group">
+                        <p>Employee.xlsx Template
+                            <a href="{{ asset('attachments/Employee.xlsx') }}" class="" download> Click to Download</a>
+                        </p>
+
+                    </div>
                 </div>
             </div>
         </div>
