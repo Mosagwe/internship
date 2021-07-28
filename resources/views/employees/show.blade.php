@@ -1,22 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-lg-10 margin-tb">
-            <div class="pull-left">
-                <h2></h2>
-            </div>
-            <div class="pull-right">
-                <a href="{{ route('employee.index') }}" class="btn btn-primary" title="Go back">
-                    <i class="fas fa-backward"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card card-success card-outline">
-                <div class="card-header">View Employee</div>
+                <div class="card-header">
+                    <h3 class="card-title">View Employee</h3>
+                    <div class="card-tools">
+                        <ul class="nav nav-pills ml-auto">
+                            <li class="nav-item mr-1">
+                                <a href="{{ route('employee.index') }}" class="btn btn-primary btn-sm" title="Go back">
+                                    <i class="fas fa-backward"> Go back</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                @if($employee)
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -76,7 +79,7 @@
                         <div class="form-group col-md-4">
                             <label for="gender">Qualification</label>
                             <input type="text" class="form-control"
-                                   value="{{ strtoupper($employee->qualification->name) }}" readonly>
+                                   value="{{ strtoupper($employee->qualification->name ?? "Not Available") }} " readonly>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="coursename">Course Name</label>
@@ -98,10 +101,9 @@
                             <tr>
                                 <th>Designation</th>
                                 <th>Station</th>
-                                <th>Unit</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-                                <th>Salary</th>
+                                <th>Salary (KES) p.m</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -109,12 +111,14 @@
                             @foreach($employee->contracts as $contract)
                                 @if(isset($employee->contracts))
                                     <tr>
-                                        <td>{{ strtoupper($contract->employee_type) }}</td>
-                                        <td>{{ $contract->station->name}}</td>
-                                        <td>{{ $contract->unit->name}}</td>
+                                        <td>{{ strtoupper($contract->employee->category->name ?? "na") }}</td>
+                                        <td>
+                                            {{ $contract->station->name ?? "Not assigned!"}}
+                                        </td>
+
                                         <td>{{ $contract->start_date }}</td>
                                         <td>{{ $contract->end_date }}</td>
-                                        <td>{{ $contract->salary }}</td>
+                                        <td>{{ number_format($contract->employee->category->salary,2) ?? "0.00" }}</td>
                                         <td>
                                             @if($contract->status==0)
                                                 <span class="badge rounded-pill bg-danger">Inactive</span>
@@ -131,6 +135,7 @@
                     </div>
 
                 </div>
+                @endif
                 <div class="card-footer">
                     <div class="form-row justify-content-between mx-4">
                         <div class="form-group">
