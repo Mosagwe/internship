@@ -28,11 +28,14 @@ class EmployeesDataTable extends DataTable
             ->editColumn('is_active',function ($employee){
                 return view('employees.status',compact('employee'));
            })->addColumn('renumeration',function ($query){
-               return $query->category->salary;
+               if ($query->category){
+                    return $query->category->salary;
+               }
+
             })->editColumn('category_id',function ($query){
                 if (isset($query->category->parent)){
                    return $query->category->parent->name;
-                }else{
+                }elseif($query->category){
                     return $query->category->name;
                 }
             })->addColumn('subcategory',function ($query){
