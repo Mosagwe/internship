@@ -45,7 +45,7 @@
                     </div>
                     <table class="table table-bordered" id="RunpayrollTable">
                         <thead>
-                        <tr>
+                        <tr class="bg-success">
                             <th><input type="checkbox" id="chkCheckAll"></th>
                             <th>Employee Name</th>
                             <th>Category</th>

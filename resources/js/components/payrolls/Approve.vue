@@ -7,7 +7,7 @@
             <div class="card-body">
                 <table class="table table-bordered table-striped datatable">
                     <thead class="text-center">
-                    <tr>
+                    <tr class="bg-success">
                         <th>Period</th>
                         <th>Paycode</th>
                         <th>Taxable Income</th>

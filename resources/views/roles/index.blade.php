@@ -17,7 +17,7 @@
             <div class="card-body table-responsive no-padding">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
+                    <tr class="bg-success">
                         <th>ID</th>
                         <th>Name</th>
                         <th>Permissions</th>
