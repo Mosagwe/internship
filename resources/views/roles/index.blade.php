@@ -35,7 +35,7 @@
                                     <button class="btn btn-warning" role="button"><i class="fas fa-shield-alt"></i>{{ $permission->name }}</button>
                                 @endforeach
                             </td>
-                            <td>{{ date('d F Y',strtotime($role->created_at)) }}</td>
+                            <td>{{ date('jS F Y',strtotime($role->created_at)) }}</td>
                             @if($role->name !='super-admin')
                             <td><a href="" class="btn btn-success btn-sm">Edit</a></td>
                                 @endif
