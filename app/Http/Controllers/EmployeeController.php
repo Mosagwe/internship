@@ -52,7 +52,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validation=$this->validate($request, [
+        $validation = $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
             'gender' => 'required',
@@ -69,41 +69,39 @@ class EmployeeController extends Controller
             'start_date' => 'required'
         ]);
 
-         if (!$validation)
-         {
-             redirect()->back()->withInput();
-         }
+        if (!$validation) {
+            redirect()->back()->withInput();
+        }
 
         $end_date = Carbon::createFromFormat('d/m/Y', $request->start_date)->addMonths(3)->format('Y-m-d');
 
-        DB::transaction(function () use ($request,$end_date) {
-              $employee=Employee::create([
-                  'firstname'=>$request->firstname,
-                  'lastname'=>$request->lastname,
-                  'middlename'=>$request->othername,
-                  'gender'=>$request->gender,
-                  'idno'=>$request->idno,
-                  'email'=>$request->email,
-                  'employee_type_id'=>$request->emptype_id,
-                  'phonenumber'=>$request->phonenumber,
-                  'krapin'=>$request->krapin,
-                  'qualification_id'=>$request->qualification_id,
-                  'category_id'=>$request->category_id,
-                  'coursename'=>$request->coursename,
-                  'date_hired'=>$request->date_hired,
-                  'is_active'=>1
-              ]);
+        DB::transaction(function () use ($request, $end_date) {
+            $employee = Employee::create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'middlename' => $request->othername,
+                'gender' => $request->gender,
+                'idno' => $request->idno,
+                'email' => $request->email,
+                'employee_type_id' => $request->emptype_id,
+                'phonenumber' => $request->phonenumber,
+                'krapin' => $request->krapin,
+                'qualification_id' => $request->qualification_id,
+                'category_id' => $request->category_id,
+                'coursename' => $request->coursename,
+                'date_hired' => $request->date_hired,
+                'is_active' => 1
+            ]);
 
-         $contract=Contract::create([
-             'employee_id'=>$employee->id,
-             'employee_type_id'=>$request->emptype_id,
-             'start_date'=>Carbon::createFromFormat('d/m/Y',$request->start_date)->format('Y-m-d'),
-             'end_date'=>$end_date,
-             'station_id'=>$request->station_id,
-             'category_id'=>$request->category_id,
-         ]);
+            $contract = Contract::create([
+                'employee_id' => $employee->id,
+                'employee_type_id' => $request->emptype_id,
+                'start_date' => Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d'),
+                'end_date' => $end_date,
+                'station_id' => $request->station_id,
+                'category_id' => $request->category_id,
+            ]);
         });
-
 
 
         return redirect()->route('employee.index');
@@ -130,7 +128,11 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $qualifications = Qualification::all();
+        $stations = Station::all();
+        $emptypes = EmployeeType::all();
+        $categories = Category::with('subcategories')->whereNull('parent_id')->get();
+        return view('employees.edit', compact('qualifications', 'emptypes', 'stations', 'categories', 'employee'));
     }
 
     /**
@@ -142,7 +144,37 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+         $this->validate($request, [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'gender' => 'required',
+            'idno' => 'required|max:15|unique:employees,idno,' . $employee->id,
+            'email' => 'required|email|unique:employees,email,' . $employee->id,
+            'phonenumber' => 'required|max:15',
+            'krapin' => 'required|max:15|unique:employees,krapin,'.$employee->id,
+            'qualification_id' => 'required',
+            'coursename' => 'required',
+            'date_hired' => 'required',
+            'emptype_id' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $employee->firstname = $request->firstname;
+        $employee->lastname = $request->lastname;
+        $employee->middlename = $request->middlename;
+        $employee->gender = $request->gender;
+        $employee->idno = $request->idno;
+        $employee->email = $request->email;
+        $employee->employee_type_id = $request->emptype_id;
+        $employee->phonenumber = $request->phonenumber;
+        $employee->krapin = $request->krapin;
+        $employee->qualification_id = $request->qualification_id;
+        $employee->category_id = $request->category_id;
+        $employee->coursename = $request->coursename;
+        $employee->date_hired = $request->date_hired;
+        $employee->save();
+
+        return redirect()->route('employee.show', $employee->id);
     }
 
     /**

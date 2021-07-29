@@ -192,7 +192,7 @@
                 <div class="card-footer">
                     <div class="form-row justify-content-between mx-4">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-success">Edit</button>
+                            <a href="{{ route('employee.edit',$employee->id) }}"  class="btn btn-sm btn-success">Edit</a>
                         </div>
                         <div>
                             <a href="{{ route('employee.index') }}" class="btn btn-danger btn-sm">Cancel</a>

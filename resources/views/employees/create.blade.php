@@ -35,13 +35,25 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="othername" class="col-sm-4 col-form-label">Other Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control @error('othername') is-invalid @enderror"
+                                               id="othername" name="othername" value="{{ old('othername') }}">
+                                        @error('othername')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="gender" class="col-sm-4 col-form-label">Gender</label>
                                     <div class="col-sm-8">
                                         <select name="gender" id="gender"
                                                 class="form-control @error('gender') is-invalid @enderror">
                                             <option value=""> --select option--</option>
-                                            <option value="M" {{ old('gender')=='M'?'selected':'' }}>Male</option>
-                                            <option value="F" {{ old('gender')=='F'?'selected':'' }}>Female</option>
+                                            <option value="Male" {{ old('gender')=='Male'?'selected':'' }}>Male</option>
+                                            <option value="Female" {{ old('gender')=='Female'?'selected':'' }}>Female</option>
                                         </select>
 
                                         @error('gender')
