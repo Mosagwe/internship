@@ -75,6 +75,8 @@ class ContractController extends Controller
      */
     public function edit($id)
     {
+        $contract=Contract::find($id);
+        return view('contracts.edit',compact('contract'));
 
     }
 
@@ -87,7 +89,17 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        //
+        $this->validate($request,[
+            'start_date'=>'required',
+            'station_id'=>'required',
+        ]);
+
+        $contract->start_date=Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d');
+        $contract->end_date=Carbon::createFromFormat('d/m/Y', $request->start_date)->addMonths(3)->format('Y-m-d');
+        $contract->station_id=$request->station_id;
+        $contract->save();
+
+        return redirect()->route('contract.index');
     }
 
     /**
