@@ -9,7 +9,7 @@
                     <div class="card-header">New Employee</div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group row">
                                     <label for="firstname" class="col-sm-4 col-form-label">First Name</label>
                                     <div class="col-sm-8">
@@ -64,6 +64,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="gender" class="col-sm-4 col-form-label">Date of Birth</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" name="dob" id="dob">
+                                        @error('dob')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
                                     <label for="idno" class="col-sm-4 col-form-label">ID Number</label>
                                     <div class="col-sm-8">
                                         <input type="text"
@@ -114,7 +127,36 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label for="pwd" class="col-sm-4 col-form-label">Physical Impairment</label>
+                                    <div class="col-sm-8">
+                                        <select name="pwd" id="pwd"
+                                                class="form-control @error('pwd') is-invalid @enderror">
+                                            <option value=""> --select option--</option>
+                                            <option value="0" {{ old('pwd')=='0'?'selected':'' }}>No</option>
+                                            <option value="1" {{ old('pwd')=='1'?'selected':'' }}>Yes</option>
+
+                                        </select>
+
+                                        @error('gender')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="pwd_category" class="col-sm-4 col-form-label">Specify </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="pwd_category" id="pwd_category" class="form-control">
+                                        @error('pwd_category')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label for="qualification_id" class="col-sm-4 col-form-label">Qualification</label>
                                     <div class="col-sm-8">
@@ -243,6 +285,185 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label for="next_of_kin" class="col-sm-4 col-form-label">Next of Kin Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('next_of_kin') is-invalid @enderror"
+                                               id="next_of_kin" name="next_of_kin" value="{{ old('next_of_kin') }}">
+                                        @error('next_of_kin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="next_of_kin_phone" class="col-sm-4 col-form-label">Next of Kin Mobile</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('next_of_kin_phone') is-invalid @enderror"
+                                               id="next_of_kin_phone" name="next_of_kin_phone" value="{{ old('next_of_kin_phone') }}">
+                                        @error('next_of_kin_phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="next_of_kin_relation" class="col-sm-4 col-form-label">Next of Kin Relation</label>
+                                    <div class="col-sm-8">
+                                        <select name="next_of_kin_relation" id="next_of_kin_relation"
+                                                class="form-control @error('next_of_kin_relation') is-invalid @enderror">
+                                            <option value="" disabled selected> --select option--</option>
+                                            <option {{ old('next_of_kin_relation')=='Spouse' ? 'selected':'' }} value="Spouse">Spouse</option>
+                                            <option {{ old('next_of_kin_relation')=='Parent' ? 'selected':'' }} value="Parent">Parent</option>
+                                            <option {{ old('next_of_kin_relation')=='Sibling' ? 'selected':'' }} value="Sibling">Sibling</option>
+                                            <option {{ old('next_of_kin_relation')=='Relative' ? 'selected':'' }} value="Relative">Relative</option>
+                                            <option {{ old('next_of_kin_relation')=='Guardian' ? 'selected':'' }} value="Guardian">Guardian</option>
+                                        </select>
+                                        @error('next_of_relation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref1_name" class="col-sm-4 col-form-label">Referee 1 Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref1_name') is-invalid @enderror"
+                                               id="ref1_name" name="ref1_name" value="{{ old('ref1_name') }}">
+                                        @error('ref1_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref1_email" class="col-sm-4 col-form-label">Referee 1 Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="email"
+                                               class="form-control @error('ref1_email') is-invalid @enderror"
+                                               id="ref1_email" name="ref1_email" value="{{ old('ref1_email') }}">
+                                        @error('ref1_email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref1_phone" class="col-sm-4 col-form-label">Referee 1 Phone</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref1_phone') is-invalid @enderror"
+                                               id="ref1_phone" name="ref1_phone" value="{{ old('ref1_phone') }}">
+                                        @error('ref1_phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref1_occupation" class="col-sm-4 col-form-label">Referee 1 Occupation</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref1_occupation') is-invalid @enderror"
+                                               id="ref1_occupation" name="ref1_occupation" value="{{ old('ref1_occupation') }}">
+                                        @error('ref1_occupation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref1_period" class="col-sm-4 col-form-label">Period known to you</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref1_period') is-invalid @enderror"
+                                               id="ref1_period" name="ref1_period" value="{{ old('ref1_period') }}">
+                                        @error('ref1_period')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <label for="ref2_name" class="col-sm-4 col-form-label">Referee 2 Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref2_name') is-invalid @enderror"
+                                               id="ref2_name" name="ref2_name" value="{{ old('ref2_name') }}">
+                                        @error('ref2_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref2_email" class="col-sm-4 col-form-label">Referee 2 Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="email"
+                                               class="form-control @error('ref2_email') is-invalid @enderror"
+                                               id="ref2_email" name="ref2_email" value="{{ old('ref2_email') }}">
+                                        @error('ref2_email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref2_phone" class="col-sm-4 col-form-label">Referee 2 Phone</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref2_phone') is-invalid @enderror"
+                                               id="ref2_phone" name="ref2_phone" value="{{ old('ref2_phone') }}">
+                                        @error('ref2_phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref2_occupation" class="col-sm-4 col-form-label">Referee 2 Occupation</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref2_occupation') is-invalid @enderror"
+                                               id="ref2_occupation" name="ref2_occupation" value="{{ old('ref2_occupation') }}">
+                                        @error('ref2_occupation')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ref2_period" class="col-sm-4 col-form-label">Period known to you</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                               class="form-control @error('ref2_period') is-invalid @enderror"
+                                               id="ref2_period" name="ref2_period" value="{{ old('ref2_period') }}">
+                                        @error('ref2_period')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

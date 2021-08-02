@@ -56,6 +56,7 @@ class EmployeeController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'gender' => 'required',
+            'dob' => 'required',
             'idno' => 'required|unique:employees|max:15',
             'email' => 'required|email|unique:employees',
             'phonenumber' => 'required|unique:employees|max:15',
