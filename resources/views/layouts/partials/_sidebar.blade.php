@@ -176,7 +176,7 @@
                         <li class="nav-item">
                             <a href="{{ route('payslip.search') }}" class="nav-link">
                                 <i class="fa fa-user-alt fa-fw"></i>
-                                Payslip
+                                Individual Payslip
                             </a>
                         </li>
                         <li class="nav-item">

@@ -24,15 +24,8 @@
                             <label for="month" class="col-sm-3 col-form-label">Frequency Month</label>
                             <div class="col-sm-5">
                                 <select name="period" id="period" class="form-control">
-                                    @foreach(\Carbon\CarbonPeriod::create(now()->startOfMonth()->subMonth(),'1 month',now()->startOfMonth()) as $date)
-                                        @if($date==\Carbon\Carbon::now()->startOfMonth())
-                                            <option value="{{ $date->format('Y-m-d') }}"
-                                                    selected>{{ $date->format('F Y') }}</option>
-                                        @else
-                                            <option
-                                                value="{{ $date->format('Y-m-d') }}">{{ $date->format('F Y') }}</option>
-                                        @endif
-                                    @endforeach
+                                    <option value="{{ \Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')  }}" selected> {{ \Carbon\Carbon::now()->startOfMonth()->format('F Y') }}</option>
+
                                 </select>
                             </div>
                             <div class="col-sm-4">
