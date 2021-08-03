@@ -74,7 +74,7 @@ class EmployeesImport implements ToCollection,
                 'end_date' => Date::excelToDateTimeObject($row['enddate']),
                 'employee_type_id' => $emp->employee_type_id,
                 'station_id' => $row['stationID'],
-                'status'=>$row['status],
+                'status'=>$row['status'],
 
             ]);
         }
