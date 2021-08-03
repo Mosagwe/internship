@@ -14,13 +14,13 @@ class PDFTrait extends FPDF{
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(90,10,'Huduma KENYA Payroll',0,0,'C');
+        $this->Cell(90,10,'HUDUMA KENYA SECRETARIAT',0,0,'C');
         // Line break
         $this->Ln(12);
 
         ////set title
         $this->SetFont('Arial','b',10);
-        $this->Ln(10);
+
 //
     }
 
@@ -30,7 +30,7 @@ class PDFTrait extends FPDF{
         //$this->Ln(20);
         $this->SetY(-50);
         //for authorization Signature and Date
-        $this->Cell(20);
+        /*$this->Cell(20);
         $this->Cell(50,6,'NOTE',0);
         $this->Ln(4);
         $this->SetFont('Arial','I',8);
@@ -44,7 +44,7 @@ class PDFTrait extends FPDF{
         $this->Cell(50,6,'*** Please note that the GOK payment indicated has already been taxed and hence the need to deduct before applying tax. This is only for the officers who are in the Government payroll.',0);
         $this->Ln(3);
         $this->Cell(20);
-        $this->Cell(50,6,'Note: The salary increment date for staff whose contracts commenced on Aug 2015 is Aug 2017',0);
+        $this->Cell(50,6,'Note: The salary increment date for staff whose contracts commenced on Aug 2015 is Aug 2017',0);*/
         //for signing
         $this->Ln(6);
         $this->Cell(20);
