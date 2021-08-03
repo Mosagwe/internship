@@ -69,7 +69,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('payroll.create') }}" class="nav-link">
+                            <a href="{{ route('payrolls.create') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Run Payroll
                             </a>
@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('payroll.index') }}" class="nav-link">
+                            <a href="{{ route('payrolls.index') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Latest Summary Report
                             </a>

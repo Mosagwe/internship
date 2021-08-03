@@ -69,7 +69,5 @@
         $('.datatable').dataTable()
     </script>
 
-
-
 @endpush
 

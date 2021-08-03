@@ -34,7 +34,8 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
-        $latestDate = Payroll::max('period');
+
+       $latestDate = Payroll::max('period');
         //$payrolls=Payroll::whereDate('period',$latestDate)->get();
         $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
             ->orderBy(DB::raw('COUNT(id)', 'desc'))
@@ -136,6 +137,7 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
+
         $ids = $request->ids;
         $period = $request->period;
 
@@ -181,7 +183,7 @@ class PayrollController extends Controller
         }
 
         \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
-        return redirect()->route('payroll.index');
+        return redirect()->route('payrolls.index');
     }
 
 

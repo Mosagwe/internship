@@ -64,7 +64,7 @@ Route::resource('station',StationController::class);
 Route::resource('bank',BankController::class);
 Route::resource('unit',UnitController::class);
 Route::resource('qualification',QualificationController::class);
-Route::resource('payroll',PayrollController::class);
+Route::resource('payrolls',PayrollController::class);
 Route::resource('user',UserController::class);
 Route::resource('permission',PermissionController::class);
 Route::resource('role',RoleController::class);

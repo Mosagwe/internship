@@ -117,7 +117,8 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: "{{ route('payroll.store') }}",
+                                url: "{{ route('payrolls.store') }}",
+                                //url:'/payroll/index',
                                 method: "POST",
                                 data: {
                                     ids: allids,
@@ -132,7 +133,7 @@
                                         'Payroll run successful.',
                                         'success'
                                     )
-                                    window.location.href="{{route('payroll.index')}}";
+                                    window.location.href="{{ route('payrolls.index') }}";
                                 }
                             });
 
