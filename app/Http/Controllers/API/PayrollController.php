@@ -146,7 +146,7 @@ class PayrollController extends Controller
         if (!file_exists(public_path('Payroll/Payregisters'))){
             mkdir(public_path('Payroll/Payregisters'),0777,true);
         }
-        $filename=date('Ymdhi').'.pdf';
+        $filename=date('YmdHi').'.pdf';
         $this->pdf->Output(public_path('Payroll/Payregisters/'.$filename),'F');
 
         return response()->json('Approved');

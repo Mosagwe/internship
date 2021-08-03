@@ -15,6 +15,7 @@ class DownloadController extends Controller
 {
     public function payregister(Request $request)
     {
+
         $categories = $request->category_id;
         $period = $request->period;
         $count = 1;
