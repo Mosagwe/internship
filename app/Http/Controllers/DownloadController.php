@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\PDFTrait;
 use App\Models\Payroll;
 use Barryvdh\DomPDF\Facade as PDF;
 use Crabbly\Fpdf\Fpdf as FPDF;
@@ -21,7 +22,22 @@ class DownloadController extends Controller
             ->whereIn('category_id', $categories)
             ->get();
         if ($payrolls->count() > 0) {
-            $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
+           /* $pdf=new PDFTrait('L','mm','a4');
+            $pdf->AliasNbPages();
+            $pdf->SetAutoPageBreak(false);
+            //add first page
+            $pdf->AddPage();
+            //set initial y axis position per page
+            $y_axis_initial = 30;
+
+            $pdf->SetLeftMargin(10);
+            $pdf->SetFont('Arial','',10);
+            //set title
+            $pdf->Cell(70);
+            $headers=['Content-type'=>'application/pdf'];
+
+            return Response::make($pdf->Output(), 200, $headers);*/
+           $pdf = PDF::loadView('payrolls.schedule', compact('payrolls'))
                 ->setOptions(['defaultFont' => 'sans-serif'])
                 ->setPaper('a4', 'landscape');
             return $pdf->stream('payrolls.pdf', array("Attachment" => false));
