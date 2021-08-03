@@ -32,6 +32,16 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <h6 class="mb-0">Date of Birth</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ date('jS M,Y',strtotime($employee->dob)) }}
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <h6 class="mb-0">Gender</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
@@ -50,10 +60,33 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Gender</h6>
+                                    <h6 class="mb-0">Disability</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @if($employee->pwd==0 || $employee->pwd==null )
+                                    {{ __('No') }}
+                                    @else
+                                        {{ __('Yes') }}
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone Number</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ strtoupper($employee->phonenumber) }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ strtoupper($employee->email) }}
                                 </div>
                             </div>
                             <hr>
@@ -81,15 +114,7 @@
                             <hr>
                         </div>
                         <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Email</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    {{ strtoupper($employee->email) }}
-                                </div>
-                            </div>
-                            <hr>
+
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">KRA PIN</h6>
@@ -123,6 +148,33 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{ $employee->date_hired }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Next of Kin</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ $employee->next_of_kin.' -Phone: '.$employee->next_of_kin_phone.' -Relation: '.$employee->next_of_kin_relation }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Referee 1</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ $employee->ref1_name.' -Phone: '.$employee->ref1_phone.' -Email: '.$employee->ref1_email.' -Occupation: '.$employee->ref1_occupation }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Referee 2</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ $employee->ref2_name.' -Phone: '.$employee->ref2_phone.' -Email: '.$employee->ref2_email.' -Occupation: '.$employee->ref2_occupation }}
                                 </div>
                             </div>
                             <hr>

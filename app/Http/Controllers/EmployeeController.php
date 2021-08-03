@@ -67,7 +67,22 @@ class EmployeeController extends Controller
             'emptype_id' => 'required',
             'station_id' => 'required',
             'category_id' => 'required',
-            'start_date' => 'required'
+            'start_date' => 'required',
+            'next_of_kin'=>'required',
+            'next_of_kin_phone'=>'required',
+            'next_of_kin_relation'=>'required',
+            'pwd'=>'required',
+            'pwd_no'=>'nullable',
+            'ref1_name'=>'required',
+            'ref1_email'=>'required',
+            'ref1_phone'=>'required',
+            'ref1_occupation'=>'required',
+            'ref1_period'=>'required',
+            'ref2_name'=>'required',
+            'ref2_email'=>'required',
+            'ref2_phone'=>'required',
+            'ref2_occupation'=>'required',
+            'ref2_period'=>'required',
         ]);
 
         if (!$validation) {
@@ -91,7 +106,23 @@ class EmployeeController extends Controller
                 'category_id' => $request->category_id,
                 'coursename' => $request->coursename,
                 'date_hired' => $request->date_hired,
-                'is_active' => 1
+                'is_active' => 1,
+                'next_of_kin'=>$request->next_of_kin,
+                'next_of_kin_phone'=>$request->next_of_kin_phone,
+                'next_of_kin_relation'=>$request->next_of_kin_relation,
+                'dob'=>$request->dob,
+                'pwd'=>$request->pwd,
+                'pwd_category'=>$request->pwd_category,
+                'ref1_name'=>$request->ref1_name,
+                'ref1_email'=>$request->ref1_email,
+                'ref1_phone'=>$request->ref1_phone,
+                'ref1_occupation'=>$request->ref1_occupation,
+                'ref1_period'=>$request->ref1_period,
+                'ref2_name'=>$request->ref2_name,
+                'ref2_email'=>$request->ref2_email,
+                'ref2_phone'=>$request->ref2_phone,
+                'ref2_occupation'=>$request->ref2_occupation,
+                'ref2_period'=>$request->ref2_period,
             ]);
 
             $contract = Contract::create([

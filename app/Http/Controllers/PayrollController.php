@@ -173,7 +173,7 @@ class PayrollController extends Controller
             $payroll->paye = $paye;
             $payroll->net_income = $netincome;
             $payroll->station_id = $contract->station_id;
-            $payroll->employee_type_id = $contract->employee_type_id;
+            $payroll->employee_type_id = $contract->employee->employee_type_id;
             $payroll->category_id = $contract->employee->category_id;
             $payroll->krapin = $contract->employee->krapin;
             $payroll->idno = $contract->employee->idno;
@@ -181,6 +181,7 @@ class PayrollController extends Controller
         }
 
         \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
+        return redirect()->route('payroll.index');
     }
 
 

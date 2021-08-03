@@ -64,9 +64,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="gender" class="col-sm-4 col-form-label">Date of Birth</label>
+                                    <label for="dob" class="col-sm-4 col-form-label">Date of Birth</label>
                                     <div class="col-sm-8">
-                                        <input type="date" name="dob" id="dob">
+                                        <input type="date" name="dob" id="dob" class="form-control @error('dob') is-invalid @enderror">
                                         @error('dob')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -120,6 +120,25 @@
                                         <input type="text" class="form-control @error('krapin') is-invalid @enderror"
                                                id="krapin" name="krapin" value="{{ old('krapin') }}">
                                         @error('krapin')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="emptype_id" class="col-sm-4 col-form-label">Employee Type</label>
+                                    <div class="col-sm-8">
+                                        <select name="emptype_id" id="emptype_id"
+                                                class="form-control @error('emptype_id') is-invalid @enderror">
+                                            <option value="" disabled selected> --select option--</option>
+                                            @foreach($emptypes as $emptype)
+                                                <option
+                                                    {{ old('emptype_id')==$emptype->id ? 'selected':'' }} value="{{ $emptype->id }}">{{ $emptype->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @error('emptype_id')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -207,25 +226,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="emptype_id" class="col-sm-4 col-form-label">Employee Type</label>
-                                    <div class="col-sm-8">
-                                        <select name="emptype_id" id="emptype_id"
-                                                class="form-control @error('emptype_id') is-invalid @enderror">
-                                            <option value="" disabled selected> --select option--</option>
-                                            @foreach($emptypes as $emptype)
-                                                <option
-                                                    {{ old('emptype_id')==$emptype->id ? 'selected':'' }} value="{{ $emptype->id }}">{{ $emptype->name }}</option>
-                                            @endforeach
-                                        </select>
 
-                                        @error('emptype_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <div class="form-group row">
                                     <label for="station_id" class="col-sm-4 col-form-label">Station</label>
                                     <div class="col-sm-8">
@@ -285,8 +286,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div class="form-group row">
                                     <label for="next_of_kin" class="col-sm-4 col-form-label">Next of Kin Name</label>
                                     <div class="col-sm-8">
@@ -306,6 +305,7 @@
                                         <input type="text"
                                                class="form-control @error('next_of_kin_phone') is-invalid @enderror"
                                                id="next_of_kin_phone" name="next_of_kin_phone" value="{{ old('next_of_kin_phone') }}">
+
                                         @error('next_of_kin_phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -332,6 +332,9 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+
                                 <div class="form-group row">
                                     <label for="ref1_name" class="col-sm-4 col-form-label">Referee 1 Name</label>
                                     <div class="col-sm-8">
