@@ -44,6 +44,9 @@ Route::get('payroll/getrecords',[PayrollController::class,'getPayrollRecords'])-
 Route::get('payroll/pending',[PayrollController::class,'pending'])->name('payroll.pending');
 Route::get('payslip/search',[PayrollController::class,'payslipform'])->name('payslip.search');
 Route::get('payslip/getrecord',[PayrollController::class,'getpayslip'])->name('payslip.getpayslip');
+Route::get('payslips/search',[PayrollController::class,'payslipformall'])->name('payslips.search');
+Route::get('payslips/all',[PayrollController::class,'getpayslipsAll'])->name('payslip.getpayslipsall');
+Route::get('payslips/sendbulk/{m}',[PayrollController::class,'sendBulkPayslips'])->name('sendbulkpayslips');
 
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');

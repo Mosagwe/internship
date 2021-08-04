@@ -180,6 +180,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('payslips.search') }}" class="nav-link">
+                                <i class="fa fa-user-alt fa-fw"></i>
+                                Group Payslips
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 P9

@@ -157,8 +157,6 @@ class DownloadController extends Controller
 
     public function payslip($id)
     {
-
-
         $payslip = Payroll::find($id);
         if ($payslip):
             $this->pdf = new FPDF('p', 'mm', 'a4');

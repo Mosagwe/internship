@@ -7,6 +7,7 @@ use App\Http\Traits\IncomeTaxTrait;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Payroll;
+use App\Http\Controllers\DownloadController;
 
 //use Barryvdh\DomPDF\PDF;
 
@@ -287,6 +288,10 @@ class PayrollController extends Controller
     {
         return view('payrolls.payslipform');
     }
+    public function payslipformall()
+    {
+        return view('payrolls.payslipformall');
+    }
 
     public function getpayslip(Request $request)
     {
@@ -306,6 +311,42 @@ class PayrollController extends Controller
             ->first();
 
         return view('payrolls.payslipform', compact('payslip'));
+
+    }
+    public function getpayslipsAll(Request $request)
+    {
+        $this->validate($request, [
+            'period' => 'required'
+        ],
+            [
+                'period.required' => 'Please select the month!',
+            ]);
+        $period = $request->period . '-01';
+
+        $payslips = Payroll::whereDate('period', $period)
+            ->where('status', 1)
+            ->get();
+
+        return view('payrolls.payslipformall', compact('payslips'));
+
+    }
+
+    public function sendBulkPayslips($month)
+    {
+        $payrolls=Payroll::where('period',$month)->chunk(10,function($pays){
+              foreach ($pays as $pay){
+                  $this->emailPayslip($pay);
+              }
+
+        });
+
+
+    }
+
+    public function emailPayslip($pay)
+    {
+        $download=new DownloadController();
+        $download->payslip($pay->id);
 
     }
 }
