@@ -358,7 +358,7 @@ class PayrollController extends Controller
     {
         ini_set('memory_limit',-1);
         $download=new DownloadController();
-       $path= $download->payslip($pay->id);
+       $path= $download->payslip($pay->id,"FilePath");
 
         $files = $path.''.$pay->id.'.pdf';
 

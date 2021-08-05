@@ -155,9 +155,14 @@ class DownloadController extends Controller
 
     }
 
-    public function payslip($id)
+    public function payslip($id,$returntype=false)
     {
+        if($returntype==false)
+        {
+            $returntype="download";
+        }
         $payslip = Payroll::find($id);
+
         if ($payslip):
             $this->pdf = new FPDF('p', 'mm', 'a4');
             $this->pdf->AddPage();
@@ -262,10 +267,19 @@ class DownloadController extends Controller
             $filename=$payslip->id.'.pdf';
             $this->pdf->Output(public_path('Payroll/Payslips/'.$filename),'F');
             //return file pat
+           if($returntype=="download")
+           {
+               $headers = ['Content-type' => 'application/pdf'];
+               return Response::make($this->pdf->Output(), 200, $headers);
 
-        $path=public_path('Payroll/Payslips/');
+           }else{
+               $path=public_path('Payroll/Payslips/');
 
-            return $path;
+               return $path;
+
+           }
+
+
 
             /*$headers = ['Content-type' => 'application/pdf'];
             return Response::make($this->pdf->Output(), 200, $headers);
