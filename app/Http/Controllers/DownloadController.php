@@ -259,12 +259,21 @@ class DownloadController extends Controller
             $this->pdf->Cell(35, 4, number_format((float)$payslip->net_income, 2, '.', ' '), 0, 0, 'R');
             $this->pdf->Ln(5);
             $this->pdf->Image('img/frame.png', 90, 125, 25);
-            //$this->pdf->Output();
+            $filename=$payslip->id.'.pdf';
+            $this->pdf->Output(public_path('Payroll/Payslips/'.$filename),'F');
+            //return file pat
 
-            $headers = ['Content-type' => 'application/pdf'];
+        $path=public_path('Payroll/Payslips/');
+
+            return $path;
+
+            /*$headers = ['Content-type' => 'application/pdf'];
             return Response::make($this->pdf->Output(), 200, $headers);
-            //exit;
+            //exit;*/
         endif;
+
+
+
 
 
         /* if ($payslip) {

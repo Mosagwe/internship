@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -333,20 +334,61 @@ class PayrollController extends Controller
 
     public function sendBulkPayslips($month)
     {
-        $payrolls=Payroll::where('period',$month)->chunk(10,function($pays){
+        ini_set('memory_limit',-1);
+        /*$payrolls=Payroll::where('period',$month)->chunk(10,function($pays){
               foreach ($pays as $pay){
                   $this->emailPayslip($pay);
               }
 
+        });*/
+        Payroll::where('period',$month)->chunk(10,function($pays){
+            foreach ($pays as $pay){
+                $this->emailPayslip($pay);
+            }
         });
+
+
+
+
 
 
     }
 
     public function emailPayslip($pay)
     {
+        ini_set('memory_limit',-1);
         $download=new DownloadController();
-        $download->payslip($pay->id);
+       $path= $download->payslip($pay->id);
+
+        $files = $path.''.$pay->id.'.pdf';
+
+        $name=$pay->fullname;
+        $email=$pay->employee->email;
+        $email='pomosagwe@gmail.com';
+
+        $body='Attached find your'. date('F Y',strtotime($pay->period)).' payslip.';
+        $subject='Payslip';
+        $cc_email='test@hks.com';
+        $attachpath=array($files);
+
+        $mail=\Mail::send('mail.layout',['mail_body'=>$body] , function($message) use ($email,$name,$attachpath,$subject,$cc_email) {
+
+
+            $message->to($email, $name)
+                ->from('no-reply@hudumakenya.go.ke','Huduma Kenya Secretariat')
+                ->subject($subject);;
+
+            foreach($attachpath as $path)
+            {
+                $message->attach($path);
+            }
+
+        });;
+
+
+
+
+
 
     }
 }
