@@ -41,7 +41,7 @@ class EmployeesImport implements ToCollection,
             'email'=>$row['email']
         ]);*/
         $rules = [
-            '*.email' => ['email', 'unique:employees,email'],
+            // '*.email' => ['email', 'unique:employees,email'],
             '*.idnumber' => 'required|unique:employees,idno',
         ];
 
@@ -60,12 +60,12 @@ class EmployeesImport implements ToCollection,
                 'gender' => $row['gender'],
                 'dob' => $row['dateOfBirth'],
                 'employee_type_id' => $row['employeeTypeId'],
-                'category_id' => $row['categoryId'],
+                'category_id' => $row['category'],
                 'idno' => $row['idnumber'],
                 'email' => $row['email'],
                 'krapin' => $row['krapin'],
-                'date_hired' => $row['dateHired'],
-                'is_active' => $row['Active'],
+                'date_hired' => $row['initialDateHired'],
+                'is_active' => $row['Status'],
             ]);
 
             $emp->contracts()->create([
@@ -73,8 +73,8 @@ class EmployeesImport implements ToCollection,
                 'start_date' => Date::excelToDateTimeObject($row['startdate']),
                 'end_date' => Date::excelToDateTimeObject($row['enddate']),
                 'employee_type_id' => $emp->employee_type_id,
-                'station_id' => $row['stationID'],
-                'status'=>$row['status'],
+                'station_id' => $row['Station'],
+                'status'=>$row['Status'],
 
             ]);
         }
@@ -83,7 +83,7 @@ class EmployeesImport implements ToCollection,
     public function rules(): array
     {
         return [
-            '*.email' => ['email', 'unique:employees,email'],
+            //'*.email' => ['email', 'unique:employees,email'],
             '*.idnumber' => ['required', 'unique:employees,idno'],
         ];
     }
