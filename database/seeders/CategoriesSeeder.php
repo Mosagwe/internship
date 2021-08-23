@@ -23,7 +23,7 @@ class CategoriesSeeder extends Seeder
             ['id'=>5,'name'=>'Security','parent_id'=>null,'salary'=>null],
             ['id'=>6,'name'=>'X-NYS','parent_id'=>4,'salary'=>20000],
             ['id'=>7,'name'=>'NYS','parent_id'=>4,'salary'=>null],
-            
+
             ['id'=>8,'name'=>'Contact Center','parent_id'=>null,'salary'=>25000],
 
             ['id'=>9,'name'=>'ICT Assistants','parent_id'=>null,'salary'=>null],
@@ -33,6 +33,7 @@ class CategoriesSeeder extends Seeder
             ['id'=>12,'name'=>'General Duties','parent_id'=>null,'salary'=>null],
             ['id'=>13,'name'=>'General Duties I','parent_id'=>12,'salary'=>25000],
             ['id'=>14,'name'=>'General Duties II','parent_id'=>12,'salary'=>20000],
+            ['id'=>15,'name'=>'General Duties III','parent_id'=>12,'salary'=>13000],
         ];
 
         foreach ($categories as $category){
