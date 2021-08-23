@@ -177,7 +177,7 @@ class DownloadController extends Controller
             //$this->pdf->Cell(30, 8, '', 1, 0, 'L');
             $this->pdf->Cell(33);
             $this->pdf->Ln(10);
-            $this->pdf->Image('img/hudumalogo2.png', 30, 20, 12);
+            //$this->pdf->Image('img/hudumalogo2.png', 30, 20, 12);
             $this->pdf->Cell(15);
             $this->pdf->Cell(70, 6, 'The Presidency', 0, 0, 'C');
             $this->pdf->Ln();
@@ -263,7 +263,7 @@ class DownloadController extends Controller
             $this->pdf->Cell(46, 4, 'Net Salary', 0, 0, 'L');
             $this->pdf->Cell(35, 4, number_format((float)$payslip->net_income, 2, '.', ' '), 0, 0, 'R');
             $this->pdf->Ln(5);
-            $this->pdf->Image('img/frame.png', 90, 125, 25);
+            //$this->pdf->Image('img/frame.png', 90, 125, 25);
             $filename=$payslip->id.'.pdf';
             $this->pdf->Output(public_path('Payroll/Payslips/'.$filename),'F');
             //return file pat

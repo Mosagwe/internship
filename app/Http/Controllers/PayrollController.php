@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PayrollDataTable;
 use App\Http\Traits\IncomeTaxTrait;
+use App\Jobs\SendBulkPayslipsJob;
 use App\Models\Category;
 use App\Models\Contract;
 use App\Models\Payroll;
@@ -11,6 +12,7 @@ use App\Http\Controllers\DownloadController;
 
 //use Barryvdh\DomPDF\PDF;
 
+use App\Models\Sendbulkypayslip;
 use App\Models\User;
 use App\Notifications\ProcessedPayrollNotification;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -19,6 +21,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -28,6 +31,12 @@ use Yajra\DataTables\DataTables;
 class PayrollController extends Controller
 {
     use IncomeTaxTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -335,22 +344,28 @@ class PayrollController extends Controller
     public function sendBulkPayslips($month)
     {
         ini_set('memory_limit',-1);
+        $model=new Sendbulkypayslip();
+        $model->period=$month;
+        $model->created_by=Auth::id();
+        $model->updated_by=Auth::id();
+        $model->save();
+
+        $job=(new SendBulkPayslipsJob($model))
+        ->delay(Carbon::now()->addMinute());
+        $this->dispatch($job);
+
+        return redirect('/home');
         /*$payrolls=Payroll::where('period',$month)->chunk(10,function($pays){
               foreach ($pays as $pay){
                   $this->emailPayslip($pay);
               }
 
         });*/
-        Payroll::where('period',$month)->chunk(10,function($pays){
+       /* Payroll::where('period',$month)->chunk(10,function($pays){
             foreach ($pays as $pay){
                 $this->emailPayslip($pay);
             }
-        });
-
-
-
-
-
+        });*/
 
     }
 
@@ -373,7 +388,6 @@ class PayrollController extends Controller
 
         $mail=\Mail::send('mail.layout',['mail_body'=>$body] , function($message) use ($email,$name,$attachpath,$subject,$cc_email) {
 
-
             $message->to($email, $name)
                 ->from('no-reply@hudumakenya.go.ke','Huduma Kenya Secretariat')
                 ->subject($subject);;
@@ -383,12 +397,6 @@ class PayrollController extends Controller
                 $message->attach($path);
             }
 
-        });;
-
-
-
-
-
-
+        });
     }
 }
