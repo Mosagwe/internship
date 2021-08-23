@@ -31,7 +31,7 @@ class CreateEmployeesTable extends Migration
             $table->string('coursename')->nullable();
             $table->string('idno')->unique();
             $table->string('krapin')->unique()->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->date('date_hired')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('next_of_kin')->nullable();

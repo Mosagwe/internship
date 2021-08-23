@@ -58,14 +58,14 @@ class EmployeesImport implements ToCollection,
                 'lastname' => $row['lastname'],
                 'middlename' => $row['middlename'],
                 'gender' => $row['gender'],
-                'dob' => $row['dateOfBirth'],
-                'employee_type_id' => $row['employeeTypeId'],
+                'dob' => $row['dob'],
+                'employee_type_id' => $row['employeetypeid'],
                 'category_id' => $row['category'],
                 'idno' => $row['idnumber'],
                 'email' => $row['email'],
                 'krapin' => $row['krapin'],
-                'date_hired' => $row['initialDateHired'],
-                'is_active' => $row['Status'],
+                'date_hired' => Date::excelToDateTimeObject($row['initialdatehired']),
+                'is_active' => $row['status'],
             ]);
 
             $emp->contracts()->create([
@@ -73,8 +73,8 @@ class EmployeesImport implements ToCollection,
                 'start_date' => Date::excelToDateTimeObject($row['startdate']),
                 'end_date' => Date::excelToDateTimeObject($row['enddate']),
                 'employee_type_id' => $emp->employee_type_id,
-                'station_id' => $row['Station'],
-                'status'=>$row['Status'],
+                'station_id' => $row['station'],
+                'status'=>$row['status'],
 
             ]);
         }

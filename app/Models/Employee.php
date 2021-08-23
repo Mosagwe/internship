@@ -26,7 +26,7 @@ class Employee extends Model
 
     protected $appends=['full_name'];
 
-    public function setDateHiredAttribute($value)
+   /* public function setDateHiredAttribute($value)
     {
         $this->attributes['date_hired'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
@@ -37,7 +37,7 @@ class Employee extends Model
         {
             return Carbon::createFromFormat('Y-m-d', $this->attributes['date_hired'])->format('d/m/Y');
         }
-    }
+    }*/
 
     public function contracts()
     {
