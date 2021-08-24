@@ -94,7 +94,7 @@ class EmployeesDataTable extends DataTable
         return [
             Column::computed('DT_RowIndex')->title('SN'),
             Column::make('id')->visible(false),
-            Column::make('full_name'),
+            Column::make('full_name')->name('full_name'),
             Column::make('firstname')->visible(false),
             Column::make('lastname')->visible(false),
             Column::make('gender'),

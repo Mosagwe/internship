@@ -126,7 +126,7 @@
                                         'Payroll run successful.',
                                         'success'
                                     )
-                                    window.location.href="{{ route('payrolls.index') }}";
+                                    //window.location.href="{{ route('payrolls.index') }}";
                                 }
                             });
 

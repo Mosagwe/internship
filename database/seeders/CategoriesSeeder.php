@@ -21,8 +21,8 @@ class CategoriesSeeder extends Seeder
             ['id'=>4,'name'=>'Centre Assistant - Cleaner','parent_id'=>1,'salary'=>13000],
 
             ['id'=>5,'name'=>'Security','parent_id'=>null,'salary'=>null],
-            ['id'=>6,'name'=>'X-NYS','parent_id'=>4,'salary'=>20000],
-            ['id'=>7,'name'=>'NYS','parent_id'=>4,'salary'=>null],
+            ['id'=>6,'name'=>'X-NYS','parent_id'=>5,'salary'=>20000],
+            ['id'=>7,'name'=>'NYS','parent_id'=>5,'salary'=>null],
 
             ['id'=>8,'name'=>'Contact Center','parent_id'=>null,'salary'=>25000],
 

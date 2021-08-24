@@ -45,13 +45,35 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
+        $contracts=Contract::active()->get();
+        $currmonth=Carbon::now();
 
-       $latestDate = Payroll::max('period');
+        foreach ($contracts as $contract){
+            if ($currmonth->format('m-Y')==Carbon::createFromFormat('Y-m-d',$contract->start_date)->format('m-Y'))
+            {
+                echo 'from :';
+                echo $currmonth->endOfMonth() .'<br>';
+            }elseif($currmonth->format('m-Y')==Carbon::createFromFormat('Y-m-d',$contract->end_date)->format('m-Y')){
+                echo Carbon::createFromFormat('Y-m-d',$contract->end_date)->format('d-m-Y');
+            }
+            else{
+
+               echo $currmonth->daysInMonth;
+            }
+            //echo $contract->start_date;
+
+
+        }
+
+
+
+
+      /* $latestDate = Payroll::max('period');
         //$payrolls=Payroll::whereDate('period',$latestDate)->get();
         $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
             ->orderBy(DB::raw('COUNT(id)', 'desc'))
             ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
-        return view('payrolls.index', compact('payrolls'));
+        return view('payrolls.index', compact('payrolls'));*/
 
         /*foreach ($payrolls as $payroll){
             echo $payroll->category->name.'  -  '. $payroll->totals .'<br>';
@@ -160,9 +182,17 @@ class PayrollController extends Controller
         $netincome = 0;
         $paycode = uniqid();
 
+
         foreach ($contracts as $contract) {
             if (isset($contract->employee->category)) {
+
                 $taxable = $contract->employee->category->salary;
+                $startdate=$contract->start_date;
+                $enddate=$contract->end_date;
+
+
+
+
                 $grosstax = $this->taxation($taxable);
 
                 if (($grosstax - $p_relief) <= 0) {
@@ -190,8 +220,9 @@ class PayrollController extends Controller
             $payroll->category_id = $contract->employee->category_id;
             $payroll->krapin = $contract->employee->krapin;
             $payroll->idno = $contract->employee->idno;
-            $payroll->save();
+            //$payroll->save();
         }
+
 
         \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
         return redirect()->route('payrolls.index');

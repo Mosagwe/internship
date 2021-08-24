@@ -32,12 +32,12 @@ class Contract extends Model
 
 
 
-    public function getStartDateAttribute()
+  /*  public function getStartDateAttribute()
     {
         if ($this->attributes['start_date']!=null){
             return Carbon::createFromFormat('Y-m-d',$this->attributes['start_date'])->format('d/m/Y');
         }
-    }
+    }*/
 
    /* public function setStartDateAttribute($value)
     {
