@@ -2,7 +2,10 @@
 
 namespace App\Http\Traits;
 
+use Carbon\Carbon;
+
 trait IncomeTaxTrait{
+
 
     public function taxation($taxable)
     {
@@ -32,4 +35,30 @@ trait IncomeTaxTrait{
 
         return $grosstax;
     }
+
+    public function prorataRatio($days)
+    {
+        $monthdays=Carbon::now()->daysInMonth;
+        $ratio=round($days/$monthdays,4);
+        return $ratio;
+    }
+
+
+    public function getDays($start, $end)
+    {
+        $currmonth = Carbon::now();
+        if ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $start)->format('m-Y')) {
+            $startdate = new Carbon($start);
+            $nodays = $startdate->diffInDays($currmonth->endOfMonth());
+        } elseif ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $end)->format('m-Y')) {
+            $startdate = $currmonth->startOfMonth();
+            $nodays = $startdate->diffInDays($end);
+            $nodays = $nodays + 1;
+        } else {
+            $nodays = $currmonth->daysInMonth;
+        }
+        return $nodays;
+    }
+
+
 }

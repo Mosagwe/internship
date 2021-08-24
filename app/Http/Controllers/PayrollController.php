@@ -18,6 +18,7 @@ use App\Notifications\ProcessedPayrollNotification;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Carbon\Traits\Creator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
@@ -45,35 +46,12 @@ class PayrollController extends Controller
      */
     public function index(Request $request)
     {
-        $contracts=Contract::active()->get();
-        $currmonth=Carbon::now();
-
-        foreach ($contracts as $contract){
-            if ($currmonth->format('m-Y')==Carbon::createFromFormat('Y-m-d',$contract->start_date)->format('m-Y'))
-            {
-                echo 'from :';
-                echo $currmonth->endOfMonth() .'<br>';
-            }elseif($currmonth->format('m-Y')==Carbon::createFromFormat('Y-m-d',$contract->end_date)->format('m-Y')){
-                echo Carbon::createFromFormat('Y-m-d',$contract->end_date)->format('d-m-Y');
-            }
-            else{
-
-               echo $currmonth->daysInMonth;
-            }
-            //echo $contract->start_date;
-
-
-        }
-
-
-
-
-      /* $latestDate = Payroll::max('period');
-        //$payrolls=Payroll::whereDate('period',$latestDate)->get();
-        $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
-            ->orderBy(DB::raw('COUNT(id)', 'desc'))
-            ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
-        return view('payrolls.index', compact('payrolls'));*/
+         $latestDate = Payroll::max('period');
+          //$payrolls=Payroll::whereDate('period',$latestDate)->get();
+          $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
+              ->orderBy(DB::raw('COUNT(id)', 'desc'))
+              ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
+          return view('payrolls.index', compact('payrolls'));
 
         /*foreach ($payrolls as $payroll){
             echo $payroll->category->name.'  -  '. $payroll->totals .'<br>';
@@ -170,7 +148,6 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
-
         $ids = $request->ids;
         $period = $request->period;
 
@@ -182,16 +159,12 @@ class PayrollController extends Controller
         $netincome = 0;
         $paycode = uniqid();
 
-
         foreach ($contracts as $contract) {
             if (isset($contract->employee->category)) {
-
-                $taxable = $contract->employee->category->salary;
-                $startdate=$contract->start_date;
-                $enddate=$contract->end_date;
-
-
-
+                $days_worked=$this->getDays($contract->start_date,$contract->end_date);
+                $entitled=$contract->employee->category->salary;
+                $grossincome=round($this->prorataRatio($days_worked) * $entitled,2);
+                $taxable = $grossincome;
 
                 $grosstax = $this->taxation($taxable);
 
@@ -209,7 +182,9 @@ class PayrollController extends Controller
             $payroll->gender = $contract->employee->gender;
             $payroll->period = $period;
             $payroll->paycode = $paycode;
-            $payroll->grossincome = $contract->employee->category->salary;
+            $payroll->entitledsalary = $entitled;
+            $payroll->daysworked=$days_worked;
+            $payroll->grossincome = $grossincome;
             $payroll->taxableincome = $taxable;
             $payroll->grosstax = $grosstax;
             $payroll->personal_relief = $p_relief;
@@ -220,7 +195,7 @@ class PayrollController extends Controller
             $payroll->category_id = $contract->employee->category_id;
             $payroll->krapin = $contract->employee->krapin;
             $payroll->idno = $contract->employee->idno;
-            //$payroll->save();
+            $payroll->save();
         }
 
 
@@ -325,10 +300,35 @@ class PayrollController extends Controller
 
     }
 
+    public function prorataRatio($days)
+    {
+        $monthdays=Carbon::now()->daysInMonth;
+        $ratio=round($days/$monthdays,4);
+        return $ratio;
+    }
+
+
+    public function getDays($start, $end)
+    {
+        $currmonth = Carbon::now();
+        if ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $start)->format('m-Y')) {
+            $startdate = new Carbon($start);
+            $nodays = $startdate->diffInDays($currmonth->endOfMonth());
+        } elseif ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $end)->format('m-Y')) {
+            $startdate = $currmonth->startOfMonth();
+            $nodays = $startdate->diffInDays($end);
+            $nodays = $nodays + 1;
+        } else {
+            $nodays = $currmonth->daysInMonth;
+        }
+        return $nodays;
+    }
+
     public function payslipform()
     {
         return view('payrolls.payslipform');
     }
+
     public function payslipformall()
     {
         return view('payrolls.payslipformall');
@@ -354,6 +354,7 @@ class PayrollController extends Controller
         return view('payrolls.payslipform', compact('payslip'));
 
     }
+
     public function getpayslipsAll(Request $request)
     {
         $this->validate($request, [
@@ -374,15 +375,15 @@ class PayrollController extends Controller
 
     public function sendBulkPayslips($month)
     {
-        ini_set('memory_limit',-1);
-        $model=new Sendbulkypayslip();
-        $model->period=$month;
-        $model->created_by=Auth::id();
-        $model->updated_by=Auth::id();
+        ini_set('memory_limit', -1);
+        $model = new Sendbulkypayslip();
+        $model->period = $month;
+        $model->created_by = Auth::id();
+        $model->updated_by = Auth::id();
         $model->save();
 
-        $job=(new SendBulkPayslipsJob($model))
-        ->delay(Carbon::now()->addMinute());
+        $job = (new SendBulkPayslipsJob($model))
+            ->delay(Carbon::now()->addMinute());
         $this->dispatch($job);
 
         return redirect('/home');
@@ -392,39 +393,38 @@ class PayrollController extends Controller
               }
 
         });*/
-       /* Payroll::where('period',$month)->chunk(10,function($pays){
-            foreach ($pays as $pay){
-                $this->emailPayslip($pay);
-            }
-        });*/
+        /* Payroll::where('period',$month)->chunk(10,function($pays){
+             foreach ($pays as $pay){
+                 $this->emailPayslip($pay);
+             }
+         });*/
 
     }
 
     public function emailPayslip($pay)
     {
-        ini_set('memory_limit',-1);
-        $download=new DownloadController();
-       $path= $download->payslip($pay->id,"FilePath");
+        ini_set('memory_limit', -1);
+        $download = new DownloadController();
+        $path = $download->payslip($pay->id, "FilePath");
 
-        $files = $path.''.$pay->id.'.pdf';
+        $files = $path . '' . $pay->id . '.pdf';
 
-        $name=$pay->fullname;
-        $email=$pay->employee->email;
-        $email='pomosagwe@gmail.com';
+        $name = $pay->fullname;
+        $email = $pay->employee->email;
+        $email = 'pomosagwe@gmail.com';
 
-        $body='Attached find your'. date('F Y',strtotime($pay->period)).' payslip.';
-        $subject='Payslip';
-        $cc_email='test@hks.com';
-        $attachpath=array($files);
+        $body = 'Attached find your' . date('F Y', strtotime($pay->period)) . ' payslip.';
+        $subject = 'Payslip';
+        $cc_email = 'test@hks.com';
+        $attachpath = array($files);
 
-        $mail=\Mail::send('mail.layout',['mail_body'=>$body] , function($message) use ($email,$name,$attachpath,$subject,$cc_email) {
+        $mail = \Mail::send('mail.layout', ['mail_body' => $body], function ($message) use ($email, $name, $attachpath, $subject, $cc_email) {
 
             $message->to($email, $name)
-                ->from('no-reply@hudumakenya.go.ke','Huduma Kenya Secretariat')
+                ->from('no-reply@hudumakenya.go.ke', 'Huduma Kenya Secretariat')
                 ->subject($subject);;
 
-            foreach($attachpath as $path)
-            {
+            foreach ($attachpath as $path) {
                 $message->attach($path);
             }
 
