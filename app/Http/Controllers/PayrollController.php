@@ -44,90 +44,14 @@ class PayrollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
          $latestDate = Payroll::max('period');
-          //$payrolls=Payroll::whereDate('period',$latestDate)->get();
           $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
               ->orderBy(DB::raw('COUNT(id)', 'desc'))
               ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
           return view('payrolls.index', compact('payrolls'));
-
-        /*foreach ($payrolls as $payroll){
-            echo $payroll->category->name.'  -  '. $payroll->totals .'<br>';
-        }*/
-
-        /*$period = $request->period;
-        $category = $request->category;
-        $payrolls = Payroll::whereDate('period', $period)
-            ->whereIn('category_id', $category)
-            ->get();
-
-        if(!count($payrolls)){
-            $payrolls = Payroll::whereDate('period', $period)->get();
-        }*/
-
-        /*$categories = Category::all();
-        if ($request->has('period') && $request->has('category') && $request->category != null) {
-            $payrolls = Payroll::whereDate('period', $period)
-                ->where('category_id', $category)
-                ->get();
-            return view('payrolls.index', compact('categories', 'payrolls'));
-        } elseif ($request->has('period') && $request->category == null) {
-            $payrolls = Payroll::whereDate('period', $period)
-                ->paginate(10);
-            return view('payrolls.index', compact('categories', 'payrolls'));
-        }*/
-
-        //return view('payrolls.index', compact('payrolls'));
-
-        /*if ($request->ajax()){
-          $data=Payroll::latest()->get();
-
-
-          return DataTables::of($data)
-              ->addIndexColumn()
-              ->addColumn('status', function($row){
-                  if($row->status){
-                      return '<span class="badge badge-success">approved</span>';
-                  }else{
-                      return '<span class="badge rounded-pill badge-warning">pending approval</span>';
-                  }
-              })
-              ->filter(function ($instance) use($request){
-                 if (!empty($request->get('period'))) {
-                      $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                          return Str::contains($row['period'], $request->get('period')) ? true : false;
-                      });
-                  }
-                  if (!empty($request->get('category'))) {
-                      $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                          return Str::contains($row['category_id'], $request->get('category')) ? true : false;
-                      });
-
-                  }
-                  if (!empty($request->get('search'))) {
-                      $instance->collection = $instance->collection->filter(function ($row) use ($request) {
-                          if (Str::contains(Str::lower($row['gender']), Str::lower($request->get('search')))){
-                              return true;
-                          }else if (Str::contains(Str::lower($row['idno']), Str::lower($request->get('search')))) {
-                              return true;
-                          }
-                          return false;
-
-                      });
-                  }
-              })
-
-              ->addColumn('action',function ($row){
-                  $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-
-                  return $btn;
-              })
-              ->rawColumns(['status','action'])
-              ->make(true);
-      }*/
-        //return view('payrolls.index',compact('categories'));
     }
 
     /**
@@ -163,7 +87,7 @@ class PayrollController extends Controller
             if (isset($contract->employee->category)) {
                 $days_worked=$this->getDays($contract->start_date,$contract->end_date);
                 $entitled=$contract->employee->category->salary;
-                $grossincome=round($this->prorataRatio($days_worked) * $entitled,2);
+                $grossincome=round($this->prorataRatio($days_worked) * $entitled,1);
                 $taxable = $grossincome;
 
                 $grosstax = $this->taxation($taxable);
@@ -181,10 +105,11 @@ class PayrollController extends Controller
             $payroll->fullname = $contract->employee->full_name;
             $payroll->gender = $contract->employee->gender;
             $payroll->period = $period;
+            $payroll->monthcode = date('Ym',strtotime($period));
             $payroll->paycode = $paycode;
             $payroll->entitledsalary = $entitled;
             $payroll->daysworked=$days_worked;
-            $payroll->grossincome = $grossincome;
+            $payroll->grossincome = round($grossincome,1);
             $payroll->taxableincome = $taxable;
             $payroll->grosstax = $grosstax;
             $payroll->personal_relief = $p_relief;
@@ -199,7 +124,7 @@ class PayrollController extends Controller
         }
 
 
-        \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
+         \Illuminate\Support\Facades\Notification::send(User::hrmanager(), new ProcessedPayrollNotification($payroll));
         return redirect()->route('payrolls.index');
     }
 
@@ -300,29 +225,10 @@ class PayrollController extends Controller
 
     }
 
-    public function prorataRatio($days)
-    {
-        $monthdays=Carbon::now()->daysInMonth;
-        $ratio=round($days/$monthdays,4);
-        return $ratio;
-    }
 
 
-    public function getDays($start, $end)
-    {
-        $currmonth = Carbon::now();
-        if ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $start)->format('m-Y')) {
-            $startdate = new Carbon($start);
-            $nodays = $startdate->diffInDays($currmonth->endOfMonth());
-        } elseif ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $end)->format('m-Y')) {
-            $startdate = $currmonth->startOfMonth();
-            $nodays = $startdate->diffInDays($end);
-            $nodays = $nodays + 1;
-        } else {
-            $nodays = $currmonth->daysInMonth;
-        }
-        return $nodays;
-    }
+
+
 
     public function payslipform()
     {
@@ -387,17 +293,7 @@ class PayrollController extends Controller
         $this->dispatch($job);
 
         return redirect('/home');
-        /*$payrolls=Payroll::where('period',$month)->chunk(10,function($pays){
-              foreach ($pays as $pay){
-                  $this->emailPayslip($pay);
-              }
 
-        });*/
-        /* Payroll::where('period',$month)->chunk(10,function($pays){
-             foreach ($pays as $pay){
-                 $this->emailPayslip($pay);
-             }
-         });*/
 
     }
 

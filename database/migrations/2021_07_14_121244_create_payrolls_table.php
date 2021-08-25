@@ -20,7 +20,7 @@ class CreatePayrollsTable extends Migration
             $table->string('gender')->nullable()->default(null);
             $table->date('period');
             $table->integer('daysworked')->nullable();
-            $table->string('monthcode')->nullable();
+            $table->integer('monthcode')->nullable();
             $table->string('paycode')->default(null);
             $table->integer('status')->default(0);
             $table->integer('approved_by')->nullable();

@@ -35,13 +35,6 @@ class EmployeesImport implements ToCollection,
      */
     public function collection(Collection $rows)
     {
-        /*return new Employee([
-            'firstname'=>$row['firstname'],
-            'lastname'=>$row['lastname'],
-            'employee_type_id'=>$row['employee_type_id'],
-            'idno'=>$row['idnumber'],
-            'email'=>$row['email']
-        ]);*/
         $rules = [
             // '*.email' => ['email', 'unique:employees,email'],
             '*.idnumber' => 'required|unique:employees,idno',
@@ -78,11 +71,13 @@ class EmployeesImport implements ToCollection,
                     'employee_type_id' => $emp->employee_type_id,
                     'station_id' => $row['station'],
                     'status'=>$row['status'],
-
                 ]);
             }
-        }
-        catch (\Exception $exception){
+        }catch (\ErrorException $errorException){
+            dd($errorException->getMessage() );
+        }catch (QueryException $queryException){
+            dd($queryException->errorInfo);
+        }catch (\Exception $exception){
             dd(get_class($exception));
         }
 

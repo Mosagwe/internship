@@ -39,7 +39,7 @@ trait IncomeTaxTrait{
     public function prorataRatio($days)
     {
         $monthdays=Carbon::now()->daysInMonth;
-        $ratio=round($days/$monthdays,4);
+        $ratio=$days/$monthdays;
         return $ratio;
     }
 
@@ -50,6 +50,7 @@ trait IncomeTaxTrait{
         if ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $start)->format('m-Y')) {
             $startdate = new Carbon($start);
             $nodays = $startdate->diffInDays($currmonth->endOfMonth());
+            $nodays=$nodays+1;
         } elseif ($currmonth->format('m-Y') == Carbon::createFromFormat('Y-m-d', $end)->format('m-Y')) {
             $startdate = $currmonth->startOfMonth();
             $nodays = $startdate->diffInDays($end);
