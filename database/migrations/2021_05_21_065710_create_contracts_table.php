@@ -23,6 +23,7 @@ class CreateContractsTable extends Migration
             $table->integer('category_id')->nullable();
             $table->foreignId('station_id')->nullable();
             $table->foreignId('unit_id')->nullable();
+            $table->boolean('payable')->default(true);
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();

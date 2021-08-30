@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
             EmployeeTypeSeeder::class,
             //EmployeeSeeder::class,
             //ContractSeeder::class,
-
         ]);
     }
 }

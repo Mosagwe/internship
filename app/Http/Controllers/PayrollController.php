@@ -47,7 +47,7 @@ class PayrollController extends Controller
 
     public function index(Request $request)
     {
-         $latestDate = Payroll::max('period');
+        $latestDate = Payroll::max('period');
           $payrolls = Payroll::whereDate('period', $latestDate)->groupBy('category_id', 'period', 'status')
               ->orderBy(DB::raw('COUNT(id)', 'desc'))
               ->get(array('category_id', 'period', 'status', DB::raw('count(category_id) as categorycount,sum(taxableincome) as totaltaxable,sum(paye) as totalpaye,sum(net_income) as totalnetincome')));
@@ -181,9 +181,14 @@ class PayrollController extends Controller
     public function getEmployees(Request $request)
     {
         $date = $request->period;
+        $month=Carbon::createFromFormat('Y-m-d',$date)->format('m');
+        $year=Carbon::createFromFormat('Y-m-d',$date)->format('Y');
         $p_ids = Payroll::whereDate('period', $date)->pluck('employee_id')->all();
-        $contracts = Contract::active()->whereNotIn('employee_id', $p_ids)->select('*')->get();
-
+        $contracts = Contract::where('payable',1)
+            ->whereMonth('end_date','>=',$month)
+            ->whereYear('end_date',$year)
+            ->whereNotIn('employee_id', $p_ids)->select('*')->get();
+        //$contracts = Contract::active()->whereNotIn('employee_id', $p_ids)->select('*')->get();
         return view('payrolls.runpayroll', compact('contracts'));
     }
 
