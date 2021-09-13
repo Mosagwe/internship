@@ -9,6 +9,7 @@ Vue.component('unit-create',require('./components/units/UnitCreate.vue').default
 Vue.component('category-create',require('./components/categories/CategoryCreate.vue').default);
 Vue.component('users',require('./components/users/User.vue').default);
 Vue.component('role',require('./components/users/Role.vue').default);
+Vue.component('employee-create',require('./components/employees/EmployeeCreate.vue').default);
 
 Vue.component('approve-payroll',require('./components/payrolls/Approve.vue').default);
 Vue.component('payslip-search',require('./components/payrolls/Payslip.vue').default);

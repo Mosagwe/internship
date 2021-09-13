@@ -20,7 +20,6 @@ class EmployeeResource extends JsonResource
             'lastname'=>$this->lastname,
             'contracts'=>ContractResource::collection($this->whenLoaded('contracts')),
             'gender'=>$this->gender,
-
         ];
     }
 }

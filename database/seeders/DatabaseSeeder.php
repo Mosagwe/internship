@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class,
             CategoriesSeeder::class,
             EmployeeTypeSeeder::class,
-            //EmployeeSeeder::class,
-            //ContractSeeder::class,
+            EmployeeSeeder::class,
+            ContractSeeder::class,
         ]);
     }
 }

@@ -41,7 +41,7 @@ class EmployeeController extends Controller
         $stations = Station::all();
         $emptypes = EmployeeType::all();
         $categories = Category::with('subcategories')->whereNull('parent_id')->get();
-        return view('employees.create', compact('qualifications', 'emptypes', 'stations', 'categories'));
+        return view('employees.addemployee', compact('qualifications', 'emptypes', 'stations', 'categories'));
     }
 
     /**

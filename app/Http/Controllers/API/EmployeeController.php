@@ -27,7 +27,9 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'firstname'=>'required',
+        ]);
     }
 
     /**
