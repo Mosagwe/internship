@@ -134,6 +134,9 @@
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-buttons" />
       <path value="$PROJECT_DIR$/vendor/codedge/laravel-fpdf" />
       <path value="$PROJECT_DIR$/vendor/crabbly/fpdf-laravel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

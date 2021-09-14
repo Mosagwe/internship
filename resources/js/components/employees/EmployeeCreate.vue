@@ -445,9 +445,6 @@ export default {
                     icon: 'success',
                     title: 'Record save successfully'
                 });
-                //Fire.$emit('loadData');
-               // $('#createCategory').modal('hide');
-                //this.form.reset();
                 window.location='/employee'
             }).catch(() => {
                 this.$toastr.e('Cannot save record, try again!', 'Error');
