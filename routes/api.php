@@ -13,6 +13,10 @@ use App\Http\Controllers\API\DepartmentController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PayrollController;
 
+use App\Http\Controllers\API\{
+    EmployeetypesController,
+};
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,4 +44,5 @@ Route::apiResources([
     'departments'=>DepartmentController::class,
     'qualifications'=>QualificationController::class,
     'categories'=>CategoryController::class,
+    'employeetypes'=>EmployeetypesController::class,
 ]);

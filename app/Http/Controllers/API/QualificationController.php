@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QualificationResource;
+use App\Models\Qualification;
 use Illuminate\Http\Request;
 
 class QualificationController extends Controller
@@ -14,7 +16,7 @@ class QualificationController extends Controller
      */
     public function index()
     {
-        //
+        return QualificationResource::collection(Qualification::all());
     }
 
     /**
