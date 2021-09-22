@@ -15,3 +15,4 @@ Vue.component('approve-payroll',require('./components/payrolls/Approve.vue').def
 Vue.component('payslip-search',require('./components/payrolls/Payslip.vue').default);
 
 Vue.component('contract-datatable',require('./components/contracts/ContractDataTable.vue').default);
+

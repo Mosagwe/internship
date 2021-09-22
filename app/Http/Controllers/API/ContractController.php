@@ -29,6 +29,7 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
+
         $end_date=Carbon::createFromFormat('Y-m-d',$request->start_date)->addMonths(3)->format('Y-m-d');
          return Contract::create($request->validated()+['end_date'=>$end_date]);
     }
@@ -65,5 +66,10 @@ class ContractController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function expiredContracts()
+    {
+        return Contract::where('status',0)->get();
     }
 }

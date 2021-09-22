@@ -3,18 +3,17 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\API\QualificationController;
-use App\Http\Controllers\API\StationController;
-use App\Http\Controllers\API\UnitController;
-use App\Http\Controllers\API\BankController;
-use App\Http\Controllers\API\EmployeeController;
-use App\Http\Controllers\API\ContractController;
-use App\Http\Controllers\API\DepartmentController;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\PayrollController;
-
 use App\Http\Controllers\API\{
     EmployeetypesController,
+    ContractController,
+    DepartmentController,
+    QualificationController,
+    StationController,
+    UnitController,
+    BankController,
+    EmployeeController,
+    CategoryController,
+    PayrollController,
 };
 
 /*
@@ -34,6 +33,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('payroll/pending',[PayrollController::class,'pending']);
 Route::get('payroll/approve/{paycode}',[PayrollController::class,'approve']);
 Route::get('payslip/getrecords',[PayrollController::class,'getpayslip']);
+Route::get('contracts/expired',[ContractController::class,'expiredContracts']);
 
 Route::apiResources([
     'stations'=>StationController::class,

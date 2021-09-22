@@ -21,7 +21,6 @@
                                         </option>
                                     @endforeach
                                 </select>
-
                                 @error('employee_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

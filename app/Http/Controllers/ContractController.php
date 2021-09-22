@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ContractDataTable;
+use App\DataTables\ExpiredContractsDataTable;
 use App\Mail\ContractExpiring;
 use App\Models\Bank;
 use App\Models\Contract;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 
 class ContractController extends Controller
 {
@@ -53,6 +55,30 @@ class ContractController extends Controller
     public function store(Request $request)
     {
         //return redirect()->route('contract.index');
+        $validator=Validator::make($request->all(),[
+            'station_id'=>'required',
+            'start_date'=>'required'
+        ]);
+
+       if($validator->fails()){
+           return response()->json(['status'=>0,'error'=>$validator->errors()->toArray()]);
+
+       }else{
+           $end_date=Carbon::createFromFormat('Y-m-d',$request->start_date)->addMonths(3)->format('Y-m-d');
+           $contract=new Contract;
+           $contract->employee_id=$request->employee_id;
+           $contract->station_id=$request->station_id;
+           $contract->start_date=$request->start_date;
+           $contract->end_date=$end_date;
+
+           if($contract->save()){
+               return response()->json(['status'=>1,'msg'=>'Record created successfully']);
+           }
+       }
+
+
+        //Contract::create($request->only('employee_id','station_id','start_date'));
+        //return response()->json(['message'=>'Record saved successfully.'],200);
     }
 
     /**
@@ -123,5 +149,10 @@ class ContractController extends Controller
             return back();
         }
 
+    }
+
+    public function expiredContractForm(ExpiredContractsDataTable $dataTable)
+    {
+        return $dataTable->render('contracts.expired');
     }
 }

@@ -52,6 +52,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('contract.expired') }}" class="nav-link">
+                                <i class="fa fa-user-alt fa-fw"></i>
+                                Expired Contracts
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('category.index') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Categories

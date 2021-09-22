@@ -18,8 +18,10 @@ class EmployeeResource extends JsonResource
             'id'=>$this->id,
             'firstname'=>$this->firstname,
             'lastname'=>$this->lastname,
+            'full_name'=>$this->full_name,
             'contracts'=>ContractResource::collection($this->whenLoaded('contracts')),
             'gender'=>$this->gender,
+
         ];
     }
 }

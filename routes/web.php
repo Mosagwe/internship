@@ -49,7 +49,10 @@ Route::get('payslips/all',[PayrollController::class,'getpayslipsAll'])->name('pa
 Route::get('payslips/sendbulk/{m}',[PayrollController::class,'sendBulkPayslips'])->name('sendbulkpayslips');
 
 Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus'])->name('employee.changestatus');
+
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
+Route::get('contract/expired',[ContractController::class,'expiredContractForm'])->name('contract.expired');
+
 Route::get('reports/payregister',[DownloadController::class,'payregister'])->name('reports.payregister');
 Route::get('reports/payslip/{id}',[DownloadController::class,'payslip'])->name('reports.payslip');
 
