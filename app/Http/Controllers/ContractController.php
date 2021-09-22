@@ -153,6 +153,6 @@ class ContractController extends Controller
 
     public function expiredContractForm(ExpiredContractsDataTable $dataTable)
     {
-        return $dataTable->render('contracts.expired');
+       return $dataTable->render('contracts.expired');
     }
 }

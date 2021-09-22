@@ -44,7 +44,11 @@ class ExpiredContractsDataTable extends DataTable
      */
     public function query(Contract $model)
     {
-        return $model->newQuery()->with('employee')->where('status',0);
+        $c=Contract::where('status',1)->pluck('employee_id')->toArray();
+
+        return $model->newQuery()->with('employee')
+            ->whereNotIn('employee_id',$c)
+            ->where('status',0);
     }
 
     /**
