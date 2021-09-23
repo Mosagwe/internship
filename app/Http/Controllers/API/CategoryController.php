@@ -66,4 +66,21 @@ class CategoryController extends Controller
         $category=Category::findOrFail($id);
         return $category->delete();
     }
+
+    public function getCategories()
+    {
+        $categories=[];
+        $cats=Category::all();
+        foreach ($cats as $cat){
+            if (!$cat->parent()->exists() && !$cat->subcategories()->exists()){
+                $categories[]=$cat;
+            }else{
+                foreach ($cat->subcategories as $subcategory){
+                    $categories[]= $subcategory;
+                }
+            }
+        }
+
+        return CategoryResource::collection($categories);
+    }
 }

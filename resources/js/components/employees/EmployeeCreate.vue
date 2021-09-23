@@ -190,11 +190,7 @@
 
                                     <option v-for="category in categories"
                                     :value="category.id">{{ category.name }}</option>
-<!--                                    @if($category->subcategories)
-                                    @foreach($category->subcategories as $sub)
-                                    <option {{ old('category_id')==$sub->id ? 'selected':'' }} value="{{ $sub->id }}">&#45;&#45;{{ $sub->name }}</option>
-                                    @endforeach
-                                    @endif-->
+
 
                                 </select>
                                 <HasError :form="form" field="category_id"/>
@@ -352,6 +348,7 @@ export default {
     data(){
         return{
             categories:null,
+            cats:null,
             emptypes:null,
             qualifications:null,
             stations:null,
@@ -417,7 +414,7 @@ export default {
         },
         getCategories() {
             this.loading=true;
-            axios.get('/api/categories').then((response) => {
+            axios.get('/api/categories/fetch').then((response) => {
                 this.loading=false;
                 this.categories = response.data.data;
             }).catch(() => {

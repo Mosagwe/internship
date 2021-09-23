@@ -6,6 +6,11 @@ import 'jquery-ui/ui/widgets/datepicker.js';
 
 $(function(){
     $('.select2').select2();
+
+})
+
+$(function (){
+    $('.datatable').dataTable();
 })
 
 import Vue from 'vue';

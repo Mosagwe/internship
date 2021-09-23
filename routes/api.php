@@ -34,6 +34,7 @@ Route::get('payroll/pending',[PayrollController::class,'pending']);
 Route::get('payroll/approve/{paycode}',[PayrollController::class,'approve']);
 Route::get('payslip/getrecords',[PayrollController::class,'getpayslip']);
 Route::get('contracts/expired',[ContractController::class,'expiredContracts']);
+Route::get('categories/fetch',[CategoryController::class,'getCategories']);
 
 Route::apiResources([
     'stations'=>StationController::class,
