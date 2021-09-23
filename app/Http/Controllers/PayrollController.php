@@ -74,8 +74,8 @@ class PayrollController extends Controller
     {
         $ids = $request->ids;
         $period = $request->period;
-
-        $contracts = Contract::active()->whereIn('id', $ids)->get();
+        //$contracts = Contract::active()->whereIn('id', $ids)->get();
+        $contracts = Contract::where('payable',1)->whereIn('id', $ids)->get();
         $taxable = 0;
         $grosstax = 0;
         $p_relief = 2400;
