@@ -16,6 +16,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\EmployeesImportController;
+use App\Http\Controllers\PayableEmployeeController;
 
 
 /*
@@ -52,6 +53,8 @@ Route::get('employee/changestatus/{id}',[EmployeeController::class,'changeStatus
 
 Route::get('contract/terminate/{id}',[ContractController::class,'terminate'])->name('contract.terminate');
 Route::get('contract/expired',[ContractController::class,'expiredContractForm'])->name('contract.expired');
+Route::get('contract/getpayable',[ContractController::class,'getPayableForm'])->name('contract.getpayableform');
+Route::get('contract/payable',[ContractController::class,'getpayable'])->name('contract.getpayable');
 
 Route::get('reports/payregister',[DownloadController::class,'payregister'])->name('reports.payregister');
 Route::get('reports/payslip/{id}',[DownloadController::class,'payslip'])->name('reports.payslip');
@@ -74,6 +77,7 @@ Route::resource('payrolls',PayrollController::class);
 Route::resource('user',UserController::class);
 Route::resource('permission',PermissionController::class);
 Route::resource('role',RoleController::class);
+Route::resource('payableemployees',PayableEmployeeController::class);
 // axios requests
 Route::get('/getallpermission',[PermissionController::class,'getAllPermission']);
 Route::post('/postRole',[RoleController::class,'store'])->name('postRole');

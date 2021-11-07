@@ -75,6 +75,12 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="{{ route('contract.getpayableform') }}" class="nav-link">
+                                <i class=" fa fa-key fa-fw"></i>
+                                Payable Employees
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('payrolls.create') }}" class="nav-link">
                                 <i class=" fa fa-key fa-fw"></i>
                                 Run Payroll

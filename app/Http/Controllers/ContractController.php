@@ -8,18 +8,31 @@ use App\Mail\ContractExpiring;
 use App\Models\Bank;
 use App\Models\Contract;
 use App\Models\Employee;
+use App\Models\PayableEmployee;
+use App\Models\Payroll;
 use App\Models\Station;
 use App\Models\Unit;
 use App\Notifications\ContractExpiringNotification;
 use App\Notifications\ContractExpiryNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
+
 class ContractController extends Controller
 {
+    /**
+     *
+     *
+     */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -154,5 +167,23 @@ class ContractController extends Controller
     public function expiredContractForm(ExpiredContractsDataTable $dataTable)
     {
        return $dataTable->render('contracts.expired');
+    }
+
+    public function getPayableForm()
+    {
+        return view('contracts.payableemployees');
+    }
+    public function getpayable(Request $request)
+    {
+        $date = $request->period;
+        $month=Carbon::createFromFormat('Y-m-d',$date)->format('m');
+        $year=Carbon::createFromFormat('Y-m-d',$date)->format('Y');
+        $p_ids = PayableEmployee::whereDate('period', $date)->pluck('employee_id')->all();
+        $contracts = Contract::whereMonth('end_date','>=',$month)
+            ->whereYear('end_date',$year)
+            ->where('station_id',Auth::user()->station_id)
+            ->whereNotIn('employee_id', $p_ids)->select('*')->get();
+
+        return view('contracts.payableemployees', compact('contracts'));
     }
 }

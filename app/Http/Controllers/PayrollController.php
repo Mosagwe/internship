@@ -7,6 +7,7 @@ use App\Http\Traits\IncomeTaxTrait;
 use App\Jobs\SendBulkPayslipsJob;
 use App\Models\Category;
 use App\Models\Contract;
+use App\Models\PayableEmployee;
 use App\Models\Payroll;
 use App\Http\Controllers\DownloadController;
 
@@ -74,8 +75,7 @@ class PayrollController extends Controller
     {
         $ids = $request->ids;
         $period = $request->period;
-        //$contracts = Contract::active()->whereIn('id', $ids)->get();
-        $contracts = Contract::where('payable',1)->whereIn('id', $ids)->get();
+        $payableemployees = PayableEmployee::whereIn('id', $ids)->get();
         $taxable = 0;
         $grosstax = 0;
         $p_relief = 2400;
@@ -83,10 +83,9 @@ class PayrollController extends Controller
         $netincome = 0;
         $paycode = uniqid();
 
-        foreach ($contracts as $contract) {
-            if (isset($contract->employee->category)) {
-                $days_worked=$this->getDays($contract->start_date,$contract->end_date);
-                $entitled=$contract->employee->category->salary;
+        foreach ($payableemployees as $payableemployee) {
+                $days_worked=$payableemployee->daysworked;
+                $entitled=$payableemployee->entitledsalary;
                 $grossincome=round($this->prorataRatio($days_worked) * $entitled,1);
                 $taxable = $grossincome;
 
@@ -98,14 +97,14 @@ class PayrollController extends Controller
                     $paye = round($grosstax - $p_relief, 1);
                 }
                 $netincome = round($taxable - $paye, 1);
-            }
+
 
             $payroll = new Payroll();
-            $payroll->employee_id = $contract->employee_id;
-            $payroll->fullname = $contract->employee->full_name;
-            $payroll->gender = $contract->employee->gender;
-            $payroll->period = $period;
-            $payroll->monthcode = date('Ym',strtotime($period));
+            $payroll->employee_id = $payableemployee->employee_id;
+            $payroll->fullname = $payableemployee->firstname.' '.$payableemployee->othername.' '.$payableemployee->lastname;
+            $payroll->gender = $payableemployee->gender;
+            $payroll->period = $payableemployee->period;
+            $payroll->monthcode =$payableemployee->monthcode;
             $payroll->paycode = $paycode;
             $payroll->entitledsalary = $entitled;
             $payroll->daysworked=$days_worked;
@@ -115,11 +114,11 @@ class PayrollController extends Controller
             $payroll->personal_relief = $p_relief;
             $payroll->paye = $paye;
             $payroll->net_income = $netincome;
-            $payroll->station_id = $contract->station_id;
-            $payroll->employee_type_id = $contract->employee->employee_type_id;
-            $payroll->category_id = $contract->employee->category_id;
-            $payroll->krapin = $contract->employee->krapin;
-            $payroll->idno = $contract->employee->idno;
+            $payroll->station_id = $payableemployee->station_id;
+            $payroll->employee_type_id = $payableemployee->employee_type_id;
+            $payroll->category_id = $payableemployee->category_id;
+            $payroll->krapin = $payableemployee->krapin;
+            $payroll->idno = $payableemployee->idno;
             $payroll->save();
         }
 
@@ -183,13 +182,14 @@ class PayrollController extends Controller
         $date = $request->period;
         $month=Carbon::createFromFormat('Y-m-d',$date)->format('m');
         $year=Carbon::createFromFormat('Y-m-d',$date)->format('Y');
+
+        $monthcode=$year.$month;
         $p_ids = Payroll::whereDate('period', $date)->pluck('employee_id')->all();
-        $contracts = Contract::where('payable',1)
-            ->whereMonth('end_date','>=',$month)
-            ->whereYear('end_date',$year)
+        $payableemployees = PayableEmployee::where('payable',1)
+            ->where('monthcode','=',$monthcode)
             ->whereNotIn('employee_id', $p_ids)->select('*')->get();
-        //$contracts = Contract::active()->whereNotIn('employee_id', $p_ids)->select('*')->get();
-        return view('payrolls.runpayroll', compact('contracts'));
+
+        return view('payrolls.runpayroll', compact('payableemployees'));
     }
 
     public function showSearchForm()

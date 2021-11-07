@@ -5,11 +5,11 @@
         <div class="col-md-11">
             <div class="card card-success card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Run Payroll</h3>
+                    <h3 class="card-title">Approve Payable Employees</h3>
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item mr-1">
-                                <button class="btn btn-success" id="runpayroll">
+                                <button class="btn btn-success" id="approvepayable">
                                     <i class="fas fa-check-circle fa-fw"></i>
                                     Run Process
                                 </button>
@@ -19,7 +19,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('payroll.getemployees') }}" method="GET">
+                    <form action="{{ route('contract.getpayable') }}" method="GET">
                         <div class="row mb-3">
                             <label for="month" class="col-sm-3 col-form-label">Frequency Month</label>
                             <div class="col-sm-5">
@@ -36,27 +36,29 @@
                     <div>
 
                     </div>
-                    <table class="table table-bordered" id="RunpayrollTable">
+                    <table class="table table-bordered" id="ApprovePayableTable">
                         <thead>
                         <tr class="bg-success">
                             <th><input type="checkbox" id="chkCheckAll"></th>
                             <th>Employee Name</th>
+                            <th>ID Number</th>
                             <th>Category</th>
-                            <th>Salary</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if(isset($payableemployees))
-                            @foreach($payableemployees as $payableemployee)
+                        @if(isset($contracts))
+                            @foreach($contracts as $contract)
+                                @if(isset($contract->employee->category) && $contract->employee->category->salary>0)
                                     <tr>
                                         <td><input type="checkbox" id="ids" class="chkBoxClass"
-                                                   value="{{$payableemployee->id}}"></td>
-                                        <td>{{ $payableemployee->firstname }}</td>
-                                        <td>{{ $payableemployee->idno}}</td>
-                                        <td>{{ $payableemployee->entitledsalary }}</td>
+                                                   value="{{$contract->id}}"></td>
+                                        <td>{{ $contract->employee->full_name }}</td>
+                                        <td>{{$contract->employee->idno}}</td>
+                                        <td>{{$contract->employee->category->name}}</td>
                                         <td></td>
                                     </tr>
+                                @endif
                             @endforeach
                         @endif
                         </tbody>
@@ -71,18 +73,18 @@
 @push('scripts')
     <script>
         $(function () {
-            $('#RunpayrollTable').dataTable();
+            $('#ApprovePayableTable').dataTable();
         });
     </script>
     <script type="text/javascript">
         $(function (e) {
-            var table = $('#RunpayrollTable').dataTable();
+            var table = $('#ApprovePayableTable').dataTable();
 
             $('#chkCheckAll').click(function () {
                 table.$('.chkBoxClass').prop('checked', $(this).prop('checked'))
             });
 
-            $('#runpayroll').click(function (e) {
+            $('#approvepayable').click(function (e) {
                 e.preventDefault();
                 var allids = [];
                 let period=$('#period').val();
@@ -96,7 +98,7 @@
                         icon: 'error'
                     });
                 } else {
-                    $('#runpayroll i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
+                    $('#approvepayable i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
                     swal.fire({
                         title: 'Are you sure?',
                         text: "You are about to run " + allids.length + " payroll records!",
@@ -108,7 +110,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: "{{ route('payrolls.store') }}",
+                                url: "{{ route('payableemployees.store') }}",
                                 //url:'/payroll/index',
                                 method: "POST",
                                 data: {
@@ -117,14 +119,14 @@
                                     _token: "{{ csrf_token() }}"
                                 },
                                 success: function (response) {
-                                    $('#runpayroll i').removeClass('fa fa-spin fa-spinner').addClass('fa fa-check-circle');
+                                    $('#approvepayable i').removeClass('fa fa-spin fa-spinner').addClass('fa fa-check-circle');
                                     console.log(response);
                                     swal.fire(
                                         'Success!',
                                         'Payroll run successful.',
                                         'success'
                                     )
-                                    window.location.href="{{ route('payrolls.index') }}";
+                                   // window.location.href="{{-- route('payrolls.index') --}}";
                                 }
                             });
 
