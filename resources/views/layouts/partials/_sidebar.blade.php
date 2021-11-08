@@ -30,190 +30,214 @@
                     <a href="{{ route('home') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt orange"></i> Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Employee Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('employee.index') }}" class="nav-link">
-                                <i class="fa fa-users fa-fw"></i>
-                                Employees
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('contract.index') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Contracts
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('contract.expired') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Expired Contracts
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Categories
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-dollar-sign"></i>
-                        <p>
-                            Payroll Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('contract.getpayableform') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Payable Employees
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payrolls.create') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Run Payroll
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payroll.pending') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Approve
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payrolls.index') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Latest Summary Report
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payroll.search') }}" class="nav-link">
-                                <i class="fa fa-users fa-fw"></i>
-                                Payroll Reports
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon"></i>
-                        <p>
-                            Users Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('user.index') }}" class="nav-link">
-                                <i class="fa fa-users fa-fw"></i>
-                                Users
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('role.index') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Roles
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Permissions
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon"></i>
-                        <p>
-                            System Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('department.index') }}" class="nav-link">
-                                <i class="fa fa-users fa-fw"></i>
-                                Departments
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('unit.index') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Units
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('station.index') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Stations
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('bank.index') }}" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                Banks
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon"></i>
-                        <p>
-                            Reports
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('payroll.search') }}" class="nav-link">
-                                <i class="fa fa-users fa-fw"></i>
-                                Pay Register
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payslip.search') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Individual Payslip
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('payslips.search') }}" class="nav-link">
-                                <i class="fa fa-user-alt fa-fw"></i>
-                                Group Payslips
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class=" fa fa-key fa-fw"></i>
-                                P9
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-<!--                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>-->
+                @if( auth()->user()->can('view employee')||auth()->user()->can('view contracts')||auth()->user()->can('view expired contracts')|| auth()->user()->can('view categories'))
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Employee Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('view employee')
+                                <li class="nav-item">
+                                    <a href="{{ route('employee.index') }}" class="nav-link">
+                                        <i class="fa fa-users fa-fw"></i>
+                                        Employees
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view contract')
+                                <li class="nav-item">
+                                    <a href="{{ route('contract.index') }}" class="nav-link">
+                                        <i class="fa fa-user-alt fa-fw"></i>
+                                        Contracts
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view expired contracts')
+                                <li class="nav-item">
+                                    <a href="{{ route('contract.expired') }}" class="nav-link">
+                                        <i class="fa fa-user-alt fa-fw"></i>
+                                        Expired Contracts
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('manage category')
+                                <li class="nav-item">
+                                    <a href="{{ route('category.index') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Categories
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
+                @if( auth()->user()->can('approve payable employees')||auth()->user()->can('run payroll')||auth()->user()->can('approve payroll'))
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-dollar-sign"></i>
+                            <p>
+                                Payroll Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('approve payable employees')
+                                <li class="nav-item">
+                                    <a href="{{ route('contract.getpayableform') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Payable Employees
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('run payroll')
+                                <li class="nav-item">
+                                    <a href="{{ route('payrolls.create') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Run Payroll
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('approve payroll')
+                                <li class="nav-item">
+                                    <a href="{{ route('payroll.pending') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Approve
+                                    </a>
+                                </li>
+                            @endcan
+                            @if(auth()->user()->can('run payroll')||auth()->user()->can('approve payroll'))
+                                <li class="nav-item">
+                                    <a href="{{ route('payrolls.index') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Latest Summary Report
+                                    </a>
+                                </li>
+                            @endif
+
+                        </ul>
+                    </li>
+                @endif
+                @if( auth()->user()->can('manage users')||auth()->user()->can('manage users'))
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon"></i>
+                            <p>
+                                Users Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('manage users')
+                                <li class="nav-item">
+                                    <a href="{{ route('user.index') }}" class="nav-link">
+                                        <i class="fa fa-users fa-fw"></i>
+                                        Users
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('manage roles')
+                                <li class="nav-item">
+                                    <a href="{{ route('role.index') }}" class="nav-link">
+                                        <i class="fa fa-user-alt fa-fw"></i>
+                                        Roles
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
+                @if( auth()->user()->can('manage departments')||auth()->user()->can('manage units')||auth()->user()->can('manage stations')|| auth()->user()->can('manage banks'))
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon"></i>
+                            <p>
+                                System Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('manage departments')
+                                <li class="nav-item">
+                                    <a href="{{ route('department.index') }}" class="nav-link">
+                                        <i class="fa fa-users fa-fw"></i>
+                                        Departments
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('manage units')
+                                <li class="nav-item">
+                                    <a href="{{ route('unit.index') }}" class="nav-link">
+                                        <i class="fa fa-user-alt fa-fw"></i>
+                                        Units
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('manage stations')
+                                <li class="nav-item">
+                                    <a href="{{ route('station.index') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Stations
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('manage banks')
+                                <li class="nav-item">
+                                    <a href="{{ route('bank.index') }}" class="nav-link">
+                                        <i class=" fa fa-key fa-fw"></i>
+                                        Banks
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
+                @can('view reports')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon"></i>
+                            <p>
+                                Reports
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('payroll.search') }}" class="nav-link">
+                                    <i class="fa fa-users fa-fw"></i>
+                                    Payroll Reports
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('payroll.search') }}" class="nav-link">
+                                    <i class="fa fa-users fa-fw"></i>
+                                    Pay Register
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('payslip.search') }}" class="nav-link">
+                                    <i class="fa fa-user-alt fa-fw"></i>
+                                    Individual Payslip
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('payslips.search') }}" class="nav-link">
+                                    <i class="fa fa-user-alt fa-fw"></i>
+                                    Group Payslips
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class=" fa fa-key fa-fw"></i>
+                                    P9
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

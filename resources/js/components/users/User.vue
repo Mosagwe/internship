@@ -29,6 +29,7 @@
                     <tr class="bg-success">
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Station</th>
                         <th>Role</th>
                         <th>Email</th>
                         <th>Date Posted</th>
@@ -39,6 +40,8 @@
                     <tr v-for="user in users" :key="user.id">
                         <td>{{ user.id }}</td>
                         <td>{{ user.name }}</td>
+                        <td v-if="user.station_id!=null">{{ user.station.name }}</td>
+                        <td v-else> No station assigned!</td>
                         <td>{{ user.role }}</td>
                         <td>{{ user.email}}</td>
                         <td>{{ user.created_at | myDate }}</td>
@@ -108,6 +111,16 @@
                                 <has-error :form="form" field="phone"></has-error>
                             </div>
                             <div class="form-group">
+                                <label>Choose Station</label>
+                                <b-form-select
+                                    v-model="form.station_id"
+                                    :options="stations"
+                                    text-field="name"
+                                    value-field="id"
+                                ></b-form-select>
+                                <has-error :form="form" field="station_id"></has-error>
+                            </div>
+                            <div class="form-group">
                                 <label>Choose Role</label>
                                 <b-form-select
                                     v-model="form.role"
@@ -123,17 +136,7 @@
                                        class="form-control" :class="{'is-invalid':form.errors.has('password')}">
                                 <has-error :form="form" field="password"></has-error>
                             </div>
-                            <b-form-group label="Assign Permissions">
-                                <b-form-checkbox
-                                    v-for="option in permissions"
-                                    v-model="form.permissions"
-                                    :key="option.name"
-                                    :value="option.name"
-                                    name="flavour-3a"
-                                >
-                                    {{ option.name }}
-                                </b-form-checkbox>
-                            </b-form-group>
+
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Close</button>
@@ -166,15 +169,15 @@ export default {
             img:'img/user.jpg',
             users:[],
             roles:[],
-            permissions:[],
+            stations:[],
             form:new Form({
                 'id':'',
                 'name':'',
                 'phone':'',
                 'password':'',
                 'email':'',
-                'permissions':[],
                 'role':16,
+                'station_id':'',
             })
         }
     },
@@ -228,7 +231,7 @@ export default {
             this.form.reset();
             this.form.fill(user);
             this.form.role=user.roles[0].id;
-            this.form.permissions=user.userPermissions;
+            //this.form.permissions=user.userPermissions;
             $('#createUser').modal('show');
         },
         updateUser(){
@@ -262,13 +265,20 @@ export default {
                 this.$toastr.e("Cannot load roles", "Error");
             })
         },
-        getPermissions(){
+        /*getPermissions(){
             axios.get('/getAllPermissions').then((response)=>{
                 this.permissions=response.data.permissions
             }).catch(()=>{
                 this.$toastr.e("Cannot load permissions", "Error");
             })
-        },
+        },*/
+        getStations(){
+            axios.get('/api/stations').then((response) => {
+                this.stations = response.data.data;
+            }).catch(() => {
+                this.$toastr.e('Cannot load stations', 'Error');
+            })
+       },
         createUser(){
             this.action='Creating User...';
             this.load=false;
@@ -291,7 +301,8 @@ export default {
     created() {
         this.getUsers();
         this.getRoles();
-        this.getPermissions();
+        //this.getPermissions();
+        this.getStations();
         Fire.$on('loadUser',()=>{
             this.getUsers();
         })

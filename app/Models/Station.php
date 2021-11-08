@@ -14,6 +14,11 @@ class Station extends Model
 
     public function contracts()
     {
-        $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

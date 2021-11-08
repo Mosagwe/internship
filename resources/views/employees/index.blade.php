@@ -2,28 +2,34 @@
 @section('title','Employees')
 @section('action')
     <div>
-        <a href="{{ route('employee.create') }}" class="float-right mr-3 btn btn-sm btn-success shadow-sm d-none d-sm-inline-block">
-            <i class="fas fa-plus-circle fa-sm text-white-50"></i>
-            Create New
-        </a>
-        <a href="{{ route('employeesimport.create') }}" class="float-right mr-3 btn btn-sm btn-success shadow-sm d-none d-sm-inline-block">
-            <i class="fas fa-plus-circle fa-sm text-white-50"></i>
-            Import Employees
-        </a>
+        @can('create employee')
+            <a href="{{ route('employee.create') }}"
+               class="float-right mr-3 btn btn-sm btn-success shadow-sm d-none d-sm-inline-block">
+                <i class="fas fa-plus-circle fa-sm text-white-50"></i>
+                Create New
+            </a>
+        @endcan
+        @can('import employees')
+            <a href="{{ route('employeesimport.create') }}"
+               class="float-right mr-3 btn btn-sm btn-success shadow-sm d-none d-sm-inline-block">
+                <i class="fas fa-plus-circle fa-sm text-white-50"></i>
+                Import Employees
+            </a>
+        @endcan
     </div>
 
 
 @endsection
 @section('content')
-        <div class="col-md-12 mt-1 mx-auto">
-            <div class="card card-success card-outline ">
-                <div class="card-body">
-                    <div class="table table-responsive">
-                        {{ $dataTable->table() }}
-                    </div>
+    <div class="col-md-12 mt-1 mx-auto">
+        <div class="card card-success card-outline ">
+            <div class="card-body">
+                <div class="table table-responsive">
+                    {{ $dataTable->table() }}
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 @push('scripts')
     {{$dataTable->scripts()}}

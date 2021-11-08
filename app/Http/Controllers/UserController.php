@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,14 @@ class UserController extends Controller
     }
     public function getAll()
     {
-        $users=User::latest()->get();
+
+        $users=User::latest()->with('station')->get();
         $users->transform(function ($user){
             $user->role=$user->getRoleNames()->first();
             $user->userPermissions=$user->getPermissionNames();
             return $user;
         });
+
         return response()->json(['users'=>$users],200);
     }
 
@@ -61,13 +64,14 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->phone=$request->phone;
+        $user->station_id=$request->station_id;
         $user->password=bcrypt($request->password);
 
         $user->assignRole($request->role);
-        if ($request->has('permissions'))
+        /*if ($request->has('permissions'))
         {
             $user->givePermissionTo($request->permissions);
-        }
+        }*/
         $user->save();
 
         return response()->json('Created Successfully',200);
@@ -109,7 +113,6 @@ class UserController extends Controller
             'phone'=>'required',
             'password'=>'nullable|alpha_num|min:6',
             'role'=>'required',
-            'permissions'=>'required',
             'email'=>'required|email|unique:users,email,'.$id
         ]);
         $user=User::findOrFail($id);
@@ -117,6 +120,7 @@ class UserController extends Controller
         $user->name=$request->name;
         $user->phone=$request->phone;
         $user->email=$request->email;
+        $user->station_id=$request->station_id;
 
         if ($request->has('password')){
             $user->password=bcrypt($request->password);
@@ -128,14 +132,6 @@ class UserController extends Controller
                 $user->removeRole($role);
             }
             $user->assignRole($request->role);
-        }
-
-        if ($request->has('permissions')){
-            $userPermissions=$user->getPermissionNames();
-            foreach ($userPermissions as $permission){
-                $user->revokePermissionTo($permission);
-            }
-            $user->givePermissionTo($request->permissions);
         }
 
         $user->save();
