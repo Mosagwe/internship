@@ -14,6 +14,7 @@ use App\Http\Controllers\API\{
     EmployeeController,
     CategoryController,
     PayrollController,
+    RoleController,
 };
 
 /*
@@ -46,4 +47,5 @@ Route::apiResources([
     'qualifications'=>QualificationController::class,
     'categories'=>CategoryController::class,
     'employeetypes'=>EmployeetypesController::class,
+    'roles'=>RoleController::class,
 ]);
