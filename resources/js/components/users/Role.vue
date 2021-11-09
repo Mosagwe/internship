@@ -31,7 +31,7 @@
                         <th>Name</th>
                         <th>Permissions</th>
                         <th>Date Posted</th>
-                        <th>Action</th>
+                        <th style="min-width: 200px;">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,15 +39,16 @@
                         <td>{{ role.id }}</td>
                         <td>{{ role.name }}</td>
                         <td>
-                            <button v-for="permission in role.rolePermissions" class="btn btn-warning btn-sm m-1" role="button">
-                                <i class="fas fa-shield-alt"></i>{{ permission }}
-                            </button>
+                            <label v-for="permission in role.rolePermissions" class="badge badge-warning mr-1">
+                                <i class="fas fa-shield-alt"></i> {{ permission }}
+                            </label>
                         </td>
                         <td>{{ role.created_at | myDate }}</td>
                         <td>
                             <a href="" class="btn btn-sm btn-info" @click.prevent="viewRole(role)"><i
-                                class="fa fa-eye"></i>View</a>
-                            <a href="" class="btn btn-sm btn-warning" v-if="role.name!='super-admin'" @click.prevent="editRole(role)"><i class="fa fa-edit"></i>Edit</a>
+                                class="fa fa-eye"></i> </a>
+                            <a href="" class="btn btn-sm btn-warning" v-if="role.name!='super-admin'"
+                               @click.prevent="editRole(role)"><i class="fa fa-edit"></i> </a>
                             <!-- <a href="" class="btn btn-sm btn-danger" v-if="user.role!='super-admin'" @click.prevent="deleteUser(user)"><i class="fa fa-trash"></i>Delete</a>-->
                         </td>
                     </tr>
@@ -65,12 +66,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <p><b>Name:</b>{{ role.name }}</p>
-                                <p><b>Permissions:</b>
-                                    <h6 v-for="permission in role.rolePermissions">{{ permission.name }}</h6>
+                                <p><b>Name : </b>{{ role.name }}</p>
+                                <p><b>Permissions : </b>
+                                <h6 v-for="permission in role.rolePermissions">
+                                    <i class="fas fa-check-circle"></i> {{ permission }}
+                                </h6>
                                 </p>
-                                <p><b>Last Updated:</b>{{ role.updated_at | myDate }}</p>
-                                <p><b>Date Created:</b>{{ role.created_at | myDate }}</p>
+                                <p><b>Last Updated : </b>{{ role.updated_at | myDate }}</p>
+                                <p><b>Date Created : </b>{{ role.created_at | myDate }}</p>
                             </div>
                         </div>
                     </div>
@@ -184,24 +187,24 @@ export default {
 
             }
         },
-        editRole(role){
-            this.editMode=true;
+        editRole(role) {
+            this.editMode = true;
             this.form.reset();
             this.form.fill(role);
-            this.form.permissions=role.rolePermissions;
+            this.form.permissions = role.rolePermissions;
             $('#createRole').modal('show');
         },
-        updateRole(){
-            this.action='Updating Role...';
-            this.load=false;
-            this.form.put('/api/roles/'+this.form.id).then((response)=>{
-                this.load=true;
-                this.$toastr.s("Role information updated successfully","Updated");
+        updateRole() {
+            this.action = 'Updating Role...';
+            this.load = false;
+            this.form.put('/api/roles/' + this.form.id).then((response) => {
+                this.load = true;
+                this.$toastr.s("Role information updated successfully", "Updated");
                 Fire.$emit("loadRole")
                 $("#createRole").modal("hide");
                 this.form.reset();
-            }).catch(()=>{
-                this.load=true;
+            }).catch(() => {
+                this.load = true;
                 this.$toastr.e('Cannot update role information, try again!', 'Error');
             });
         },
