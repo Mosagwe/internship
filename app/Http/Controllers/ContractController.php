@@ -185,5 +185,6 @@ class ContractController extends Controller
             ->whereNotIn('employee_id', $p_ids)->select('*')->get();
 
         return view('contracts.payableemployees', compact('contracts'));
+
     }
 }

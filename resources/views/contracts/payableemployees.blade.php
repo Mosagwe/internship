@@ -101,7 +101,7 @@
                     $('#approvepayable i').removeClass('fa fa-check-circle').addClass('fa fa-spin fa-spinner');
                     swal.fire({
                         title: 'Are you sure?',
-                        text: "You are about to run " + allids.length + " payroll records!",
+                        text: "You are about to process " + allids.length + " records!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -123,7 +123,7 @@
                                     console.log(response);
                                     swal.fire(
                                         'Success!',
-                                        'Payroll run successful.',
+                                        'Process completed successful.',
                                         'success'
                                     )
                                    // window.location.href="{{-- route('payrolls.index') --}}";
