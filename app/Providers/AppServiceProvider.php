@@ -33,10 +33,10 @@ class AppServiceProvider extends ServiceProvider
         /*
        * View Shares
        */
-        $categories=Category::all();
-        View::share('categories',$categories);
+        //$categories=Category::all();
+        //View::share('categories',$categories);
 
-        $stations=Station::all();
-        View::share('stations',$stations);
+       // $stations=Station::all();
+        //View::share('stations',$stations);
     }
 }

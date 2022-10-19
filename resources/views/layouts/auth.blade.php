@@ -7,7 +7,7 @@
 
                     <div class="card-body">
                         <div>
-                            <img src="{{ asset('img/hudumalogo2.png') }}" alt="Logo" style="display: block;margin-left: auto;margin-right: auto;">
+                            <img src="{{ asset('img/pmologo2.png') }}" height=100 alt="Logo" style="display: block;margin-left: auto;margin-right: auto;">
                         </div>
                         <hr style="border: 3px solid darkgreen; border-radius: 1px; ">
                         <h4 class="text-center" style="font-weight: bold;">
