@@ -8,13 +8,13 @@ class PDFTrait extends FPDF{
     function Header()
     {
         // Logo
-        $this->Image('img/hudumalogo2.png',25,6,15);
+        $this->Image('img/logo.png',25,6,30);
         // Arial bold 15
         $this->SetFont('Arial','B',15);
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(90,10,'HUDUMA KENYA SECRETARIAT',0,0,'C');
+        $this->Cell(90,10,'MALIPO LTD',0,0,'C');
         // Line break
         $this->Ln(12);
 

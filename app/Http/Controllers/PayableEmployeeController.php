@@ -23,6 +23,7 @@ class PayableEmployeeController extends Controller
     public function index()
     {
         $payableemployees=PayableEmployee::all();
+
         return $payableemployees;
     }
 

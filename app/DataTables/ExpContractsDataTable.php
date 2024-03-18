@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ExpiredContractsDataTable extends DataTable
+class ExpContractsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,27 +20,30 @@ class ExpiredContractsDataTable extends DataTable
      */
     public function dataTable($query)
     {
+        // return datatables()
+        //     ->eloquent($query)
+        //     ->addColumn('action', 'expcontracts.action');
         return datatables()
-            ->eloquent($query)
-            ->editColumn('station_id',function ($q){
-                if ($q->station){
-                    return $q->station->name;
-                }
-            })
-            ->editColumn('status',function ($contract){
-                return view('contracts.status',compact('contract'));
-            })->editColumn('end_date',function ($contract){
-                return Carbon::parse($contract->end_date)->diffForHumans();
-            });
-            // ->addColumn('action', function ($contract){
-            //     return view('contracts.expiredaction',compact('contract'));
-            // });
+        ->eloquent($query)
+        ->editColumn('station_id',function ($q){
+            if ($q->station){
+                return $q->station->name;
+            }
+        })
+        ->editColumn('status',function ($contract){
+            return view('contracts.status',compact('contract'));
+        })->editColumn('end_date',function ($contract){
+            return Carbon::parse($contract->end_date)->diffForHumans();
+        })
+        ->addColumn('action', function ($contract){
+            return view('contracts.expiredaction',compact('contract'));
+        });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Contract $model
+     * @param \App\Models\ExpContract $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Contract $model)
@@ -50,6 +53,7 @@ class ExpiredContractsDataTable extends DataTable
         return $model->newQuery()->with('employee')
             ->whereNotIn('employee_id',$c)
             ->where('status',0);
+        //return $model->newQuery();
     }
 
     /**
@@ -60,13 +64,17 @@ class ExpiredContractsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('expiredcontracts-table')
+                    ->setTableId('expcontracts-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
+                        Button::make('create'),
+                        Button::make('export'),
                         Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
                     );
     }
 
@@ -78,19 +86,17 @@ class ExpiredContractsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-
             Column::make('id'),
-            Column::make('employee.firstname')->name('employee.firstname')->visible(false),
-            Column::make('employee.full_name')->name('employee.full_name'),
+            //Column::make('employee.firstname')->name('employee.firstname')->visible(false),
+            Column::make('employee.firstname')->name('employee.firstname'),
             Column::make('end_date'),
             Column::make('station_id'),
             Column::make('status'),
-            // Column::computed('action')
-            //     ->exportable(false)
-            //     ->printable(false)
-            //     ->width(90)
-            //     ->addClass('text-center'),
-
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(90)
+                ->addClass('text-center'),
         ];
     }
 
@@ -101,6 +107,6 @@ class ExpiredContractsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'ExpiredContracts_' . date('YmdHis');
+        return 'ExpContracts_' . date('YmdHis');
     }
 }

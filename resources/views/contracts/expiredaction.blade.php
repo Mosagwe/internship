@@ -27,7 +27,7 @@
                                 <input type="text" name="employee_id" id="employee_id"
                                        value="{{ $contract->employee->id }}">
                             </div>
-                            <div class="form-group text-left">
+                            <!-- <div class="form-group text-left">
                                 <label for="">Station</label>
                                 <select class="form-control form-control-sm @error('station_id') is-invalid @enderror" name="station_id" id="station_id">
                                     <option value=""> --select station--</option>
@@ -38,7 +38,7 @@
                                     @endif
                                 </select>
                                <span class="text-danger error-text station_id_error"></span>
-                            </div>
+                            </div> -->
                             <div class="form-group text-left">
                                 <label for="">Start Date</label>
                                 <input type="date" id="start_date" name="start_date"

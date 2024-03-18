@@ -176,15 +176,21 @@ class ContractController extends Controller
     public function getpayable(Request $request)
     {
         $date = $request->period;
+        $date;
         $month=Carbon::createFromFormat('Y-m-d',$date)->format('m');
         $year=Carbon::createFromFormat('Y-m-d',$date)->format('Y');
         $p_ids = PayableEmployee::whereDate('period', $date)->pluck('employee_id')->all();
+        
+        //$contracts = Contract::all();
         $contracts = Contract::whereMonth('end_date','>=',$month)
-            ->whereYear('end_date',$year)
-            ->where('station_id',Auth::user()->station_id)
-            ->whereNotIn('employee_id', $p_ids)->select('*')->get();
+            ->whereYear('end_date','=',$year)
+           // ->where('station_id',Auth::user()->station_id)
+            ->whereNotIn('employee_id', $p_ids)->select('*')
+            ->get();
+            //return $contracts;
 
         return view('contracts.payableemployees', compact('contracts'));
+        
 
     }
 }
