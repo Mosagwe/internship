@@ -103,10 +103,10 @@
     <div class="brand-section">
         <div class="row">
             <div class="col-6">
-                <h2 class="text-white">HUDUMA KENYA SECRETARIAT</h2>
-                <p class="sub-heading1">Phone: 020 6900020</p>
-                <p class="sub-heading1">Email:info@hudumakenya.go.ke </p>
-                <p class="sub-heading1">Address: P.O. Box 47771-00200 Nairobi </p>
+                <h2 class="text-white">MALIPO OFFICE</h2>
+                <p class="sub-heading1">Phone: 123 456 789</p>
+                <p class="sub-heading1">Email:info@malipo.com </p>
+                <p class="sub-heading1">Address: 00200 Some Street, Nairobi - Kenya </p>
             </div>
             <div class="col-6">
                 <div class="company-details">
@@ -126,7 +126,7 @@
             <div class="col-6">
                 <p class="sub-heading">Full Name: <b>{{ $payslip->fullname }}</b> </p>
                 <p class="sub-heading">ID Number: <b>{{ $payslip->idno }}</b>  </p>
-                <p class="sub-heading">KRA PIN: <b>{{ strtoupper($payslip->krapin) }}</b> </p>
+                <p class="sub-heading">TAX PIN: <b>{{ strtoupper($payslip->krapin) }}</b> </p>
             </div>
         </div>
     </div>

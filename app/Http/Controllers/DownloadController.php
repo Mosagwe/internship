@@ -53,7 +53,7 @@ class DownloadController extends Controller
             $pdf->Cell(8, 8, 'SN', 1, 0, 'C');
             $pdf->Cell(50, 8, 'Name', 1, 0, 'C');
             $pdf->Cell(15, 8, 'Gender', 1, 0, 'C');
-            $pdf->Cell(30, 8, 'KRA PIN', 1, 0, 'C');
+            $pdf->Cell(30, 8, 'Tax PIN', 1, 0, 'C');
             $pdf->Cell(50, 8, 'Category', 1, 0, 'C');
             $pdf->Cell(25, 8, 'Gross', 1, 0, 'C');
             $pdf->Cell(25, 8, 'Taxable', 1, 0, 'C');
@@ -79,7 +79,7 @@ class DownloadController extends Controller
                     $pdf->Cell(8, 8, 'SN', 1, 0, 'C');
                     $pdf->Cell(50, 8, 'Name', 1, 0, 'C');
                     $pdf->Cell(15, 8, 'Gender', 1, 0, 'C');
-                    $pdf->Cell(30, 8, 'KRA PIN', 1, 0, 'C');
+                    $pdf->Cell(30, 8, 'TAX PIN', 1, 0, 'C');
                     $pdf->Cell(50, 8, 'Category', 1, 0, 'C');
                     $pdf->Cell(25, 8, 'Gross', 1, 0, 'C');
                     $pdf->Cell(25, 8, 'Taxable', 1, 0, 'C');
@@ -179,14 +179,14 @@ class DownloadController extends Controller
             $this->pdf->Ln(10);
             //$this->pdf->Image('img/hudumalogo2.png', 30, 20, 12);
             $this->pdf->Cell(15);
-            $this->pdf->Cell(70, 6, 'The Presidency', 0, 0, 'C');
+            $this->pdf->Cell(70, 6, 'The PayYou', 0, 0, 'C');
             $this->pdf->Ln();
             $this->pdf->SetFont('Arial', '', 10);
             $this->pdf->Cell(15);
-            $this->pdf->Cell(70, 6, 'Ministry of Public Service & Gender Affairs', 0, 0, 'C');
+            $this->pdf->Cell(70, 6, 'Human Resource Consultancy Group', 0, 0, 'C');
             $this->pdf->Ln();
             $this->pdf->Cell(15);
-            $this->pdf->Cell(70, 6, 'Huduma Kenya Secretariat', 0, 0, 'C');
+            $this->pdf->Cell(70, 6, 'MALIPO LTD', 0, 0, 'C');
 
             $this->pdf->SetDrawColor(250, 0, 0);
             $this->pdf->Line(27, 40, 117, 40);
@@ -209,7 +209,7 @@ class DownloadController extends Controller
             $this->pdf->Ln(5);
 
             //$pdf->Cell(15);
-            $this->pdf->Cell(25, 4, 'KRA PIN', 0, 0, 'L');
+            $this->pdf->Cell(25, 4, 'TAX PIN', 0, 0, 'L');
             $this->pdf->Cell(60, 4, ': ' . strtoupper($payslip->krapin), 0, 0, 'L');
             $this->pdf->Ln(5);
             $this->pdf->Cell(25, 4, 'ID Number', 0, 0, 'L');

@@ -4,5 +4,5 @@
         Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; {{ date('Y') }} <a href="https://www.hudumakenya.go.ke">Huduma Kenya</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; {{ date('Y') }} <a href="https://www.malipo.test.com">Malipo Payroll Master</a>.</strong> All rights reserved.
 </footer>
