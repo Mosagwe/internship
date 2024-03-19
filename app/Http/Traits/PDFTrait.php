@@ -14,7 +14,7 @@ class PDFTrait extends FPDF{
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(90,10,'MALIPO LTD',0,0,'C');
+        $this->Cell(90,10,'MALIPO PAYROLL MASTER LTD',0,0,'C');
         // Line break
         $this->Ln(12);
 
